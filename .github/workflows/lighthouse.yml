@@ -22,16 +22,16 @@ jobs:
       - name: Upload theme
         run: node ./bin/theme-upload.js
         env:
-          ZENDESK_EMAIL: ${{ secrets.zendesk_email }}
-          ZENDESK_API_TOKEN: ${{ secrets.zendesk_token }}
-          ZENDESK_SUBDOMAIN: ${{ secrets.subdomain }}
-          BRAND_ID: ${{ secrets.brand_id }}
+          ZENDESK_EMAIL: ${{ secrets.ZENDESK_EMAIL }}
+          ZENDESK_API_TOKEN: ${{ secrets.ZENDESK_API_TOKEN }}
+          ZENDESK_SUBDOMAIN: ${{ secrets.ZENDESK_SUBDOMAIN }}
+          BRAND_ID: ${{ secrets.BRAND_ID }}
       - name: Audit URLs using Lighthouse
         run: yarn test-a11y
         env:
-          end_user_email: ${{ secrets.end_user_email }}
-          end_user_password: ${{ secrets.end_user_password }}
-          subdomain: ${{ secrets.subdomain }}
+          end_user_email: ${{ secrets.END_USER_EMAIL }}
+          end_user_password: ${{ secrets.END_USER_PASSWORD }}
+          subdomain: ${{ secrets.ZENDESK_SUBDOMAIN }}
           urls: |
             https://${{ secrets.subdomain }}.zendesk.com/hc/en-us
             https://${{ secrets.subdomain }}.zendesk.com/hc/en-us/categories/360002267479
