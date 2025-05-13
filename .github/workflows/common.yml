@@ -1,0 +1,39 @@
+name: Common Workflow
+
+on:
+  workflow_call:
+    inputs:
+      run_build:
+        type: boolean
+        default: false
+    secrets:
+      ZENDESK_EMAIL:
+        required: true
+      ZENDESK_API_TOKEN:
+        required: true
+      ZENDESK_SUBDOMAIN:
+        required: true
+      BRAND_ID:
+        required: true
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: zendesk/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Setup Node.js
+        uses: zendesk/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+  build:
+    if: ${{ inputs.run_build }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: yarn build
