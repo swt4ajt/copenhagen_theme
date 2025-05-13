@@ -14,6 +14,3 @@ jobs:
     uses: ./.github/workflows/common.yml
     with:
       run_build: false
-    steps:
-      - name: Lint JS files
-        run: yarn eslint
