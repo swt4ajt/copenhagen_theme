@@ -33,19 +33,14 @@ jobs:
           end_user_password: ${{ secrets.END_USER_PASSWORD }}
           subdomain: ${{ secrets.ZENDESK_SUBDOMAIN }}
           urls: |
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/categories/360002267479
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/sections/360003307259
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/articles/360010829359
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/requests/new
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/search?utf8=%E2%9C%93&query=Help+Center
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/community/topics
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/community/topics/360000644279
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/community/posts
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/community/posts/360006766799
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/profiles/364655812519
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/contributions/posts?locale=en-us
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/subscriptions
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/requests
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/requests/3
-            https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/community/posts/new
+            https://support.uniken.com/hc/en-gb
+            https://support.uniken.com/hc/en-gb/categories/360002267479
+            https://support.uniken.com/hc/en-gb/sections/360003307259
+            https://support.uniken.com/hc/en-gb/articles/360010829359
+            https://support.uniken.com/hc/en-gb/requests/new
+            https://support.uniken.com/hc/en-gb/search?utf8=%E2%9C%93&query=Help+Center
+            https://support.uniken.com/hc/en-gb/profiles/4792395237663
+            https://support.uniken.com/hc/en-gb/hc/contributions/posts?locale=en-gb
+            https://support.uniken.com/hc/en-gb/subscriptions
+            https://support.uniken.com/hc/en-gb/requests
+            https://support.uniken.com/hc/en-gb/requests/3
