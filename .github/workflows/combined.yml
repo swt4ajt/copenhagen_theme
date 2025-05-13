@@ -84,11 +84,30 @@ jobs:
       - name: Build
         run: yarn build
 
-  # Lighthouse audit
+  # Lighthouse audit for each URL
   lighthouse:
     name: Lighthouse Audit
     runs-on: ubuntu-latest
     needs: build
+    strategy:
+      matrix:
+        url:
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/categories/360002267479
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/sections/360003307259
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/articles/360010829359
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/requests/new
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/search?utf8=%E2%9C%93&query=Help+Center
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/community/topics
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/community/topics/360000644279
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/community/posts
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/community/posts/360006766799
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/profiles/364655812519
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/contributions/posts?locale=en-us
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/subscriptions
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/requests
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/requests/3
+          - https://${{ secrets.ZENDESK_SUBDOMAIN }}.zendesk.com/hc/en-us/community/posts/new
     steps:
       - name: Checkout
         uses: zendesk/checkout@v3
@@ -109,15 +128,12 @@ jobs:
           ZENDESK_API_TOKEN: ${{ secrets.ZENDESK_API_TOKEN }}
           ZENDESK_SUBDOMAIN: ${{ secrets.ZENDESK_SUBDOMAIN }}
           BRAND_ID: ${{ secrets.BRAND_ID }}
-      - name: Audit URLs using Lighthouse
-        run: yarn test-a11y
+      - name: Audit URL using Lighthouse
+        run: yarn test-a11y --url=${{ matrix.url }}
         env:
           end_user_email: ${{ secrets.END_USER_EMAIL }}
           end_user_password: ${{ secrets.END_USER_PASSWORD }}
           subdomain: ${{ secrets.ZENDESK_SUBDOMAIN }}
-          urls: |
-            https://${{ secrets.subdomain }}.zendesk.com/hc/en-us
-            ...
 
   # Release job
   release:
