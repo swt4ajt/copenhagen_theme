@@ -680,6 +680,10 @@
   function renderCarousel() {
     const dataEl = document.getElementById('carousel-data');
     if (!dataEl) return;
+    const raw = dataEl.textContent.trim();
+    if (!raw) return;
+    try {
+      const slides = JSON.parse(raw);
     try {
       const slides = JSON.parse(dataEl.textContent);
       const container = document.getElementById('company-carousel');
@@ -699,6 +703,13 @@
     }
   }
 
+  function renderDepartments() {
+    const dataEl = document.getElementById('departments-data');
+    if (!dataEl) return;
+    const raw = dataEl.textContent.trim();
+    if (!raw) return;
+    try {
+      const departments = JSON.parse(raw);
 
   function renderDepartments() {
     const dataEl = document.getElementById('departments-data');

@@ -321,6 +321,28 @@
       ]
     },
     {
+      "label": "carousel_group_label",
+      "variables": [
+        {
+          "identifier": "carousel",
+          "type": "text",
+          "description": "carousel_description",
+          "label": "carousel_label"
+        }
+      ]
+    },
+    {
+      "label": "departments_group_label",
+      "variables": [
+        {
+          "identifier": "departments",
+          "type": "text",
+          "description": "departments_description",
+          "label": "departments_label"
+        }
+      ]
+    },
+    {
       "label": "article_page_group_label",
       "variables": [
         {
