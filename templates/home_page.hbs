@@ -12,8 +12,19 @@
 </section>
 
 <div class="container">
-  <section class="section knowledge-base">
-    <h2 class="visibility-hidden">{{ t 'categories' }}</h2>
+  <section id="company-carousel" class="carousel section">
+    <div class="carousel-item active">Welcome slide</div>
+    <div class="carousel-item">Company news</div>
+    <div class="carousel-item">Events and updates</div>
+  </section>
+
+  <section class="section introduction">
+    <h2>Welcome to the Company Intranet</h2>
+    <p>Stay informed with announcements and explore resources for every department.</p>
+  </section>
+
+  <section class="section departments">
+    <h2>Departments</h2>
     <section class="categories blocks">
       <ul class="blocks-list">
         {{#each categories}}
@@ -42,8 +53,8 @@
     </section>
 
     {{#if promoted_articles}}
-      <section class="articles">
-        <h2>{{t 'promoted_articles'}}</h2>
+      <section class="articles announcements">
+        <h2>Announcements</h2>
         <ul class="article-list promoted-articles">
           {{#each promoted_articles}}
             <li class="promoted-articles-item">
