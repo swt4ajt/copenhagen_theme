@@ -1,3 +1,15 @@
+# [4.11.0](https://github.com/zendesk/copenhagen_theme/compare/v4.10.0...v4.11.0) (2025-09-15)
+
+### Features
+
+* redesign homepage with quick links grid layout for an intranet feel
+
+## [4.10.0](https://github.com/zendesk/copenhagen_theme/compare/v4.9.0...v4.10.0) (2025-09-10)
+
+### Features
+
+* introduce carousel, departmental sections, announcements, and introduction for intranet feel
+
 # [4.9.0](https://github.com/zendesk/copenhagen_theme/compare/v4.8.6...v4.9.0) (2025-09-01)
 
 

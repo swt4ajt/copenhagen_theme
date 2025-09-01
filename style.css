@@ -1313,6 +1313,79 @@ ul {
   text-align: center;
 }
 
+/***** Intranet layout *****/
+.intranet-grid {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) {
+  .intranet-grid {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: "carousel carousel" "introduction quick-links" "departments announcements" "community community" "activity activity";
+  }
+}
+
+/***** Carousel and introduction *****/
+#company-carousel {
+  grid-area: carousel;
+  text-align: center;
+}
+#company-carousel .carousel-item {
+  display: none;
+  padding: 40px;
+  background-color: darken($background_color, 5%);
+}
+#company-carousel .carousel-item.active {
+  display: block;
+}
+
+.introduction {
+  grid-area: introduction;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.quick-links {
+  grid-area: quick-links;
+}
+.quick-links-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+.quick-links-item {
+  flex: 1 1 120px;
+  margin: 10px;
+}
+.quick-links-item a {
+  display: block;
+  padding: 20px;
+  background-color: darken($background_color, 5%);
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  color: inherit;
+}
+
+.departments {
+  grid-area: departments;
+}
+
+.announcements {
+  grid-area: announcements;
+}
+
+.community {
+  grid-area: community;
+}
+
+.activity {
+  grid-area: activity;
+}
+
 /***** Promoted articles *****/
 .promoted-articles {
   display: flex;
