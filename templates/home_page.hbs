@@ -1,5 +1,6 @@
 <h1 class="visibility-hidden">{{ help_center.name }}</h1>
 
+<div id="main-content" class="container">
 <section class="hero hero--brand">
   <div class="hero-inner">
     <h2>{{ help_center.name }}</h2>
@@ -11,24 +12,14 @@
 <div id="main-content" class="container intranet-grid">
 <div class="container">
   <section id="company-carousel" class="carousel section">
-    <div class="carousel-item active">Welcome slide</div>
-    <div class="carousel-item">Company news</div>
-    <div class="carousel-item">Events and updates</div>
+    <script id="carousel-data" type="application/json">
+      {{{settings.carousel}}}
+    </script>
   </section>
 
   <section class="section introduction">
     <h2>Introductions</h2>
     <div id="introductions-carousel" class="carousel"></div>
-  </section>
-
-  <section class="section quick-links">
-    <h2>Quick Links</h2>
-    <ul class="quick-links-list">
-      <li class="quick-links-item"><a href="#">HR Portal</a></li>
-      <li class="quick-links-item"><a href="#">IT Support</a></li>
-      <li class="quick-links-item"><a href="#">Company Directory</a></li>
-      <li class="quick-links-item"><a href="#">Policies</a></li>
-    </ul>
   </section>
 
   <section class="section departments">
@@ -91,5 +82,4 @@
     </section>
   {{/if}}
 
-</div>
 </div>
