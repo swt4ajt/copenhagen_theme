@@ -40,6 +40,41 @@ async function loadAnnouncementImages() {
   }
 }
 
+async function loadIntroductions() {
+  const container = document.querySelector("#introductions-carousel");
+  if (!container) return;
+  try {
+    const secResp = await fetch("/api/v2/help_center/sections.json?per_page=100");
+    const secData = await secResp.json();
+    const introSection = secData.sections.find(
+      (s) => s.name && s.name.toLowerCase() === "introductions"
+    );
+    if (!introSection) return;
+    const artResp = await fetch(
+      `/api/v2/help_center/sections/${introSection.id}/articles.json?per_page=3&sort_by=created_at&sort_order=desc`
+    );
+    const artData = await artResp.json();
+    artData.articles.forEach((article) => {
+      const div = document.createElement("div");
+      div.className = "carousel-item";
+      const match = article.body.match(/<img[^>]+src="([^"]+)"/i);
+      const img = match
+        ? `<img src="${match[1]}" alt="${article.title}" />`
+        : "";
+      const text = article.body
+        .replace(/<[^>]+>/g, "")
+        .split(/\s+/)
+        .slice(0, 20)
+        .join(" ");
+      div.innerHTML = `${img}<h3>${article.title}</h3><p>${text} <a href="${article.html_url}">read more...</a></p>`;
+      container.appendChild(div);
+    });
+    initCarousel("#introductions-carousel", 3);
+  } catch (e) {
+    // ignore errors
+  }
+}
+
 function init() {
   initCarousel("#company-carousel");
   const announcementCarousel = document.querySelector(
@@ -49,6 +84,7 @@ function init() {
     initCarousel("#announcements-carousel", 3);
     loadAnnouncementImages();
   }
+  loadIntroductions();
 }
 
 document.addEventListener("DOMContentLoaded", init);
