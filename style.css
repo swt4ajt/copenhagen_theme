@@ -1329,6 +1329,7 @@ ul {
 /***** Carousel and introduction *****/
 #company-carousel {
   grid-area: carousel;
+}
 
 /***** Carousel and introduction *****/
 #company-carousel {
@@ -1379,6 +1380,21 @@ ul {
 
 .announcements {
   grid-area: announcements;
+}
+
+#announcements-carousel {
+  text-align: center;
+}
+#announcements-carousel .carousel-item {
+  display: none;
+}
+#announcements-carousel .carousel-item.active {
+  display: block;
+}
+#announcements-carousel img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 .community {
