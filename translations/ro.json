@@ -21,8 +21,6 @@
   "colors_group_label": "Culori",
   "community_background_image_description": "Imagine centrală pe pagina de subiecte a comunității",
   "community_background_image_label": "Imagine centrală comunitate",
-  "community_image_description": "Imagine pentru secțiunea comunitate de pe pagina de pornire",
-  "community_image_label": "Banner comunitate",
   "community_post_group_label": "Elemente postare în Comunitate",
   "community_topic_group_label": "Elemente subiect în Comunitate",
   "departments_description": "JSON array of departments to display on home page",
@@ -78,5 +76,7 @@
   "text_font_description": "Font pentru corpul textului",
   "text_font_label": "Font text",
   "visited_link_color_description": "Culoarea textului pentru elementele linkului vizitat",
-  "visited_link_color_label": "Culoarea linkului vizitat"
+  "visited_link_color_label": "Culoarea linkului vizitat",
+  "departments_description": "JSON array of departments to display on home page",
+  "departments_label": "Departments"
 }

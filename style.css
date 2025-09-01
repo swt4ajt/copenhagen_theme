@@ -1313,6 +1313,30 @@ ul {
   text-align: center;
 }
 
+/***** Hero branding *****/
+.hero--brand {
+  background: linear-gradient(135deg, $brand_color, lighten($brand_color, 15%));
+  color: $brand_text_color;
+  padding: 80px 20px;
+  text-align: center;
+}
+.hero--brand .hero-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.hero--brand .btn {
+  background: $brand_text_color;
+  border: 0;
+  border-radius: 4px;
+  color: $brand_color;
+  font-weight: 600;
+  padding: 12px 32px;
+  transition: background 0.3s;
+}
+.hero--brand .btn:hover {
+  background: lighten($brand_text_color, 10%);
+}
+
 /***** Intranet layout *****/
 .intranet-grid {
   display: grid;
@@ -1322,13 +1346,14 @@ ul {
 @media (min-width: 1024px) {
   .intranet-grid {
     grid-template-columns: 2fr 1fr;
-    grid-template-areas: "carousel carousel" "introduction quick-links" "departments announcements" "community community" "activity activity";
+    grid-template-areas: "carousel carousel" "introduction quick-links" "departments announcements" "activity activity";
   }
 }
 
 /***** Carousel and introduction *****/
 #company-carousel {
   grid-area: carousel;
+}
 
 /***** Carousel and introduction *****/
 #company-carousel {
@@ -1337,7 +1362,9 @@ ul {
 #company-carousel .carousel-item {
   display: none;
   padding: 40px;
-  background-color: darken($background_color, 5%);
+  background: linear-gradient(135deg, $brand_color, lighten($brand_color, 10%));
+  border-radius: 8px;
+  color: $brand_text_color;
 }
 #company-carousel .carousel-item.active {
   display: block;
@@ -1347,6 +1374,24 @@ ul {
   grid-area: introduction;
   text-align: center;
   margin-bottom: 40px;
+}
+
+#introductions-carousel {
+  text-align: center;
+}
+#introductions-carousel .carousel-item {
+  display: none;
+}
+#introductions-carousel .carousel-item.active {
+  display: block;
+}
+#introductions-carousel img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+#introductions-carousel h3 {
+  margin-bottom: 10px;
 }
 
 .quick-links {
@@ -1366,11 +1411,15 @@ ul {
 .quick-links-item a {
   display: block;
   padding: 20px;
-  background-color: darken($background_color, 5%);
-  border-radius: 4px;
+  background: $brand_color;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
-  color: inherit;
+  color: $brand_text_color;
+  transition: background 0.3s;
+}
+.quick-links-item a:hover {
+  background: darken($brand_color, 5%);
 }
 
 .departments {
@@ -1381,8 +1430,19 @@ ul {
   grid-area: announcements;
 }
 
-.community {
-  grid-area: community;
+#announcements-carousel {
+  text-align: center;
+}
+#announcements-carousel .carousel-item {
+  display: none;
+}
+#announcements-carousel .carousel-item.active {
+  display: block;
+}
+#announcements-carousel img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 .activity {
@@ -1434,30 +1494,6 @@ ul {
   }
 }
 
-/***** Community section in homepage *****/
-.community {
-  text-align: center;
-}
-.community-image {
-  min-height: 300px;
-  margin-top: 32px;
-  background-image: url($community_image);
-  background-position: center;
-  background-repeat: no-repeat;
-  max-width: 100%;
-}
-.community a {
-  color: $link_color;
-  text-decoration: underline;
-}
-.community a:visited {
-  color: $visited_link_color;
-}
-.community a:hover, .community a:active, .community a:focus {
-  color: $hover_link_color;
-}
-
-.community,
 .activity {
   border-top: 1px solid #ddd;
   padding: 30px 0;
