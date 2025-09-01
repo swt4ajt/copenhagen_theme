@@ -26,7 +26,6 @@
       "carousel carousel"
       "introduction quick-links"
       "departments announcements"
-      "community community"
       "activity activity";
   }
 }
@@ -108,8 +107,6 @@
   }
 }
 
-.community { grid-area: community; }
-
 .activity { grid-area: activity; }
 
 /***** Promoted articles *****/
@@ -157,23 +154,7 @@
 
 }
 
-/***** Community section in homepage *****/
-.community {
-  text-align: center;
 
-  &-image {
-    min-height: 300px;
-    margin-top: 32px;
-    background-image: url($community_image);
-    background-position: center;
-    background-repeat: no-repeat;
-    max-width: 100%;
-  }
-
-  @include standalone-link;
-}
-
-.community,
 .activity {
   border-top: 1px solid $low-contrast-border-color;
   padding: 30px 0;
