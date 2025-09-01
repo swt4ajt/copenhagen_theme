@@ -1,5 +1,13 @@
 <h1 class="visibility-hidden">{{ help_center.name }}</h1>
 
+<section class="hero hero--brand">
+  <div class="hero-inner">
+    <h2>{{ help_center.name }}</h2>
+    <p>Your secure hub for company resources and updates.</p>
+    <a href="#company-carousel" class="btn btn-primary">Explore</a>
+  </div>
+</section>
+
 <div id="main-content" class="container intranet-grid">
 <div class="container">
   <section id="company-carousel" class="carousel section">
@@ -62,6 +70,24 @@
       {{/link}}
 
       <div class="community-image"></div>
+    <section class="section announcements">
+      <h2>Announcements</h2>
+      <div id="announcements-carousel" class="carousel">
+        {{#each promoted_articles}}
+          <div class="carousel-item" data-article-id="{{id}}">
+            <a href="{{url}}">
+              <img alt="{{title}}" />
+              <span>{{title}}</span>
+              {{#if internal}}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16" class="icon-lock" title="{{t 'internal'}}">
+                  <rect width="12" height="9" x="2" y="7" fill="currentColor" rx="1" ry="1"/>
+                  <path fill="none" stroke="currentColor" d="M4.5 7.5V4a3.5 3.5 0 017 0v3.5"/>
+                </svg>
+              {{/if}}
+            </a>
+          </div>
+        {{/each}}
+      </div>
     </section>
   {{/if}}
 
