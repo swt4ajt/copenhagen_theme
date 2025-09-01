@@ -22,6 +22,8 @@
   "community_image_label": "Community banner",
   "community_post_group_label": "Community post elements",
   "community_topic_group_label": "Community topic elements",
+  "departments_description": "JSON array of departments to display on home page",
+  "departments_label": "Departments",
   "favicon_description": "Icon displayed in the address bar of your browser",
   "favicon_label": "Favicon",
   "follow_article_description": "Users can follow a specific article",
