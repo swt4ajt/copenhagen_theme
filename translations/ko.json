@@ -72,5 +72,7 @@
   "text_font_description": "본문 텍스트의 글꼴",
   "text_font_label": "텍스트 글꼴",
   "visited_link_color_description": "방문한 링크 요소의 텍스트 색",
-  "visited_link_color_label": "방문한 링크 색"
+  "visited_link_color_label": "방문한 링크 색",
+  "departments_description": "JSON array of departments to display on home page",
+  "departments_label": "Departments"
 }

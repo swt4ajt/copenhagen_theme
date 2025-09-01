@@ -72,5 +72,7 @@
   "text_font_description": "Písmo textu tela",
   "text_font_label": "Písmo textu",
   "visited_link_color_description": "Farba textu pre prvky navštívených prepojení",
-  "visited_link_color_label": "Farba navštíveného prepojenia"
+  "visited_link_color_label": "Farba navštíveného prepojenia",
+  "departments_description": "JSON array of departments to display on home page",
+  "departments_label": "Departments"
 }
