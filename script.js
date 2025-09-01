@@ -677,6 +677,29 @@
     }
   }
 
+  function renderCarousel() {
+    const dataEl = document.getElementById('carousel-data');
+    if (!dataEl) return;
+    try {
+      const slides = JSON.parse(dataEl.textContent);
+      const container = document.getElementById('company-carousel');
+      if (container && Array.isArray(slides)) {
+        slides.forEach((slide) => {
+          if (slide) {
+            const div = document.createElement('div');
+            div.className = 'carousel-item';
+            div.textContent = typeof slide === 'string' ? slide : slide.text;
+            container.appendChild(div);
+          }
+        });
+        initCarousel();
+      }
+    } catch (e) {
+      console.error('Invalid carousel data', e);
+    }
+  }
+
+
   function renderDepartments() {
     const dataEl = document.getElementById('departments-data');
     if (!dataEl) return;
@@ -698,8 +721,9 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', initCarousel);
+  document.addEventListener('DOMContentLoaded', renderCarousel);
   document.addEventListener('DOMContentLoaded', renderDepartments);
+  document.addEventListener('DOMContentLoaded', initCarousel);
   async function loadAnnouncementImages() {
     const slides = document.querySelectorAll('#announcements-carousel .carousel-item');
     for (const slide of slides) {
