@@ -1329,9 +1329,6 @@ ul {
 /***** Carousel and introduction *****/
 #company-carousel {
   grid-area: carousel;
-
-/***** Carousel and introduction *****/
-#company-carousel {
   text-align: center;
 }
 #company-carousel .carousel-item {
