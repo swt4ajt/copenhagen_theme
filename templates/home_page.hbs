@@ -12,6 +12,7 @@
 </section>
 
 <div class="container intranet-grid">
+<div class="container">
   <section id="company-carousel" class="carousel section">
     <div class="carousel-item active">Welcome slide</div>
     <div class="carousel-item">Company news</div>
@@ -71,6 +72,14 @@
           <li class="promoted-articles-item">
               <a href="{{url}}">
                 {{title}}
+    {{#if promoted_articles}}
+      <section class="articles announcements">
+        <h2>Announcements</h2>
+        <ul class="article-list promoted-articles">
+          {{#each promoted_articles}}
+            <li class="promoted-articles-item">
+                <a href="{{url}}">
+                  {{title}}
 
                 {{#if internal}}
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16" class="icon-lock" title="{{t 'internal'}}">
