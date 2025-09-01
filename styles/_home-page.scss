@@ -13,6 +13,34 @@
   text-align: center;
 }
 
+/***** Hero branding *****/
+
+.hero--brand {
+  background: linear-gradient(135deg, $brand_color, zass-lighten($brand_color, 15%));
+  color: $brand_text_color;
+  padding: 80px 20px;
+  text-align: center;
+
+  .hero-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .btn {
+    background: $brand_text_color;
+    border: 0;
+    border-radius: 4px;
+    color: $brand_color;
+    font-weight: $font-weight-semibold;
+    padding: 12px 32px;
+    transition: background .3s;
+
+    &:hover {
+      background: zass-lighten($brand_text_color, 10%);
+    }
+  }
+}
+
 /***** Intranet layout *****/
 
 .intranet-grid {
@@ -44,7 +72,9 @@
   .carousel-item {
     display: none;
     padding: 40px;
-    background-color: $secondary-shade;
+    background: linear-gradient(135deg, $brand_color, zass-lighten($brand_color, 10%));
+    border-radius: 8px;
+    color: $brand_text_color;
   }
 
   .carousel-item.active {
@@ -76,11 +106,16 @@
     a {
       display: block;
       padding: 20px;
-      background-color: $secondary-shade;
-      border-radius: 4px;
+      background: $brand_color;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
-      color: inherit;
+      color: $brand_text_color;
+      transition: background .3s;
+
+      &:hover {
+        background: zass-darken($brand_color, 5%);
+      }
     }
   }
 }
