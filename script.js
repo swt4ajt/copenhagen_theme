@@ -671,6 +671,54 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', initCarousel);
+  function renderCarousel() {
+    const dataEl = document.getElementById('carousel-data');
+    if (!dataEl) return;
+    const raw = dataEl.textContent.trim();
+    if (!raw) return;
+    try {
+      const slides = JSON.parse(raw);
+      const container = document.getElementById('company-carousel');
+      if (container && Array.isArray(slides)) {
+        slides.forEach((slide) => {
+          if (slide) {
+            const div = document.createElement('div');
+            div.className = 'carousel-item';
+            div.textContent = typeof slide === 'string' ? slide : slide.text;
+            container.appendChild(div);
+          }
+        });
+        initCarousel();
+      }
+    } catch (e) {
+      console.error('Invalid carousel data', e);
+    }
+  }
+
+  function renderDepartments() {
+    const dataEl = document.getElementById('departments-data');
+    if (!dataEl) return;
+    const raw = dataEl.textContent.trim();
+    if (!raw) return;
+    try {
+      const departments = JSON.parse(raw);
+      const list = document.querySelector('.departments .blocks-list');
+      if (list && Array.isArray(departments)) {
+        departments.forEach((dep) => {
+          if (dep && dep.name && dep.url) {
+            const li = document.createElement('li');
+            li.className = 'blocks-item';
+            li.innerHTML = `<a href="${dep.url}" class="blocks-item-link"><span class="blocks-item-title">${dep.name}</span></a>`;
+            list.appendChild(li);
+          }
+        });
+      }
+    } catch (e) {
+      console.error('Invalid departments data', e);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', renderCarousel);
+  document.addEventListener('DOMContentLoaded', renderDepartments);
 
 })();
