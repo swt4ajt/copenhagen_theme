@@ -1322,7 +1322,7 @@ ul {
 @media (min-width: 1024px) {
   .intranet-grid {
     grid-template-columns: 2fr 1fr;
-    grid-template-areas: "carousel carousel" "introduction quick-links" "departments announcements" "community community" "activity activity";
+    grid-template-areas: "carousel carousel" "introduction quick-links" "departments announcements" "activity activity";
   }
 }
 
@@ -1397,10 +1397,6 @@ ul {
   margin-bottom: 10px;
 }
 
-.community {
-  grid-area: community;
-}
-
 .activity {
   grid-area: activity;
 }
@@ -1450,30 +1446,6 @@ ul {
   }
 }
 
-/***** Community section in homepage *****/
-.community {
-  text-align: center;
-}
-.community-image {
-  min-height: 300px;
-  margin-top: 32px;
-  background-image: url($community_image);
-  background-position: center;
-  background-repeat: no-repeat;
-  max-width: 100%;
-}
-.community a {
-  color: $link_color;
-  text-decoration: underline;
-}
-.community a:visited {
-  color: $visited_link_color;
-}
-.community a:hover, .community a:active, .community a:focus {
-  color: $hover_link_color;
-}
-
-.community,
 .activity {
   border-top: 1px solid #ddd;
   padding: 30px 0;
