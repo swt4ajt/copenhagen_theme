@@ -677,6 +677,29 @@
     }
   }
 
+  function renderDepartments() {
+    const dataEl = document.getElementById('departments-data');
+    if (!dataEl) return;
+    try {
+      const departments = JSON.parse(dataEl.textContent);
+      const list = document.querySelector('.departments .blocks-list');
+      if (list && Array.isArray(departments)) {
+        departments.forEach((dep) => {
+          if (dep && dep.name && dep.url) {
+            const li = document.createElement('li');
+            li.className = 'blocks-item';
+            li.innerHTML = `<a href="${dep.url}" class="blocks-item-link"><span class="blocks-item-title">${dep.name}</span></a>`;
+            list.appendChild(li);
+          }
+        });
+      }
+    } catch (e) {
+      console.error('Invalid departments data', e);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initCarousel);
+  document.addEventListener('DOMContentLoaded', renderDepartments);
   async function loadAnnouncementImages() {
     const slides = document.querySelectorAll('#announcements-carousel .carousel-item');
     for (const slide of slides) {
