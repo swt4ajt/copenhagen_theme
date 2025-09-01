@@ -35,6 +35,8 @@
 
 #company-carousel {
   grid-area: carousel;
+}
+
 /***** Carousel and introduction *****/
 
 #company-carousel {
@@ -87,6 +89,24 @@
 .departments { grid-area: departments; }
 
 .announcements { grid-area: announcements; }
+
+#announcements-carousel {
+  text-align: center;
+
+  .carousel-item {
+    display: none;
+  }
+
+  .carousel-item.active {
+    display: block;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+}
 
 .community { grid-area: community; }
 
