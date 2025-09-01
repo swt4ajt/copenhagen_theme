@@ -13,6 +13,28 @@
   text-align: center;
 }
 
+/***** Intranet layout *****/
+
+.intranet-grid {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 1fr;
+
+  @include desktop {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "carousel carousel"
+      "introduction quick-links"
+      "departments announcements"
+      "community community"
+      "activity activity";
+  }
+}
+
+/***** Carousel and introduction *****/
+
+#company-carousel {
+  grid-area: carousel;
 /***** Carousel and introduction *****/
 
 #company-carousel {
@@ -30,9 +52,45 @@
 }
 
 .introduction {
+  grid-area: introduction;
   text-align: center;
   margin-bottom: 40px;
 }
+
+.quick-links {
+  grid-area: quick-links;
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+  }
+
+  &-item {
+    flex: 1 1 120px;
+    margin: 10px;
+
+    a {
+      display: block;
+      padding: 20px;
+      background-color: $secondary-shade;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      color: inherit;
+    }
+  }
+}
+
+.departments { grid-area: departments; }
+
+.announcements { grid-area: announcements; }
+
+.community { grid-area: community; }
+
+.activity { grid-area: activity; }
 
 /***** Promoted articles *****/
 
