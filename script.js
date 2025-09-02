@@ -693,7 +693,7 @@
     if (!container && !list) return;
       try {
         const locale = document.documentElement.lang;
-        const resp = await fetch(`/api/v2/help_center/${locale}/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc`);
+        const resp = await fetch(`/api/v2/help_center/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc`);
         const data = await resp.json().catch(() => null);
         if (!data) return;
         data.articles.forEach((article) => {
