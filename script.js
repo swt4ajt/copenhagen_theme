@@ -751,7 +751,7 @@
     } catch (e) {
       // ignore errors
     }
-  }
+
 
   function init() {
     loadAnnouncements();
@@ -786,5 +786,3 @@
   }
 
   document.addEventListener("DOMContentLoaded", loadDepartments);
-
-})();
