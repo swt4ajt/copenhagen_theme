@@ -235,23 +235,6 @@
       ]
     },
     {
-      "label": "images_group_label",
-      "variables": [
-        {
-          "identifier": "homepage_background_image",
-          "type": "file",
-          "description": "homepage_background_image_description",
-          "label": "homepage_background_image_label"
-        },
-        {
-          "identifier": "community_background_image",
-          "type": "file",
-          "description": "community_background_image_description",
-          "label": "community_background_image_label"
-        }
-      ]
-    },
-    {
       "label": "search_group_label",
       "variables": [
         {
