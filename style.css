@@ -1397,23 +1397,19 @@ ul {
   margin-bottom: 10px;
 }
 
-.quick-links {
+.department-rail {
   grid-area: quick-links;
 }
-.quick-links-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.department-rail-list {
   list-style: none;
   padding: 0;
 }
-.quick-links-item {
-  flex: 1 1 120px;
-  margin: 10px;
+.department-rail-item {
+  margin-bottom: 10px;
 }
-.quick-links-item a {
+.department-rail-item a {
   display: block;
-  padding: 20px;
+  padding: 12px 20px;
   background: $brand_color;
   border-radius: 8px;
   text-decoration: none;
@@ -1421,12 +1417,8 @@ ul {
   color: $brand_text_color;
   transition: background 0.3s;
 }
-.quick-links-item a:hover {
+.department-rail-item a:hover {
   background: darken($brand_color, 5%);
-}
-
-.departments {
-  grid-area: departments;
 }
 
 .announcements {

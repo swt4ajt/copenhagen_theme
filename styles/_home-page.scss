@@ -102,36 +102,26 @@
       text-decoration: none;
     }
 
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 10px;
-    }
-
     h3 {
       margin-bottom: 10px;
     }
   }
 }
 
-.quick-links {
+.department-rail {
   grid-area: quick-links;
 
   &-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     list-style: none;
     padding: 0;
   }
 
   &-item {
-    flex: 1 1 120px;
-    margin: 10px;
+    margin-bottom: 10px;
 
     a {
       display: block;
-      padding: 20px;
+      padding: 12px 20px;
       background: $brand_color;
       border-radius: 8px;
       text-decoration: none;
