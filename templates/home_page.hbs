@@ -15,4 +15,8 @@
     <h2>Introductions</h2>
     <div id="introductions-grid"></div>
   </section>
+
+  {{#if settings.show_recent_activity}}
+    {{{recent_activity scope='articles' limit=5 class='recent-activity home-section'}}}
+  {{/if}}
 </div>
