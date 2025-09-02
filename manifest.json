@@ -179,7 +179,7 @@
           "type": "text",
           "description": "departments_description",
           "label": "departments_label",
-          "value": ""
+          "value": "Support, Sales, Billing"
         }
       ]
     },
@@ -191,7 +191,7 @@
           "type": "text",
           "description": "carousel_description",
           "label": "carousel_label",
-          "value": ""
+          "value": "a,b,c"
         }
       ]
     },
@@ -203,7 +203,7 @@
           "type": "text",
           "description": "departments_description",
           "label": "departments_label",
-          "value": ""
+          "value": "Support, Sales, Billing"
         }
       ]
     },
