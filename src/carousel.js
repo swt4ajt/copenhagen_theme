@@ -44,7 +44,9 @@ async function loadIntroductions() {
   const container = document.querySelector("#introductions-carousel");
   if (!container) return;
   try {
-    const secResp = await fetch("/api/v2/help_center/sections.json?per_page=100");
+    const secResp = await fetch(
+      "/api/v2/help_center/sections.json?per_page=100"
+    );
     const secData = await secResp.json();
     const introSection = secData.sections.find(
       (s) => s.name && s.name.toLowerCase() === "introductions"

@@ -1,87 +1,360 @@
 <h1 class="visibility-hidden">{{ help_center.name }}</h1>
 
 <div id="main-content" class="container">
-<section class="hero hero--brand">
-  <div class="hero-inner">
-    <h2>{{ help_center.name }}</h2>
-    <p>Your secure hub for company resources and updates.</p>
-    <a href="#company-carousel" class="btn btn-primary">Explore</a>
-  </div>
-</section>
-
-<div id="main-content" class="container intranet-grid">
-<div class="container">
-  <section id="company-carousel" class="carousel section">
-    <script id="carousel-data" type="application/json">
-      {{settings.carousel}}
-    </script>
+  <!-- Hero Section -->
+  <section class="hero hero--uniken">
+    <div class="hero-inner">
+      <div class="welcome-message">
+        <h1>Welcome back, Steve!</h1>
+        <p>Your secure portal for all company resources and updates</p>
+      </div>
+    </div>
   </section>
 
-  <section class="section introduction">
-    <h2>Welcome to the Company Intranet</h2>
-    <p>Stay informed with announcements and explore resources for every department.</p>
-    <h2>Introductions</h2>
-    <div id="introductions-carousel" class="carousel"></div>
-  </section>
-
-  <section class="section departments">
-    <h2>Departments</h2>
-    <section class="blocks">
-      <ul class="blocks-list"></ul>
-    </section>
-    <script id="departments-data" type="application/json">
-      {{settings.departments}}
-    </script>
-  </section>
-
-  {{#if promoted_articles}}
-  <section class="section announcements">
-    <h2>Announcements</h2>
-    <ul class="article-list promoted-articles">
-      {{#each promoted_articles}}
-        <li class="promoted-articles-item">
-          <a href="{{url}}">
-            {{title}}
-            {{#if internal}}
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16" class="icon-lock" title="{{t 'internal'}}">
-                <rect width="12" height="9" x="2" y="7" fill="currentColor" rx="1" ry="1"/>
-                <path fill="none" stroke="currentColor" d="M4.5 7.5V4a3.5 3.5 0 017 0v3.5"/>
-              </svg>
-            {{/if}}
-          </a>
-        </li>
-      {{/each}}
-    </ul>
-  </section>
-  {{/if}}
-
-  {{#if help_center.community_enabled}}
-    <section class="section home-section community">
-      <h2>{{t 'community'}}</h2>
-      {{#link 'community' class='community-link'}}
-        {{t 'join_conversation'}}
-      {{/link}}
-
-      <div class="community-image"></div>
-    <section class="section announcements">
-      <h2>Announcements</h2>
-      <div id="announcements-carousel" class="carousel">
-        {{#each promoted_articles}}
-          <div class="carousel-item" data-article-id="{{id}}">
-            <a href="{{url}}">
-              <img alt="{{title}}" />
-              <span>{{title}}</span>
-              {{#if internal}}
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16" class="icon-lock" title="{{t 'internal'}}">
-                  <rect width="12" height="9" x="2" y="7" fill="currentColor" rx="1" ry="1"/>
-                  <path fill="none" stroke="currentColor" d="M4.5 7.5V4a3.5 3.5 0 017 0v3.5"/>
-                </svg>
-              {{/if}}
-            </a>
+  <!-- Main Content Grid -->
+  <div class="uniken-grid">
+    
+    <!-- Shortcuts Section -->
+    <section class="shortcuts-section">
+      <h2>Quick Access</h2>
+      <div class="shortcuts-grid">
+        <a href="#" class="shortcut-tile">
+          <div class="shortcut-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
           </div>
-        {{/each}}
+          <h3>HR Portal</h3>
+          <p>Employee benefits, policies, and requests</p>
+        </a>
+        <a href="#" class="shortcut-tile">
+          <div class="shortcut-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20,18H4V8H20M20,6H12L10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6Z"/>
+            </svg>
+          </div>
+          <h3>IT Support</h3>
+          <p>Technical assistance and system requests</p>
+        </a>
+        <a href="#" class="shortcut-tile">
+          <div class="shortcut-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+          </div>
+          <h3>Policies</h3>
+          <p>Company policies and compliance documents</p>
+        </a>
+        <a href="#" class="shortcut-tile">
+          <div class="shortcut-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.8,10.9C9.53,10.31 8.8,9.7 8.8,8.75C8.8,7.66 9.81,6.9 11.5,6.9C13.28,6.9 13.94,7.75 14,9H16.21C16.14,7.28 15.09,5.7 13,5.19V3H10V5.16C8.06,5.58 6.5,6.84 6.5,8.77C6.5,11.08 8.41,12.23 11.2,12.9C13.7,13.5 14.2,14.38 14.2,15.31C14.2,16 13.71,17.1 11.5,17.1C9.44,17.1 8.63,16.18 8.5,15H6.32C6.44,17.19 8.08,18.42 10,18.83V21H13V18.85C14.95,18.5 16.5,17.35 16.5,15.3C16.5,12.46 14.07,11.5 11.8,10.9Z"/>
+            </svg>
+          </div>
+          <h3>Payroll</h3>
+          <p>Salary information and tax documents</p>
+        </a>
+        <a href="#" class="shortcut-tile">
+          <div class="shortcut-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19Z"/>
+            </svg>
+          </div>
+          <h3>Training</h3>
+          <p>Learning resources and certification programs</p>
+        </a>
+        <a href="#" class="shortcut-tile">
+          <div class="shortcut-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M17,18H7V16H17V18M13.5,14H7V12H13.5V14M17,10H7V8H17V10Z"/>
+            </svg>
+          </div>
+          <h3>Help Desk</h3>
+          <p>Submit tickets and track requests</p>
+        </a>
       </div>
     </section>
-  {{/if}}
 
+    <!-- Company News & Announcements -->
+    <section class="news-section">
+      <h2>Company News & Announcements</h2>
+      
+      <!-- Urgent Updates -->
+      <div class="urgent-updates">
+        <h3>🚨 Urgent Updates</h3>
+        <div class="urgent-item">
+          <span class="urgent-badge">URGENT</span>
+          <div class="urgent-content">
+            <h4>Security System Maintenance</h4>
+            <p>Scheduled maintenance on Jan 25, 2:00-4:00 AM EST</p>
+            <span class="urgent-date">Posted: 2 hours ago</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- General News -->
+      <div class="general-news">
+        <div class="news-item">
+          <div class="news-date">Jan 20</div>
+          <div class="news-content">
+            <h4>Q4 Company Meeting</h4>
+            <p>Join us for the quarterly all-hands meeting to discuss achievements and goals...</p>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">Jan 18</div>
+          <div class="news-content">
+            <h4>New Employee Benefits Program</h4>
+            <p>Enhanced healthcare coverage and wellness programs now available...</p>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">Jan 15</div>
+          <div class="news-content">
+            <h4>Office Holiday Schedule</h4>
+            <p>Updated holiday calendar for 2024 is now available in the HR portal...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Employee Directory -->
+    <section class="directory-section">
+      <h2>Employee Directory</h2>
+      <div class="employee-grid">
+        <div class="employee-card">
+          <div class="employee-avatar">
+            <div class="avatar-placeholder">JS</div>
+          </div>
+          <div class="employee-info">
+            <h4>John Smith</h4>
+            <p class="employee-role">Chief Executive Officer</p>
+            <div class="employee-contact">
+              <span>📧 j.smith@uniken.com</span>
+              <span>📞 (555) 123-4567</span>
+            </div>
+          </div>
+        </div>
+        <div class="employee-card">
+          <div class="employee-avatar">
+            <div class="avatar-placeholder">MJ</div>
+          </div>
+          <div class="employee-info">
+            <h4>Maria Johnson</h4>
+            <p class="employee-role">VP of Engineering</p>
+            <div class="employee-contact">
+              <span>📧 m.johnson@uniken.com</span>
+              <span>📞 (555) 123-4568</span>
+            </div>
+          </div>
+        </div>
+        <div class="employee-card">
+          <div class="employee-avatar">
+            <div class="avatar-placeholder">RW</div>
+          </div>
+          <div class="employee-info">
+            <h4>Robert Wilson</h4>
+            <p class="employee-role">HR Director</p>
+            <div class="employee-contact">
+              <span>📧 r.wilson@uniken.com</span>
+              <span>📞 (555) 123-4569</span>
+            </div>
+          </div>
+        </div>
+        <div class="employee-card">
+          <div class="employee-avatar">
+            <div class="avatar-placeholder">SL</div>
+          </div>
+          <div class="employee-info">
+            <h4>Sarah Lee</h4>
+            <p class="employee-role">Marketing Manager</p>
+            <div class="employee-contact">
+              <span>📧 s.lee@uniken.com</span>
+              <span>📞 (555) 123-4570</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Useful Widgets -->
+    <section class="widgets-section">
+      <h2>Useful Tools</h2>
+      
+      <!-- Calendar Widget -->
+      <div class="widget calendar-widget">
+        <h3>📅 Upcoming Events</h3>
+        <div class="calendar-events">
+          <div class="event-item">
+            <div class="event-date">Jan 25</div>
+            <div class="event-info">
+              <h4>Team Building Workshop</h4>
+              <p>Conference Room A - 2:00 PM</p>
+            </div>
+          </div>
+          <div class="event-item">
+            <div class="event-date">Jan 28</div>
+            <div class="event-info">
+              <h4>Monthly All-Hands</h4>
+              <p>Main Auditorium - 10:00 AM</p>
+            </div>
+          </div>
+          <div class="event-item">
+            <div class="event-date">Feb 01</div>
+            <div class="event-info">
+              <h4>Security Training</h4>
+              <p>Online - 9:00 AM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Links Widget -->
+      <div class="widget links-widget">
+        <h3>🔗 Quick Links</h3>
+        <div class="quick-links">
+          <a href="#" class="quick-link">
+            <span>📊 Company Dashboard</span>
+          </a>
+          <a href="#" class="quick-link">
+            <span>📋 Project Management</span>
+          </a>
+          <a href="#" class="quick-link">
+            <span>💼 Expense Reports</span>
+          </a>
+          <a href="#" class="quick-link">
+            <span>🏖️ Time Off Requests</span>
+          </a>
+          <a href="#" class="quick-link">
+            <span>📚 Knowledge Base</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Department Overview -->
+    <section class="departments-section">
+      <h2>Department Overview</h2>
+      <div class="departments-grid">
+        <div class="department-card">
+          <div class="department-icon">💻</div>
+          <h3>Engineering</h3>
+          <p>Building innovative solutions and maintaining our secure infrastructure</p>
+          <div class="department-lead">
+            <strong>Lead:</strong> Maria Johnson
+          </div>
+          <a href="#" class="department-link">View Details →</a>
+        </div>
+        <div class="department-card">
+          <div class="department-icon">👥</div>
+          <h3>Human Resources</h3>
+          <p>Supporting our people with benefits, policies, and professional development</p>
+          <div class="department-lead">
+            <strong>Lead:</strong> Robert Wilson
+          </div>
+          <a href="#" class="department-link">View Details →</a>
+        </div>
+        <div class="department-card">
+          <div class="department-icon">📈</div>
+          <h3>Sales & Marketing</h3>
+          <p>Growing our business and building relationships with customers worldwide</p>
+          <div class="department-lead">
+            <strong>Lead:</strong> Sarah Lee
+          </div>
+          <a href="#" class="department-link">View Details →</a>
+        </div>
+        <div class="department-card">
+          <div class="department-icon">💰</div>
+          <h3>Finance</h3>
+          <p>Managing financial operations and ensuring fiscal responsibility</p>
+          <div class="department-lead">
+            <strong>Lead:</strong> David Chen
+          </div>
+          <a href="#" class="department-link">View Details →</a>
+        </div>
+        <div class="department-card">
+          <div class="department-icon">🛡️</div>
+          <h3>Security</h3>
+          <p>Protecting our assets and ensuring compliance with security standards</p>
+          <div class="department-lead">
+            <strong>Lead:</strong> Alex Rodriguez
+          </div>
+          <a href="#" class="department-link">View Details →</a>
+        </div>
+        <div class="department-card">
+          <div class="department-icon">🎯</div>
+          <h3>Operations</h3>
+          <p>Streamlining processes and ensuring efficient day-to-day operations</p>
+          <div class="department-lead">
+            <strong>Lead:</strong> Jennifer Park
+          </div>
+          <a href="#" class="department-link">View Details →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Organization Chart -->
+    <section class="org-chart-section">
+      <h2>Organization Chart</h2>
+      <div class="org-chart">
+        <!-- CEO Level -->
+        <div class="org-level ceo-level">
+          <div class="org-position ceo">
+            <div class="position-avatar">JS</div>
+            <div class="position-info">
+              <h4>John Smith</h4>
+              <p>Chief Executive Officer</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Department Heads Level -->
+        <div class="org-level heads-level">
+          <div class="org-position">
+            <div class="position-avatar">MJ</div>
+            <div class="position-info">
+              <h4>Maria Johnson</h4>
+              <p>VP Engineering</p>
+            </div>
+          </div>
+          <div class="org-position">
+            <div class="position-avatar">RW</div>
+            <div class="position-info">
+              <h4>Robert Wilson</h4>
+              <p>HR Director</p>
+            </div>
+          </div>
+          <div class="org-position">
+            <div class="position-avatar">SL</div>
+            <div class="position-info">
+              <h4>Sarah Lee</h4>
+              <p>Marketing Manager</p>
+            </div>
+          </div>
+          <div class="org-position">
+            <div class="position-avatar">DC</div>
+            <div class="position-info">
+              <h4>David Chen</h4>
+              <p>Finance Director</p>
+            </div>
+          </div>
+          <div class="org-position">
+            <div class="position-avatar">AR</div>
+            <div class="position-info">
+              <h4>Alex Rodriguez</h4>
+              <p>Security Chief</p>
+            </div>
+          </div>
+          <div class="org-position">
+            <div class="position-avatar">JP</div>
+            <div class="position-info">
+              <h4>Jennifer Park</h4>
+              <p>Operations Director</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
 </div>
