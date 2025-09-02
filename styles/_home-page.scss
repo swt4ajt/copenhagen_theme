@@ -65,6 +65,45 @@
   margin-bottom: 20px;
 }
 
+.announcement-carousel {
+  position: relative;
+  overflow: hidden;
+
+  .carousel-item {
+    display: none;
+    text-align: center;
+
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  .carousel-item.active {
+    display: block;
+  }
+}
+
+#main-content #introductions-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.department-rail {
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  .blocks-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .department-rail-item {
+    margin-bottom: 10px;
+  }
+}
+
 /***** Promoted articles *****/
 
 .promoted-articles {

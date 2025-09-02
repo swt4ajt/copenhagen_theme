@@ -23,7 +23,7 @@
 
     try {
       const resp = await fetch(
-        `/api/v2/help_center/${getLocale()}/articles.json?label_names=Announcements&per_page=5&sort_by=created_at&sort_order=desc`
+        `/api/v2/help_center/${getLocale()}/articles.json?label_names=Announcements&per_page=4&sort_by=created_at&sort_order=desc`
       );
       const data = await resp.json().catch(() => null);
       if (!data || !Array.isArray(data.articles)) return;
@@ -49,6 +49,17 @@
           list.appendChild(li);
         }
       });
+
+      if (container && container.children.length) {
+        let index = 0;
+        const items = Array.from(container.children);
+        items[0].classList.add("active");
+        setInterval(() => {
+          items[index].classList.remove("active");
+          index = (index + 1) % items.length;
+          items[index].classList.add("active");
+        }, 5000);
+      }
     } catch {
       /* ignore */
     }
@@ -141,11 +152,45 @@
     }
   }
 
+  // Homepage introductions grid (latest 4 from section 4964692123039)
+  async function loadHomeIntroductionsGrid() {
+    if (window.location.href.includes("4964692123039-Introductions")) return;
+
+    const container = document.querySelector("#introductions-grid");
+    if (!container) return;
+
+    try {
+      const resp = await fetch(
+        `/api/v2/help_center/${getLocale()}/sections/4964692123039/articles.json?per_page=4&sort_by=created_at&sort_order=desc`
+      );
+      const data = await resp.json().catch(() => null);
+      if (!data || !Array.isArray(data.articles)) return;
+
+      data.articles.slice(0, 4).forEach((article) => {
+        const body = article.body || "";
+        const title = article.title || "";
+        const url = article.html_url || "#";
+        const img =
+          extractFirstImage(body) ||
+          "https://via.placeholder.com/200?text=Pending%20Image";
+        const text = truncateWords(stripHtml(body), 20);
+
+        const div = document.createElement("div");
+        div.className = "intro-item";
+        div.innerHTML = `<a href="${url}"><img src="${img}" alt="${title}"><h3>${title}</h3><p>${text}...</p></a>`;
+        container.appendChild(div);
+      });
+    } catch {
+      /* ignore */
+    }
+  }
+
   // Bootstrap
   function init() {
     loadAnnouncements();
     loadIntroductions();
     loadIntroductionTiles();
+    loadHomeIntroductionsGrid();
   }
 
   document.addEventListener("DOMContentLoaded", init);
