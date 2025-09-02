@@ -861,7 +861,7 @@
     const locale = document.documentElement.lang;
     try {
       const resp = await fetch(
-        `/api/v2/help_center/${locale}/categories/4961264026655/sections.json`
+        `/api/v2/help_center/categories/4961264026655/sections.json`
       );
       const data = await resp.json();
       data.sections.forEach((section) => {
