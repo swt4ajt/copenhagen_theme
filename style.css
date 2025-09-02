@@ -1401,7 +1401,12 @@ ul {
 }
 
 #main-content #introductions-grid {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) {
+  #main-content #introductions-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .department-rail h2 {
