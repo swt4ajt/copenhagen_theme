@@ -688,8 +688,10 @@
       data.articles.forEach((article) => {
         const div = document.createElement("div");
         div.className = "carousel-item";
-        const match = article.body.match(/<img[^>]+src=\"([^\"]+)\"/i);
-        const img = match ? `<img src="${match[1]}" alt="${article.title}" />` : "";
+        const match = article.body.match(/<img[^>]+src="([^"]+)"/i);
+        const img = match
+          ? `<img src="${match[1]}" alt="${article.title}" />`
+          : "";
         div.innerHTML = `${img}<span>${article.title}</span>`;
         container.appendChild(div);
       });
@@ -703,15 +705,18 @@
     const container = document.querySelector("#introductions-grid");
     if (!container) return;
     try {
+      const locale = document.documentElement.lang;
       const resp = await fetch(
-        "/api/v2/help_center/articles.json?label_names=introductions&per_page=4&sort_by=created_at&sort_order=desc"
+        `/api/v2/help_center/${locale}/articles.json?label_names=introductions&per_page=100&sort_by=created_at&sort_order=desc`
       );
       const data = await resp.json();
       data.articles.forEach((article) => {
         const div = document.createElement("div");
         div.className = "intro-item";
-        const match = article.body.match(/<img[^>]+src=\"([^\"]+)\"/i);
-        const img = match ? `<img src="${match[1]}" alt="${article.title}" />` : "";
+        const match = article.body.match(/<img[^>]+src="([^"]+)"/i);
+        const img = match
+          ? `<img src="${match[1]}" alt="${article.title}" />`
+          : "";
         const text = article.body
           .replace(/<[^>]+>/g, "")
           .split(/\s+/)
@@ -733,16 +738,18 @@
   document.addEventListener("DOMContentLoaded", init);
 
   async function loadDepartments() {
-    const list = document.querySelector('#department-list');
+    const list = document.querySelector(".department-rail .blocks-list");
     if (!list) return;
     const locale = document.documentElement.lang;
     try {
-      const resp = await fetch(`/api/v2/help_center/categories/4961264026655/sections`);
+      const resp = await fetch(
+        `/api/v2/help_center/${locale}/categories/4961264026655/sections.json`
+      );
       const data = await resp.json();
       data.sections.forEach((section) => {
-        const li = document.createElement('li');
-        li.className = 'department-rail-item';
-        const a = document.createElement('a');
+        const li = document.createElement("li");
+        li.className = "department-rail-item";
+        const a = document.createElement("a");
         a.href = section.html_url;
         a.textContent = section.name;
         li.appendChild(a);
@@ -753,6 +760,6 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', loadDepartments);
+  document.addEventListener("DOMContentLoaded", loadDepartments);
 
 })();

@@ -1388,11 +1388,6 @@ ul {
   color: inherit;
   text-decoration: none;
 }
-#introductions-grid .intro-item img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
 #introductions-grid .intro-item h3 {
   margin-bottom: 10px;
 }
@@ -1419,6 +1414,10 @@ ul {
 }
 .department-rail-item a:hover {
   background: darken($brand_color, 5%);
+}
+
+.departments {
+  grid-area: departments;
 }
 
 .announcements {
@@ -1693,15 +1692,15 @@ ul {
 .article {
   /*
   * The article grid is defined this way to optimize readability:
-  * Sidebar | Content | Free space
-  * 17%     | 66%     | 17%
+  * Free space | Content | Sidebar
+  * 8%         | 75%     | 17%
   */
   flex: 1 0 auto;
 }
 @media (min-width: 1024px) {
   .article {
-    flex: 1 0 66%;
-    max-width: 66%;
+    flex: 1 0 75%;
+    max-width: 75%;
     min-width: 640px;
     padding: 0 30px;
   }
