@@ -1,4 +1,6 @@
 /***** Hero component *****/
+$homepage_background_image: '' !default;
+
 .hero {
   background-image: url($homepage_background_image);
   background-position: center;
