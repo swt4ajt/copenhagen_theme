@@ -1,14 +1,16 @@
 async function loadDepartments() {
-  const list = document.querySelector('#department-list');
+  const list = document.querySelector(".department-rail .blocks-list");
   if (!list) return;
   const locale = document.documentElement.lang;
   try {
-    const resp = await fetch(`/api/v2/help_center/${locale}/categories/4961264026655/sections.json`);
+    const resp = await fetch(
+      `/api/v2/help_center/${locale}/categories/4961264026655/sections.json`
+    );
     const data = await resp.json();
     data.sections.forEach((section) => {
-      const li = document.createElement('li');
-      li.className = 'department-rail-item';
-      const a = document.createElement('a');
+      const li = document.createElement("li");
+      li.className = "department-rail-item";
+      const a = document.createElement("a");
       a.href = section.html_url;
       a.textContent = section.name;
       li.appendChild(a);
@@ -19,4 +21,4 @@ async function loadDepartments() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', loadDepartments);
+document.addEventListener("DOMContentLoaded", loadDepartments);
