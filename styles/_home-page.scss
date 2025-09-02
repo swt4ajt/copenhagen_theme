@@ -53,15 +53,9 @@
     grid-template-areas:
       "carousel carousel"
       "introduction quick-links"
-      "departments announcements"
+      "departments departments"
       "activity activity";
   }
-}
-
-/***** Carousel and introduction *****/
-
-#company-carousel {
-  grid-area: carousel;
 }
 
 /***** Carousel and introduction *****/
@@ -88,25 +82,22 @@
   margin-bottom: 40px;
 }
 
-#introductions-carousel {
+#introductions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
   text-align: center;
 
-  .carousel-item {
-    display: none;
-  }
+  .intro-item {
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
 
-  .carousel-item.active {
-    display: block;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-
-  h3 {
-    margin-bottom: 10px;
+    h3 {
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -144,25 +135,7 @@
 
 .departments { grid-area: departments; }
 
-.announcements { grid-area: announcements; }
-
-#announcements-carousel {
-  text-align: center;
-
-  .carousel-item {
-    display: none;
-  }
-
-  .carousel-item.active {
-    display: block;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-}
+.announcements { grid-area: carousel; }
 
 .activity { grid-area: activity; }
 

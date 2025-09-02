@@ -1,4 +1,6 @@
 /***** Community *****/
+$community_background_image: '' !default;
+
 .community {
   &-hero {
     background-image: url($community_background_image);
