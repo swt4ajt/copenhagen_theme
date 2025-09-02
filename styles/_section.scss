@@ -10,11 +10,12 @@
       flex: 0 0 80%;
     }
     flex: 1;
-    max-width: 100%
+    max-width: 100%;
   }
 
   &-subscribe button {
     @extend .button;
+
     &[data-selected="true"] {
       @extend .button-primary;
     }
@@ -53,9 +54,10 @@
   }
 }
 
+/* Introductions grid */
 #introductions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* responsive */
   gap: 32px;
   text-align: center;
 
@@ -78,6 +80,7 @@
       object-fit: cover;
       border-radius: 4px;
       margin-bottom: 12px;
+      display: block;
     }
 
     h3 {

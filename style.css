@@ -1621,12 +1621,14 @@ ul {
   display: none;
 }
 
+/* Introductions grid — cleaned & responsive */
 #introductions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 32px;
   text-align: center;
 }
+
 #introductions-grid .intro-item {
   background: #fff;
   border: 1px solid var(--low-contrast-border-color, #e0e0e0);
@@ -1634,11 +1636,13 @@ ul {
   padding: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+
 #introductions-grid .intro-item a {
   display: block;
   color: inherit;
   text-decoration: none;
 }
+
 #introductions-grid .intro-item img {
   width: 100%;
   height: 200px;
@@ -1646,12 +1650,15 @@ ul {
   border-radius: 4px;
   margin-bottom: 12px;
 }
+
 #introductions-grid .intro-item h3 {
   margin: 0 0 8px;
 }
+
 #introductions-grid .intro-item p {
   margin: 0;
 }
+
 
 /***** Article *****/
 .article {
