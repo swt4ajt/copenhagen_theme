@@ -1,0 +1,21 @@
+#request-form-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.request-form-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.request-form-card h3 {
+  margin-top: 0;
+}
+
+.request-form-card a {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
