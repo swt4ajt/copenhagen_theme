@@ -744,7 +744,7 @@
 
     try {
       const locale = document.documentElement.lang;
-      const resp = await fetch(`/api/v2/help_center/${locale}/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc`);
+      const resp = await fetch(`/api/v2/help_center/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc`);
       const data = await resp.json().catch(() => null);
       if (!data || !Array.isArray(data.articles)) return;
 
