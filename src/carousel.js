@@ -13,7 +13,8 @@
   const truncateWords = (text = "", n = 20) =>
     text.split(/\s+/).filter(Boolean).slice(0, n).join(" ");
 
-  const getLocale = () => (document.documentElement.lang || "en-us").toLowerCase();
+  const getLocale = () =>
+    (document.documentElement.lang || "en-us").toLowerCase();
 
   // --- Announcements (label: Announcements) ---
   async function loadAnnouncements() {
@@ -148,7 +149,9 @@
         const body = article.body || "";
         const title = article.title || "";
         const url = article.html_url || "#";
-        const img = extractFirstImage(body) || "https://via.placeholder.com/200?text=Pending%20Image";
+        const img =
+          extractFirstImage(body) ||
+          "https://via.placeholder.com/200?text=Pending%20Image";
         const text = truncateWords(stripHtml(body), 20);
 
         const div = document.createElement("div");
