@@ -48,15 +48,14 @@
   gap: 40px;
   grid-template-columns: 1fr;
 
-  @include desktop {
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-      "carousel carousel"
-      "introduction quick-links"
-      "departments departments"
-      "activity activity";
+    @include desktop {
+      grid-template-columns: 2fr 1fr;
+      grid-template-areas:
+        "carousel carousel"
+        "introduction quick-links"
+        "activity activity";
+    }
   }
-}
 
 /***** Carousel and introduction *****/
 
@@ -101,24 +100,20 @@
   }
 }
 
-.quick-links {
+.department-rail {
   grid-area: quick-links;
 
   &-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     list-style: none;
     padding: 0;
   }
 
   &-item {
-    flex: 1 1 120px;
-    margin: 10px;
+    margin-bottom: 10px;
 
     a {
       display: block;
-      padding: 20px;
+      padding: 12px 20px;
       background: $brand_color;
       border-radius: 8px;
       text-decoration: none;
@@ -132,8 +127,6 @@
     }
   }
 }
-
-.departments { grid-area: departments; }
 
 .announcements { grid-area: carousel; }
 

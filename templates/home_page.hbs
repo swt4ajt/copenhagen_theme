@@ -21,15 +21,10 @@
     <div id="introductions-grid" class="introductions-grid"></div>
   </section>
 
-  <section class="section departments">
+  <aside class="section department-rail">
     <h2>Departments</h2>
-    <section class="blocks">
-      <ul class="blocks-list"></ul>
-    </section>
-    <script id="departments-data" type="application/json">
-      {{settings.departments}}
-    </script>
-  </section>
+    <ul id="department-list" class="department-rail-list"></ul>
+  </aside>
 
   {{#if help_center.community_enabled}}
     <section class="section home-section community">
