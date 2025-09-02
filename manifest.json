@@ -194,19 +194,7 @@
           "value": "a,b,c"
         }
       ]
-    },
-    {
-      "label": "departments_group_label",
-      "variables": [
-        {
-          "identifier": "departments",
-          "type": "text",
-          "description": "departments_description",
-          "label": "departments_label",
-          "value": "Support, Sales, Billing"
-        }
-      ]
-    },
+    }
     {
       "label": "article_page_group_label",
       "variables": [
