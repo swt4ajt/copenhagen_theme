@@ -722,7 +722,7 @@
     }
   }
 
-  async function loadIntroductionTiles() {
+    async function loadIntroductionTiles() {
     if (!window.location.href.includes('4964692123039-Introductions')) return;
     const list = document.querySelector('.article-list');
     if (!list) return;
@@ -730,12 +730,12 @@
     const container = document.createElement('div');
     container.id = 'introductions-grid';
     list.parentNode.appendChild(container);
-      try {
-        const locale = document.documentElement.lang;
-        const resp = await fetch(`/api/v2/help_center/${locale}/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc`);
-        const data = await resp.json().catch(() => null);
-        if (!data) return;
-        data.articles.forEach((article) => {
+    try {
+      const locale = document.documentElement.lang;
+      const resp = await fetch(`/api/v2/help_center/${locale}/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc`);
+      const data = await resp.json().catch(() => null);
+      if (!data) return;
+      data.articles.forEach((article) => {
         const div = document.createElement('div');
         div.className = 'intro-item';
         const match = article.body.match(/<img[^>]+src="([^"]+)"/i);
@@ -751,7 +751,7 @@
     } catch (e) {
       // ignore errors
     }
-
+  }
 
   function init() {
     loadAnnouncements();
@@ -765,13 +765,13 @@
     const list = document.querySelector(".department-rail .blocks-list");
     if (!list) return;
     const locale = document.documentElement.lang;
-      try {
-        const resp = await fetch(
-          `/api/v2/help_center/${locale}/categories/4961264026655/sections.json`
-        );
-        const data = await resp.json().catch(() => null);
-        if (!data) return;
-        data.sections.forEach((section) => {
+    try {
+      const resp = await fetch(
+        `/api/v2/help_center/${locale}/categories/4961264026655/sections.json`
+      );
+      const data = await resp.json().catch(() => null);
+      if (!data) return;
+      data.sections.forEach((section) => {
         const li = document.createElement("li");
         li.className = "department-rail-item";
         const a = document.createElement("a");
@@ -786,3 +786,4 @@
   }
 
   document.addEventListener("DOMContentLoaded", loadDepartments);
+})(); // ← close the IIFE
