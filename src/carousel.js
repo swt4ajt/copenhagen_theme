@@ -57,7 +57,7 @@ async function loadIntroductions() {
         .split(/\s+/)
         .slice(0, 20)
         .join(" ");
-      div.innerHTML = `${img}<h3>${article.title}</h3><p>${text}...</p>`;
+      div.innerHTML = `<a href="${article.html_url}">${img}<h3>${article.title}</h3><p>${text}...</p></a>`;
       container.appendChild(div);
     });
   } catch (e) {

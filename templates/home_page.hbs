@@ -23,7 +23,13 @@
 
   <aside class="section department-rail">
     <h2>Departments</h2>
-    <ul id="department-list" class="department-rail-list"></ul>
+    <section class="blocks">
+      <ul class="blocks-list"></ul>
+    </section>
+    <script id="departments-data" type="application/json">
+      {{settings.departments}}
+    </script>
+  </section>
   </aside>
 
   {{#if help_center.community_enabled}}
