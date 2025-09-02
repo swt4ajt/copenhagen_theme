@@ -692,20 +692,23 @@
           const title = article.title || "";
           const url = article.html_url || "#";
 
-          if (container) {
-            const div = document.createElement("div");
-            div.className = "carousel-item";
-            const imgUrl = extractFirstImage(body);
-            const imgTag = imgUrl ? `<img src="${imgUrl}" alt="${title}">` : "";
+            if (container) {
+              const div = document.createElement("div");
+              div.className = "carousel-item";
+              const imgUrl = extractFirstImage(body);
 
-            const link = document.createElement("a");
-            link.href = url;
-            link.className = "carousel-link";
-            link.innerHTML = `${imgTag}<span class="carousel-caption">${title}</span>`;
+              const link = document.createElement("a");
+              link.href = url;
+              link.className = "carousel-link";
+              if (imgUrl) {
+                link.innerHTML = `<img src="${imgUrl}" alt="${title}"><span class="carousel-caption">${title}</span>`;
+              } else {
+                link.innerHTML = `<span class="carousel-caption no-image">${title}</span>`;
+              }
 
-            div.appendChild(link);
-            container.appendChild(div);
-          }
+              div.appendChild(link);
+              container.appendChild(div);
+            }
 
           if (list) {
             const li = document.createElement("li");

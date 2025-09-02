@@ -37,12 +37,15 @@
           const div = document.createElement("div");
           div.className = "carousel-item";
           const imgUrl = extractFirstImage(body);
-          const imgTag = imgUrl ? `<img src="${imgUrl}" alt="${title}">` : "";
 
           const link = document.createElement("a");
           link.href = url;
           link.className = "carousel-link";
-          link.innerHTML = `${imgTag}<span class="carousel-caption">${title}</span>`;
+          if (imgUrl) {
+            link.innerHTML = `<img src="${imgUrl}" alt="${title}"><span class="carousel-caption">${title}</span>`;
+          } else {
+            link.innerHTML = `<span class="carousel-caption no-image">${title}</span>`;
+          }
 
           div.appendChild(link);
           container.appendChild(div);
