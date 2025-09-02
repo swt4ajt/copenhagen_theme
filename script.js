@@ -748,7 +748,7 @@
     } catch (e) {
       // ignore errors
     }
-  }
+
 
   function init() {
     loadAnnouncements();
