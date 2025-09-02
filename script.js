@@ -782,5 +782,3 @@
   }
 
   document.addEventListener("DOMContentLoaded", loadDepartments);
-
-})();
