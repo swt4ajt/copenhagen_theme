@@ -1,46 +1,13 @@
 <h1 class="visibility-hidden">{{ help_center.name }}</h1>
 
-<section class="hero hero--brand">
-  <div class="hero-inner">
-    <h2>{{ help_center.name }}</h2>
-    <p>Your secure hub for company resources and updates.</p>
-    <a href="#company-carousel" class="btn btn-primary">Explore</a>
-  </div>
-</section>
-
 <div id="main-content" class="container intranet-grid">
-  <section class="section announcements">
-    <h2>Announcements</h2>
-    <div id="company-carousel" class="carousel"></div>
+  <section class="announcements">
+    <h2>Company Announcements</h2>
+    <ul id="announcement-list" class="announcement-list"></ul>
   </section>
 
-  <section class="section introduction">
-    <h2>Welcome to the Company Intranet</h2>
-    <p>Stay informed with announcements and explore resources for every department.</p>
-    <h2>New Hires</h2>
-    <div id="introductions-grid" class="introductions-grid"></div>
-  </section>
-
-  <aside class="section department-rail">
-    <h2>Departments</h2>
-    <section class="blocks">
-      <ul class="blocks-list"></ul>
-    </section>
-    <script id="departments-data" type="application/json">
-      {{settings.departments}}
-    </script>
-  </section>
+  <aside class="introductions">
+    <h2>Introductions</h2>
+    <ul id="introductions-list" class="introduction-list"></ul>
   </aside>
-
-  {{#if help_center.community_enabled}}
-    <section class="section home-section community">
-      <h2>{{t 'community'}}</h2>
-      {{#link 'community' class='community-link'}}
-        {{t 'join_conversation'}}
-      {{/link}}
-
-      <div class="community-image"></div>
-    </section>
-  {{/if}}
 </div>
-

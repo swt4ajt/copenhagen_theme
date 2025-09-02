@@ -1346,7 +1346,6 @@ ul {
 @media (min-width: 1024px) {
   .intranet-grid {
     grid-template-columns: 2fr 1fr;
-    grid-template-areas: "carousel carousel" "introduction quick-links" "departments departments" "activity activity";
   }
 }
 
@@ -1396,7 +1395,11 @@ ul {
   grid-area: quick-links;
 }
 .department-rail-list {
+
+.announcement-list,
+.introduction-list {
   list-style: none;
+  margin: 0;
   padding: 0;
 }
 .department-rail-item {
@@ -1424,8 +1427,9 @@ ul {
   grid-area: carousel;
 }
 
-.activity {
-  grid-area: activity;
+.announcement-item,
+.introduction-item {
+  margin-bottom: 20px;
 }
 
 /***** Promoted articles *****/

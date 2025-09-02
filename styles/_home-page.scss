@@ -50,97 +50,20 @@
 
   @include desktop {
     grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-      "carousel carousel"
-      "introduction quick-links"
-      "departments departments"
-      "activity activity";
   }
 }
 
-/***** Carousel and introduction *****/
-
-#company-carousel {
-  text-align: center;
-
-  .carousel-item {
-    display: none;
-    padding: 40px;
-    background: linear-gradient(135deg, $brand_color, zass-lighten($brand_color, 10%));
-    border-radius: 8px;
-    color: $brand_text_color;
-
-    img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      margin-bottom: 10px;
-    }
-  }
-
-  .carousel-item.active {
-    display: block;
-  }
+.announcement-list,
+.introduction-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.introduction {
-  grid-area: introduction;
-  text-align: center;
-  margin-bottom: 40px;
+.announcement-item,
+.introduction-item {
+  margin-bottom: 20px;
 }
-
-#introductions-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  text-align: center;
-
-  .intro-item {
-    a {
-      display: block;
-      color: inherit;
-      text-decoration: none;
-    }
-
-    h3 {
-      margin-bottom: 10px;
-    }
-  }
-}
-
-.department-rail {
-  grid-area: quick-links;
-
-  &-list {
-    list-style: none;
-    padding: 0;
-  }
-
-  &-item {
-    margin-bottom: 10px;
-
-    a {
-      display: block;
-      padding: 12px 20px;
-      background: $brand_color;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      color: $brand_text_color;
-      transition: background .3s;
-
-      &:hover {
-        background: zass-darken($brand_color, 5%);
-      }
-    }
-  }
-}
-
-.departments { grid-area: departments; }
-
-.announcements { grid-area: carousel; }
-
-.activity { grid-area: activity; }
 
 /***** Promoted articles *****/
 
