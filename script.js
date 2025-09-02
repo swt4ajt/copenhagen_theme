@@ -18,23 +18,22 @@
   }
 
   // Navigation
+
   window.addEventListener("DOMContentLoaded", () => {
     const menuButton = document.querySelector(".header .menu-button-mobile");
     const menuList = document.querySelector("#user-nav-mobile");
 
-    if (menuButton && menuList) {
-      menuButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-        toggleNavigation(menuButton, menuList);
-      });
+    menuButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleNavigation(menuButton, menuList);
+    });
 
-      menuList.addEventListener("keyup", (event) => {
-        if (event.keyCode === ESCAPE) {
-          event.stopPropagation();
-          closeNavigation(menuButton, menuList);
-        }
-      });
-    }
+    menuList.addEventListener("keyup", (event) => {
+      if (event.keyCode === ESCAPE) {
+        event.stopPropagation();
+        closeNavigation(menuButton, menuList);
+      }
+    });
 
     // Toggles expanded aria to collapsible elements
     const collapsible = document.querySelectorAll(
@@ -46,13 +45,12 @@
         ".collapsible-nav-toggle, .collapsible-sidebar-toggle"
       );
 
-      if (!toggle) return;
-
       element.addEventListener("click", () => {
         toggleNavigation(toggle, element);
       });
 
       element.addEventListener("keyup", (event) => {
+        console.log("escape");
         if (event.keyCode === ESCAPE) {
           closeNavigation(toggle, element);
         }
@@ -67,8 +65,7 @@
       if (filter.children.length > 6) {
         // Display the show more button
         const trigger = filter.querySelector(".see-all-filters");
-        if (!trigger) return;
-        trigger.setAttribute("aria-hidden", "false");
+        trigger.setAttribute("aria-hidden", false);
 
         // Add event handler for click
         trigger.addEventListener("click", (event) => {
@@ -81,7 +78,7 @@
   });
 
   const isPrintableChar = (str) => {
-    return str.length === 1 && /^\S$/.test(str);
+    return str.length === 1 && str.match(/^\S$/);
   };
 
   function Dropdown(toggle, menu) {
@@ -98,12 +95,8 @@
     this.menu.addEventListener("keydown", this.menuKeyHandler.bind(this));
     document.body.addEventListener("click", this.outsideClickHandler.bind(this));
 
-    const toggleId =
-      this.toggle.getAttribute("id") ||
-      (window.crypto && crypto.randomUUID ? crypto.randomUUID() : `toggle-${Date.now()}`);
-    const menuId =
-      this.menu.getAttribute("id") ||
-      (window.crypto && crypto.randomUUID ? crypto.randomUUID() : `menu-${Date.now() + 1}`);
+    const toggleId = this.toggle.getAttribute("id") || crypto.randomUUID();
+    const menuId = this.menu.getAttribute("id") || crypto.randomUUID();
 
     this.toggle.setAttribute("id", toggleId);
     this.menu.setAttribute("id", menuId);
@@ -111,7 +104,7 @@
     this.toggle.setAttribute("aria-controls", menuId);
     this.menu.setAttribute("aria-labelledby", toggleId);
 
-    this.menu.setAttribute("tabindex", "-1");
+    this.menu.setAttribute("tabindex", -1);
     this.menuItems.forEach((menuItem) => {
       menuItem.tabIndex = -1;
     });
@@ -132,6 +125,7 @@
 
     dismiss: function () {
       if (!this.isExpanded) return;
+
       this.toggle.removeAttribute("aria-expanded");
       this.menu.classList.remove("dropdown-menu-end", "dropdown-menu-top");
       this.focusedIndex = -1;
@@ -139,14 +133,15 @@
 
     open: function () {
       if (this.isExpanded) return;
-      this.toggle.setAttribute("aria-expanded", "true");
+
+      this.toggle.setAttribute("aria-expanded", true);
       this.handleOverflow();
     },
 
     handleOverflow: function () {
-      const rect = this.menu.getBoundingClientRect();
+      var rect = this.menu.getBoundingClientRect();
 
-      const overflow = {
+      var overflow = {
         right: rect.left < 0 || rect.left + rect.width > window.innerWidth,
         bottom: rect.top < 0 || rect.top + rect.height > window.innerHeight,
       };
@@ -210,7 +205,7 @@
       char = char.toLowerCase();
 
       const itemChars = this.menuItems.map((menuItem) =>
-        (menuItem.textContent || "").trim().charAt(0).toLowerCase()
+        menuItem.textContent.trim()[0].toLowerCase()
       );
 
       const startIndex =
@@ -358,7 +353,8 @@
     },
   };
 
-  // Dropdowns
+  // Drodowns
+
   window.addEventListener("DOMContentLoaded", () => {
     const dropdowns = [];
     const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
@@ -372,13 +368,13 @@
   });
 
   // Share
+
   window.addEventListener("DOMContentLoaded", () => {
     const links = document.querySelectorAll(".share a");
     links.forEach((anchor) => {
       anchor.addEventListener("click", (event) => {
         event.preventDefault();
-        if (!anchor.href) return;
-        window.open(anchor.href, "", "height=500,width=500");
+        window.open(anchor.href, "", "height = 500, width = 500");
       });
     });
   });
@@ -396,13 +392,14 @@
   }
 
   // Define variables for search field
-  const searchFormFilledClassName = "search-has-value";
-  const searchFormSelector = "form[role='search']";
+  let searchFormFilledClassName = "search-has-value";
+  let searchFormSelector = "form[role='search']";
 
   // Clear the search input, and then return focus to it
   function clearSearchInput(event) {
-    const formEl = event.target.closest(searchFormSelector);
-    if (formEl) formEl.classList.remove(searchFormFilledClassName);
+    event.target
+      .closest(searchFormSelector)
+      .classList.remove(searchFormFilledClassName);
 
     let input;
     if (event.target.tagName === "INPUT") {
@@ -410,16 +407,15 @@
     } else if (event.target.tagName === "BUTTON") {
       input = event.target.previousElementSibling;
     } else {
-      const btn = event.target.closest("button");
-      input = btn ? btn.previousElementSibling : null;
+      input = event.target.closest("button").previousElementSibling;
     }
-    if (input) {
-      input.value = "";
-      input.focus();
-    }
+    input.value = "";
+    input.focus();
   }
 
-  // Respond to Escape/Delete on search input
+  // Have the search input and clear button respond
+  // when someone presses the escape key, per:
+  // https://twitter.com/adambsilver/status/1152452833234554880
   function clearSearchInputOnKeypress(event) {
     const searchInputDeleteKeys = ["Delete", "Escape"];
     if (searchInputDeleteKeys.includes(event.key)) {
@@ -427,13 +423,17 @@
     }
   }
 
-  // Build the clear button
+  // Create an HTML button that all users -- especially keyboard users --
+  // can interact with, to clear the search input.
+  // To learn more about this, see:
+  // https://adrianroselli.com/2019/07/ignore-typesearch.html#Delete
+  // https://www.scottohara.me/blog/2022/02/19/custom-clear-buttons.html
   function buildClearSearchButton(inputId) {
     const button = document.createElement("button");
     button.setAttribute("type", "button");
     button.setAttribute("aria-controls", inputId);
     button.classList.add("clear-button");
-    const buttonLabel = window.searchClearButtonLabelLocalized || "Clear search";
+    const buttonLabel = window.searchClearButtonLabelLocalized;
     const icon = `<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' focusable='false' role='img' viewBox='0 0 12 12' aria-label='${buttonLabel}'><path stroke='currentColor' stroke-linecap='round' stroke-width='2' d='M3 9l6-6m0 6L3 3'/></svg>`;
     button.innerHTML = icon;
     button.addEventListener("click", clearSearchInput);
@@ -443,31 +443,32 @@
 
   // Append the clear button to the search form
   function appendClearSearchButton(input, form) {
-    const searchClearButton = buildClearSearchButton(input.id || "site-search");
+    const searchClearButton = buildClearSearchButton(input.id);
     form.append(searchClearButton);
     if (input.value.length > 0) {
       form.classList.add(searchFormFilledClassName);
     }
   }
 
-  // Toggle clear button (debounced)
+  // Add a class to the search form when the input has a value;
+  // Remove that class from the search form when the input doesn't have a value.
+  // Do this on a delay, rather than on every keystroke.
   const toggleClearSearchButtonAvailability = debounce((event) => {
     const form = event.target.closest(searchFormSelector);
-    if (!form) return;
     form.classList.toggle(
       searchFormFilledClassName,
       event.target.value.length > 0
     );
   }, 200);
 
-  // Search setup
+  // Search
+
   window.addEventListener("DOMContentLoaded", () => {
     // Set up clear functionality for the search field
     const searchForms = [...document.querySelectorAll(searchFormSelector)];
-    const searchInputs = searchForms
-      .map((form) => form.querySelector("input[type='search']"))
-      .filter(Boolean);
-
+    const searchInputs = searchForms.map((form) =>
+      form.querySelector("input[type='search']")
+    );
     searchInputs.forEach((input) => {
       appendClearSearchButton(input, input.closest(searchFormSelector));
       input.addEventListener("keyup", clearSearchInputOnKeypress);
@@ -478,12 +479,8 @@
   const key = "returnFocusTo";
 
   function saveFocus() {
-    const active = document.activeElement;
-    if (!active) return;
-    const activeElementId = active.getAttribute("id");
-    if (activeElementId) {
-      sessionStorage.setItem(key, "#" + activeElementId);
-    }
+    const activeElementId = document.activeElement.getAttribute("id");
+    sessionStorage.setItem(key, "#" + activeElementId);
   }
 
   function returnFocus() {
@@ -491,13 +488,12 @@
     if (returnFocusTo) {
       sessionStorage.removeItem("returnFocusTo");
       const returnFocusToEl = document.querySelector(returnFocusTo);
-      if (returnFocusToEl && returnFocusToEl.focus) {
-        returnFocusToEl.focus();
-      }
+      returnFocusToEl && returnFocusToEl.focus && returnFocusToEl.focus();
     }
   }
 
   // Forms
+
   window.addEventListener("DOMContentLoaded", () => {
     // In some cases we should preserve focus after page reload
     returnFocus();
@@ -510,16 +506,17 @@
       ".comment-form-controls, .comment-ccs"
     );
 
-    if (commentContainerTextarea && commentContainerFormControls) {
-      const focusCommentContainerTextarea = () => {
-        commentContainerFormControls.style.display = "block";
-        commentContainerTextarea.removeEventListener(
-          "focus",
-          focusCommentContainerTextarea
-        );
-      };
-
-      commentContainerTextarea.addEventListener("focus", focusCommentContainerTextarea);
+    if (commentContainerTextarea) {
+      commentContainerTextarea.addEventListener(
+        "focus",
+        function focusCommentContainerTextarea() {
+          commentContainerFormControls.style.display = "block";
+          commentContainerTextarea.removeEventListener(
+            "focus",
+            focusCommentContainerTextarea
+          );
+        }
+      );
 
       if (commentContainerTextarea.value !== "") {
         commentContainerFormControls.style.display = "block";
@@ -543,7 +540,7 @@
         Array.prototype.forEach.call(requestCommentFields, (element) => {
           element.style.display = "block";
         });
-        if (requestCommentSubmit) requestCommentSubmit.style.display = "inline-block";
+        requestCommentSubmit.style.display = "inline-block";
 
         if (commentContainerTextarea) {
           commentContainerTextarea.focus();
@@ -562,11 +559,11 @@
       ".request-container .comment-container input[type=submit]"
     );
 
-    if (requestMarkAsSolvedButton && requestMarkAsSolvedCheckbox && requestCommentSubmitButton) {
+    if (requestMarkAsSolvedButton) {
       requestMarkAsSolvedButton.addEventListener("click", () => {
-        requestMarkAsSolvedCheckbox.setAttribute("checked", "true");
+        requestMarkAsSolvedCheckbox.setAttribute("checked", true);
         requestCommentSubmitButton.disabled = true;
-        requestMarkAsSolvedButton.setAttribute("data-disabled", "true");
+        requestMarkAsSolvedButton.setAttribute("data-disabled", true);
         requestMarkAsSolvedButton.form.submit();
       });
     }
@@ -587,7 +584,7 @@
     function isEmptyHtml(xml) {
       const doc = new DOMParser().parseFromString(`<_>${xml}</_>`, "text/xml");
       const img = doc.querySelector("img");
-      return img === null && isEmptyPlaintext(doc.children[0].textContent || "");
+      return img === null && isEmptyPlaintext(doc.children[0].textContent);
     }
 
     const isEmpty = usesWysiwyg ? isEmptyHtml : isEmptyPlaintext;
@@ -661,136 +658,212 @@
     }
   });
 
-  // ----- DATA LOADERS -----
+  // --- Announcements + Introductions loaders (clean + safe) ---
 
-  async function loadAnnouncements() {
-    const container = document.querySelector('#announcement-carousel');
-    const list = document.querySelector('#announcement-list');
-    if (!container && !list) return;
+  (function () {
 
-    try {
-      const resp = await fetch('/api/v2/help_center/articles.json?label_names=Announcements&per_page=5&sort_by=created_at&sort_order=desc');
-      const data = await resp.json().catch(() => null);
-      if (!data || !Array.isArray(data.articles)) return;
+    // Helpers
+    const extractFirstImage = (html = "") => {
+      const m = html.match(/<img[^>]+src="([^"]+)"/i);
+      return m ? m[1] : null;
+    };
 
-      data.articles.forEach((article) => {
-        const body = article.body || '';
-        if (container) {
-          const div = document.createElement('div');
-          div.className = 'carousel-item';
-          const match = body.match(/<img[^>]+src="([^"]+)"/i);
-          const img = match ? `<img src="${match[1]}" alt="${article.title}" />` : '';
-          div.innerHTML = `${img}<span>${article.title}</span>`;
+    const stripHtml = (html = "") => html.replace(/<[^>]+>/g, "");
+    const truncateWords = (text = "", n = 20) =>
+      text.split(/\s+/).filter(Boolean).slice(0, n).join(" ");
+
+    const getLocale = () => (document.documentElement.lang || "en-us").toLowerCase();
+
+    // --- Announcements (label: Announcements) ---
+    async function loadAnnouncements() {
+      const container = document.querySelector("#announcement-carousel");
+      const list = document.querySelector("#announcement-list");
+      if (!container && !list) return;
+
+      try {
+        const resp = await fetch(
+          `/api/v2/help_center/${getLocale()}/articles.json?label_names=Announcements&per_page=4&sort_by=created_at&sort_order=desc`
+        );
+        const data = await resp.json().catch(() => null);
+        if (!data || !Array.isArray(data.articles)) return;
+
+        data.articles.forEach((article) => {
+          const body = article.body || "";
+          const title = article.title || "";
+          const url = article.html_url || "#";
+
+          if (container) {
+            const div = document.createElement("div");
+            div.className = "carousel-item";
+            const imgUrl = extractFirstImage(body);
+            const imgTag = imgUrl ? `<img src="${imgUrl}" alt="${title}">` : "";
+            div.innerHTML = `${imgTag}<span>${title}</span>`;
+            container.appendChild(div);
+          }
+
+          if (list) {
+            const li = document.createElement("li");
+            li.className = "announcement-item";
+            li.innerHTML = `<a href="${url}">${title}</a>`;
+            list.appendChild(li);
+          }
+        });
+
+        if (container && container.children.length) {
+          let index = 0;
+          const items = Array.from(container.children);
+          items[0].classList.add("active");
+          setInterval(() => {
+            items[index].classList.remove("active");
+            index = (index + 1) % items.length;
+            items[index].classList.add("active");
+          }, 5000);
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+
+    /**
+     * Small Introductions block:
+     * - If #introductions-carousel exists, render cards with image+title+snippet
+     * - If #introductions-list exists, render a simple UL list of titles
+     * Data source: articles labeled "introductions" (locale-aware)
+     */
+    async function loadIntroductions() {
+      const container = document.querySelector("#introductions-carousel");
+      const list = document.querySelector("#introductions-list");
+      if (!container && !list) return;
+
+      try {
+        const resp = await fetch(
+          `/api/v2/help_center/${getLocale()}/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc`
+        );
+        const data = await resp.json().catch(() => null);
+        if (!data || !Array.isArray(data.articles)) return;
+
+        data.articles.forEach((article) => {
+          const body = article.body || "";
+          const title = article.title || "";
+          const url = article.html_url || "#";
+          const imgUrl = extractFirstImage(body);
+          const imgTag = imgUrl ? `<img src="${imgUrl}" alt="${title}">` : "";
+          const text = truncateWords(stripHtml(body), 20);
+
+          if (container) {
+            const div = document.createElement("div");
+            div.className = "intro-item";
+            div.innerHTML = `<a href="${url}">${imgTag}<h3>${title}</h3><p>${text}...</p></a>`;
+            container.appendChild(div);
+          }
+
+          if (list) {
+            const li = document.createElement("li");
+            li.className = "introduction-item";
+            li.textContent = title;
+            list.appendChild(li);
+          }
+        });
+      } catch {
+        /* ignore */
+      }
+    }
+
+    /**
+     * Full Introductions section tiles:
+     * - Replaces the default `.article-list` with a grid of tiles for section 4964692123039
+     * - Locale-aware section endpoint
+     */
+    async function loadIntroductionTiles() {
+      // Only activate on the Introductions section page
+      if (!window.location.href.includes("4964692123039-Introductions")) return;
+
+      const list = document.querySelector(".article-list");
+      if (!list) return;
+
+      // Hide standard list and append grid
+      list.style.display = "none";
+      const container = document.createElement("div");
+      container.id = "introductions-grid";
+      list.parentNode.appendChild(container);
+
+      try {
+        const resp = await fetch(
+          `/api/v2/help_center/${getLocale()}/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc`
+        );
+        const data = await resp.json().catch(() => null);
+        if (!data || !Array.isArray(data.articles)) return;
+
+        data.articles.forEach((article) => {
+          const body = article.body || "";
+          const title = article.title || "";
+          const url = article.html_url || "#";
+          const img = extractFirstImage(body) || "https://via.placeholder.com/200?text=Pending%20Image";
+          const text = truncateWords(stripHtml(body), 20);
+
+          const div = document.createElement("div");
+          div.className = "intro-item";
+          div.innerHTML = `<a href="${url}"><img src="${img}" alt="${title}"><h3>${title}</h3><p>${text}...</p></a>`;
           container.appendChild(div);
-        }
-        if (list) {
-          const li = document.createElement('li');
-          li.className = 'announcement-item';
-          li.innerHTML = `<a href="${article.html_url}">${article.title}</a>`;
-          list.appendChild(li);
-        }
-      });
-    } catch (e) {
-      // ignore errors
+        });
+      } catch {
+        /* ignore */
+      }
     }
-  }
 
-  // Small “introductions” block (label-based)
-  async function loadIntroductions() {
-    const container = document.querySelector('#introductions-carousel');
-    const list = document.querySelector('#introductions-list');
-    if (!container && !list) return;
+    // Homepage introductions grid (latest 4 from section 4964692123039)
+    async function loadHomeIntroductionsGrid() {
+      if (window.location.href.includes("4964692123039-Introductions")) return;
 
-    try {
-      const resp = await fetch(`/api/v2/help_center/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc`);
-      const data = await resp.json().catch(() => null);
-      if (!data || !Array.isArray(data.articles)) return;
+      const container = document.querySelector("#introductions-grid");
+      if (!container) return;
 
-      data.articles.forEach((article) => {
-        const body = article.body || '';
-        const title = article.title || '';
-        const url = article.html_url || '#';
+      try {
+        const resp = await fetch(
+          `/api/v2/help_center/${getLocale()}/sections/4964692123039/articles.json?per_page=4&sort_by=created_at&sort_order=desc`
+        );
+        const data = await resp.json().catch(() => null);
+        if (!data || !Array.isArray(data.articles)) return;
 
-        const match = body.match(/<img[^>]+src="([^"]+)"/i);
-        const imgTag = match ? `<img src="${match[1]}" alt="${title}" />` : '';
-        const text = body.replace(/<[^>]+>/g, '').split(/\s+/).slice(0, 20).join(' ');
+        data.articles.slice(0, 4).forEach((article) => {
+          const body = article.body || "";
+          const title = article.title || "";
+          const url = article.html_url || "#";
+          const img =
+            extractFirstImage(body) ||
+            "https://via.placeholder.com/200?text=Pending%20Image";
+          const text = truncateWords(stripHtml(body), 20);
 
-        if (container) {
-          const div = document.createElement('div');
-          div.className = 'intro-item';
-          div.innerHTML = `<a href="${url}">${imgTag}<h3>${title}</h3><p>${text}...</p></a>`;
+          const div = document.createElement("div");
+          div.className = "intro-item";
+          div.innerHTML = `<a href="${url}"><img src="${img}" alt="${title}"><h3>${title}</h3><p>${text}...</p></a>`;
           container.appendChild(div);
-        }
-
-        if (list) {
-          const li = document.createElement('li');
-          li.className = 'introduction-item';
-          li.textContent = title;
-          list.appendChild(li);
-        }
-      });
-    } catch (e) {
-      // ignore errors
+        });
+      } catch {
+        /* ignore */
+      }
     }
-  }
 
-  // Section-wide tiles for Introductions (4964692123039)
-  async function loadIntroductionTiles() {
-    if (!window.location.href.includes('4964692123039-Introductions')) return;
-
-    const list = document.querySelector('.article-list');
-    if (!list) return;
-
-    list.style.display = 'none';
-
-    const container = document.createElement('div');
-    container.id = 'introductions-grid';
-    list.parentNode.appendChild(container);
-
-    try {
-      const locale = document.documentElement.lang || 'en-us';
-      const resp = await fetch(`/api/v2/help_center/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc`);
-      const data = await resp.json().catch(() => null);
-      if (!data || !Array.isArray(data.articles)) return;
-
-      data.articles.forEach((article) => {
-        const body = article.body || '';
-        const title = article.title || '';
-        const url = article.html_url || '#';
-        const match = body.match(/<img[^>]+src="([^"]+)"/i);
-        const img = match ? match[1] : 'https://via.placeholder.com/200?text=Pending%20Image';
-        const text = body.replace(/<[^>]+>/g, '').split(/\s+/).slice(0, 20).join(' ');
-
-        const div = document.createElement('div');
-        div.className = 'intro-item';
-        div.innerHTML = `<a href="${url}"><img src="${img}" alt="${title}" /><h3>${title}</h3><p>${text}...</p></a>`;
-        container.appendChild(div);
-      });
-    } catch (e) {
-      // ignore errors
+    // Bootstrap
+    function init() {
+      loadAnnouncements();
+      loadIntroductions();
+      loadIntroductionTiles();
+      loadHomeIntroductionsGrid();
     }
-  }
 
-  function init() {
-    loadAnnouncements();
-    loadIntroductions();
-    loadIntroductionTiles();
-  }
-
-  document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener("DOMContentLoaded", init);
+  })();
 
   async function loadDepartments() {
     const list = document.querySelector(".department-rail .blocks-list");
     if (!list) return;
-    const locale = document.documentElement.lang || 'en-us';
-
+    const locale = document.documentElement.lang;
     try {
       const resp = await fetch(
         `/api/v2/help_center/${locale}/categories/4961264026655/sections.json`
       );
-      const data = await resp.json().catch(() => null);
-      if (!data || !Array.isArray(data.sections)) return;
-
+      const data = await resp.json();
       data.sections.forEach((section) => {
         const li = document.createElement("li");
         li.className = "department-rail-item";
@@ -806,4 +879,5 @@
   }
 
   document.addEventListener("DOMContentLoaded", loadDepartments);
-})(); // ← close the IIFE
+
+})();
