@@ -18,22 +18,23 @@
   }
 
   // Navigation
-
   window.addEventListener("DOMContentLoaded", () => {
     const menuButton = document.querySelector(".header .menu-button-mobile");
     const menuList = document.querySelector("#user-nav-mobile");
 
-    menuButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      toggleNavigation(menuButton, menuList);
-    });
-
-    menuList.addEventListener("keyup", (event) => {
-      if (event.keyCode === ESCAPE) {
+    if (menuButton && menuList) {
+      menuButton.addEventListener("click", (event) => {
         event.stopPropagation();
-        closeNavigation(menuButton, menuList);
-      }
-    });
+        toggleNavigation(menuButton, menuList);
+      });
+
+      menuList.addEventListener("keyup", (event) => {
+        if (event.keyCode === ESCAPE) {
+          event.stopPropagation();
+          closeNavigation(menuButton, menuList);
+        }
+      });
+    }
 
     // Toggles expanded aria to collapsible elements
     const collapsible = document.querySelectorAll(
@@ -45,12 +46,13 @@
         ".collapsible-nav-toggle, .collapsible-sidebar-toggle"
       );
 
+      if (!toggle) return;
+
       element.addEventListener("click", () => {
         toggleNavigation(toggle, element);
       });
 
       element.addEventListener("keyup", (event) => {
-        console.log("escape");
         if (event.keyCode === ESCAPE) {
           closeNavigation(toggle, element);
         }
@@ -65,7 +67,8 @@
       if (filter.children.length > 6) {
         // Display the show more button
         const trigger = filter.querySelector(".see-all-filters");
-        trigger.setAttribute("aria-hidden", false);
+        if (!trigger) return;
+        trigger.setAttribute("aria-hidden", "false");
 
         // Add event handler for click
         trigger.addEventListener("click", (event) => {
@@ -78,7 +81,7 @@
   });
 
   const isPrintableChar = (str) => {
-    return str.length === 1 && str.match(/^\S$/);
+    return str.length === 1 && /^\S$/.test(str);
   };
 
   function Dropdown(toggle, menu) {
@@ -95,8 +98,8 @@
     this.menu.addEventListener("keydown", this.menuKeyHandler.bind(this));
     document.body.addEventListener("click", this.outsideClickHandler.bind(this));
 
-    const toggleId = this.toggle.getAttribute("id") || crypto.randomUUID();
-    const menuId = this.menu.getAttribute("id") || crypto.randomUUID();
+    const toggleId = this.toggle.getAttribute("id") || (crypto && crypto.randomUUID ? crypto.randomUUID() : `toggle-${Date.now()}`);
+    const menuId = this.menu.getAttribute("id") || (crypto && crypto.randomUUID ? crypto.randomUUID() : `menu-${Date.now() + 1}`);
 
     this.toggle.setAttribute("id", toggleId);
     this.menu.setAttribute("id", menuId);
@@ -104,7 +107,7 @@
     this.toggle.setAttribute("aria-controls", menuId);
     this.menu.setAttribute("aria-labelledby", toggleId);
 
-    this.menu.setAttribute("tabindex", -1);
+    this.menu.setAttribute("tabindex", "-1");
     this.menuItems.forEach((menuItem) => {
       menuItem.tabIndex = -1;
     });
@@ -125,7 +128,6 @@
 
     dismiss: function () {
       if (!this.isExpanded) return;
-
       this.toggle.removeAttribute("aria-expanded");
       this.menu.classList.remove("dropdown-menu-end", "dropdown-menu-top");
       this.focusedIndex = -1;
@@ -133,15 +135,14 @@
 
     open: function () {
       if (this.isExpanded) return;
-
-      this.toggle.setAttribute("aria-expanded", true);
+      this.toggle.setAttribute("aria-expanded", "true");
       this.handleOverflow();
     },
 
     handleOverflow: function () {
-      var rect = this.menu.getBoundingClientRect();
+      const rect = this.menu.getBoundingClientRect();
 
-      var overflow = {
+      const overflow = {
         right: rect.left < 0 || rect.left + rect.width > window.innerWidth,
         bottom: rect.top < 0 || rect.top + rect.height > window.innerHeight,
       };
@@ -205,7 +206,7 @@
       char = char.toLowerCase();
 
       const itemChars = this.menuItems.map((menuItem) =>
-        menuItem.textContent.trim()[0].toLowerCase()
+        (menuItem.textContent || "").trim().charAt(0).toLowerCase()
       );
 
       const startIndex =
@@ -353,8 +354,7 @@
     },
   };
 
-  // Drodowns
-
+  // Dropdowns
   window.addEventListener("DOMContentLoaded", () => {
     const dropdowns = [];
     const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
@@ -368,13 +368,13 @@
   });
 
   // Share
-
   window.addEventListener("DOMContentLoaded", () => {
     const links = document.querySelectorAll(".share a");
     links.forEach((anchor) => {
       anchor.addEventListener("click", (event) => {
         event.preventDefault();
-        window.open(anchor.href, "", "height = 500, width = 500");
+        if (!anchor.href) return;
+        window.open(anchor.href, "", "height=500,width=500");
       });
     });
   });
@@ -392,14 +392,13 @@
   }
 
   // Define variables for search field
-  let searchFormFilledClassName = "search-has-value";
-  let searchFormSelector = "form[role='search']";
+  const searchFormFilledClassName = "search-has-value";
+  const searchFormSelector = "form[role='search']";
 
   // Clear the search input, and then return focus to it
   function clearSearchInput(event) {
-    event.target
-      .closest(searchFormSelector)
-      .classList.remove(searchFormFilledClassName);
+    const formEl = event.target.closest(searchFormSelector);
+    if (formEl) formEl.classList.remove(searchFormFilledClassName);
 
     let input;
     if (event.target.tagName === "INPUT") {
@@ -407,15 +406,16 @@
     } else if (event.target.tagName === "BUTTON") {
       input = event.target.previousElementSibling;
     } else {
-      input = event.target.closest("button").previousElementSibling;
+      const btn = event.target.closest("button");
+      input = btn ? btn.previousElementSibling : null;
     }
-    input.value = "";
-    input.focus();
+    if (input) {
+      input.value = "";
+      input.focus();
+    }
   }
 
-  // Have the search input and clear button respond
-  // when someone presses the escape key, per:
-  // https://twitter.com/adambsilver/status/1152452833234554880
+  // Respond to Escape/Delete on search input
   function clearSearchInputOnKeypress(event) {
     const searchInputDeleteKeys = ["Delete", "Escape"];
     if (searchInputDeleteKeys.includes(event.key)) {
@@ -423,17 +423,13 @@
     }
   }
 
-  // Create an HTML button that all users -- especially keyboard users --
-  // can interact with, to clear the search input.
-  // To learn more about this, see:
-  // https://adrianroselli.com/2019/07/ignore-typesearch.html#Delete
-  // https://www.scottohara.me/blog/2022/02/19/custom-clear-buttons.html
+  // Build the clear button
   function buildClearSearchButton(inputId) {
     const button = document.createElement("button");
     button.setAttribute("type", "button");
     button.setAttribute("aria-controls", inputId);
     button.classList.add("clear-button");
-    const buttonLabel = window.searchClearButtonLabelLocalized;
+    const buttonLabel = window.searchClearButtonLabelLocalized || "Clear search";
     const icon = `<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' focusable='false' role='img' viewBox='0 0 12 12' aria-label='${buttonLabel}'><path stroke='currentColor' stroke-linecap='round' stroke-width='2' d='M3 9l6-6m0 6L3 3'/></svg>`;
     button.innerHTML = icon;
     button.addEventListener("click", clearSearchInput);
@@ -443,32 +439,31 @@
 
   // Append the clear button to the search form
   function appendClearSearchButton(input, form) {
-    const searchClearButton = buildClearSearchButton(input.id);
+    const searchClearButton = buildClearSearchButton(input.id || "site-search");
     form.append(searchClearButton);
     if (input.value.length > 0) {
       form.classList.add(searchFormFilledClassName);
     }
   }
 
-  // Add a class to the search form when the input has a value;
-  // Remove that class from the search form when the input doesn't have a value.
-  // Do this on a delay, rather than on every keystroke.
+  // Toggle clear button (debounced)
   const toggleClearSearchButtonAvailability = debounce((event) => {
     const form = event.target.closest(searchFormSelector);
+    if (!form) return;
     form.classList.toggle(
       searchFormFilledClassName,
       event.target.value.length > 0
     );
   }, 200);
 
-  // Search
-
+  // Search setup
   window.addEventListener("DOMContentLoaded", () => {
     // Set up clear functionality for the search field
     const searchForms = [...document.querySelectorAll(searchFormSelector)];
     const searchInputs = searchForms.map((form) =>
       form.querySelector("input[type='search']")
-    );
+    ).filter(Boolean);
+
     searchInputs.forEach((input) => {
       appendClearSearchButton(input, input.closest(searchFormSelector));
       input.addEventListener("keyup", clearSearchInputOnKeypress);
@@ -479,8 +474,12 @@
   const key = "returnFocusTo";
 
   function saveFocus() {
-    const activeElementId = document.activeElement.getAttribute("id");
-    sessionStorage.setItem(key, "#" + activeElementId);
+    const active = document.activeElement;
+    if (!active) return;
+    const activeElementId = active.getAttribute("id");
+    if (activeElementId) {
+      sessionStorage.setItem(key, "#" + activeElementId);
+    }
   }
 
   function returnFocus() {
@@ -488,12 +487,13 @@
     if (returnFocusTo) {
       sessionStorage.removeItem("returnFocusTo");
       const returnFocusToEl = document.querySelector(returnFocusTo);
-      returnFocusToEl && returnFocusToEl.focus && returnFocusToEl.focus();
+      if (returnFocusToEl && returnFocusToEl.focus) {
+        returnFocusToEl.focus();
+      }
     }
   }
 
   // Forms
-
   window.addEventListener("DOMContentLoaded", () => {
     // In some cases we should preserve focus after page reload
     returnFocus();
@@ -506,17 +506,16 @@
       ".comment-form-controls, .comment-ccs"
     );
 
-    if (commentContainerTextarea) {
-      commentContainerTextarea.addEventListener(
-        "focus",
-        function focusCommentContainerTextarea() {
-          commentContainerFormControls.style.display = "block";
-          commentContainerTextarea.removeEventListener(
-            "focus",
-            focusCommentContainerTextarea
-          );
-        }
-      );
+    if (commentContainerTextarea && commentContainerFormControls) {
+      const focusCommentContainerTextarea = () => {
+        commentContainerFormControls.style.display = "block";
+        commentContainerTextarea.removeEventListener(
+          "focus",
+          focusCommentContainerTextarea
+        );
+      };
+
+      commentContainerTextarea.addEventListener("focus", focusCommentContainerTextarea);
 
       if (commentContainerTextarea.value !== "") {
         commentContainerFormControls.style.display = "block";
@@ -540,7 +539,7 @@
         Array.prototype.forEach.call(requestCommentFields, (element) => {
           element.style.display = "block";
         });
-        requestCommentSubmit.style.display = "inline-block";
+        if (requestCommentSubmit) requestCommentSubmit.style.display = "inline-block";
 
         if (commentContainerTextarea) {
           commentContainerTextarea.focus();
@@ -559,11 +558,11 @@
       ".request-container .comment-container input[type=submit]"
     );
 
-    if (requestMarkAsSolvedButton) {
+    if (requestMarkAsSolvedButton && requestMarkAsSolvedCheckbox && requestCommentSubmitButton) {
       requestMarkAsSolvedButton.addEventListener("click", () => {
-        requestMarkAsSolvedCheckbox.setAttribute("checked", true);
+        requestMarkAsSolvedCheckbox.setAttribute("checked", "true");
         requestCommentSubmitButton.disabled = true;
-        requestMarkAsSolvedButton.setAttribute("data-disabled", true);
+        requestMarkAsSolvedButton.setAttribute("data-disabled", "true");
         requestMarkAsSolvedButton.form.submit();
       });
     }
@@ -584,7 +583,7 @@
     function isEmptyHtml(xml) {
       const doc = new DOMParser().parseFromString(`<_>${xml}</_>`, "text/xml");
       const img = doc.querySelector("img");
-      return img === null && isEmptyPlaintext(doc.children[0].textContent);
+      return img === null && isEmptyPlaintext(doc.children[0].textContent || "");
     }
 
     const isEmpty = usesWysiwyg ? isEmptyHtml : isEmptyPlaintext;
@@ -658,19 +657,23 @@
     }
   });
 
+  // ----- DATA LOADERS -----
+
   async function loadAnnouncements() {
     const container = document.querySelector('#announcement-carousel');
     const list = document.querySelector('#announcement-list');
     if (!container && !list) return;
-      try {
-        const resp = await fetch('/api/v2/help_center/articles.json?label_names=Announcements&per_page=5&sort_by=created_at&sort_order=desc');
-        const data = await resp.json().catch(() => null);
-        if (!data) return;
-        data.articles.forEach((article) => {
+
+    try {
+      const resp = await fetch('/api/v2/help_center/articles.json?label_names=Announcements&per_page=5&sort_by=created_at&sort_order=desc');
+      const data = await resp.json().catch(() => null);
+      if (!data || !Array.isArray(data.articles)) return;
+
+      data.articles.forEach((article) => {
         if (container) {
           const div = document.createElement('div');
           div.className = 'carousel-item';
-          const match = article.body.match(/<img[^>]+src="([^"]+)"/i);
+          const match = (article.body || '').match(/<img[^>]+src="([^"]+)"/i);
           const img = match ? `<img src="${match[1]}" alt="${article.title}" />` : '';
           div.innerHTML = `${img}<span>${article.title}</span>`;
           container.appendChild(div);
@@ -687,49 +690,70 @@
     }
   }
 
+  // Shows a small “introductions” carousel/list, based on the label.
   async function loadIntroductions() {
-    const container = document.querySelector('#introductions-grid');
-    if (!container) return;
-      try {
-        const resp = await fetch('/api/v2/help_center/sections/4964692123039/articles.json?per_page=5&sort_by=created_at&sort_order=desc');
-        const data = await resp.json().catch(() => null);
-        if (!data) return;
-        data.articles.forEach((article) => {
-        const div = document.createElement('div');
-        div.className = 'intro-item';
-        const match = article.body.match(/<img[^>]+src="([^"]+)"/i);
-        const img = match ? match[1] : 'https://via.placeholder.com/200?text=Pending%20Image';
-        const text = article.body
+    const container = document.querySelector('#introductions-carousel');
+    const list = document.querySelector('#introductions-list');
+    if (!container && !list) return;
+
+    try {
+      const resp = await fetch(`/api/v2/help_center/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc`);
+      const data = await resp.json().catch(() => null);
+      if (!data || !Array.isArray(data.articles)) return;
+
+      data.articles.forEach((article) => {
+        const match = (article.body || '').match(/<img[^>]+src="([^"]+)"/i);
+        const text = (article.body || '')
           .replace(/<[^>]+>/g, '')
           .split(/\s+/)
           .slice(0, 20)
           .join(' ');
-        div.innerHTML = `<a href="${article.html_url}"><img src="${img}" alt="${article.title}" /><h3>${article.title}</h3><p>${text}...</p></a>`;
-        container.appendChild(div);
+
+        if (container) {
+          const div = document.createElement('div');
+          div.className = 'intro-item';
+          const img = match ? `<img src="${match[1]}" alt="${article.title}" />` : '';
+          div.innerHTML = `<a href="${article.html_url}">${img}<h3>${article.title}</h3><p>${text}...</p></a>`;
+          container.appendChild(div);
+        }
+
+        if (list) {
+          const li = document.createElement('li');
+          li.className = 'introduction-item';
+          li.textContent = article.title;
+          list.appendChild(li);
+        }
       });
     } catch (e) {
       // ignore errors
     }
   }
 
+  // Replaces the section list with a tile grid for Introductions section (4964692123039)
   async function loadIntroductionTiles() {
     if (!window.location.href.includes('4964692123039-Introductions')) return;
+
     const list = document.querySelector('.article-list');
     if (!list) return;
+
     list.style.display = 'none';
+
     const container = document.createElement('div');
     container.id = 'introductions-grid';
     list.parentNode.appendChild(container);
-      try {
-        const resp = await fetch('/api/v2/help_center/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc');
-        const data = await resp.json().catch(() => null);
-        if (!data) return;
-        data.articles.forEach((article) => {
+
+    try {
+      const locale = document.documentElement.lang;
+      const resp = await fetch(`/api/v2/help_center/${locale}/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc`);
+      const data = await resp.json().catch(() => null);
+      if (!data || !Array.isArray(data.articles)) return;
+
+      data.articles.forEach((article) => {
         const div = document.createElement('div');
         div.className = 'intro-item';
-        const match = article.body.match(/<img[^>]+src="([^"]+)"/i);
+        const match = (article.body || '').match(/<img[^>]+src="([^"]+)"/i);
         const img = match ? match[1] : 'https://via.placeholder.com/200?text=Pending%20Image';
-        const text = article.body
+        const text = (article.body || '')
           .replace(/<[^>]+>/g, '')
           .split(/\s+/)
           .slice(0, 20)
@@ -754,13 +778,15 @@
     const list = document.querySelector(".department-rail .blocks-list");
     if (!list) return;
     const locale = document.documentElement.lang;
-      try {
-        const resp = await fetch(
-          `/api/v2/help_center/${locale}/categories/4961264026655/sections.json`
-        );
-        const data = await resp.json().catch(() => null);
-        if (!data) return;
-        data.sections.forEach((section) => {
+
+    try {
+      const resp = await fetch(
+        `/api/v2/help_center/${locale}/categories/4961264026655/sections.json`
+      );
+      const data = await resp.json().catch(() => null);
+      if (!data || !Array.isArray(data.sections)) return;
+
+      data.sections.forEach((section) => {
         const li = document.createElement("li");
         li.className = "department-rail-item";
         const a = document.createElement("a");
@@ -775,5 +801,4 @@
   }
 
   document.addEventListener("DOMContentLoaded", loadDepartments);
-
-})();
+})(); // ← close the IIFE
