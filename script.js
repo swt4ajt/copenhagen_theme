@@ -697,7 +697,13 @@
             div.className = "carousel-item";
             const imgUrl = extractFirstImage(body);
             const imgTag = imgUrl ? `<img src="${imgUrl}" alt="${title}">` : "";
-            div.innerHTML = `${imgTag}<span>${title}</span>`;
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.className = "carousel-link";
+            link.innerHTML = `${imgTag}<span class="carousel-caption">${title}</span>`;
+
+            div.appendChild(link);
             container.appendChild(div);
           }
 
@@ -861,7 +867,7 @@
     const locale = document.documentElement.lang;
     try {
       const resp = await fetch(
-        `/api/v2/help_center/categories/4961264026655/sections.json`
+        `/api/v2/help_center/${locale}/categories/4961264026655/sections.json`
       );
       const data = await resp.json();
       data.sections.forEach((section) => {

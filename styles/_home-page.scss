@@ -68,16 +68,36 @@
 .announcement-carousel {
   position: relative;
   overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   .carousel-item {
     display: none;
-    text-align: center;
+
+    .carousel-link {
+      display: block;
+      position: relative;
+      text-decoration: none;
+      color: inherit;
+    }
 
     img {
       width: 100%;
       display: block;
       max-height: 300px;
-      object-fit: contain;
+      object-fit: cover;
+    }
+
+    .carousel-caption {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      box-sizing: border-box;
+      text-align: center;
     }
   }
 
