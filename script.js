@@ -691,7 +691,7 @@ async function loadIntroductions() {
   try {
     const locale = document.documentElement.lang;
     const resp = await fetch(
-      `/api/v2/help_center/${locale}/articles.json?label_names=introductions&per_page=100&sort_by=created_at&sort_order=desc`
+      `/api/v2/help_center/articles.json?label_names=introductions&per_page=100&sort_order=desc`
     );
     const data = await resp.json();
     data.articles.forEach((article) => {
