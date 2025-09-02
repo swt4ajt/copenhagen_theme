@@ -13,6 +13,159 @@
   text-align: center;
 }
 
+/***** Hero branding *****/
+
+.hero--brand {
+  background: linear-gradient(135deg, $brand_color, zass-lighten($brand_color, 15%));
+  color: $brand_text_color;
+  padding: 80px 20px;
+  text-align: center;
+
+  .hero-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .btn {
+    background: $brand_text_color;
+    border: 0;
+    border-radius: 4px;
+    color: $brand_color;
+    font-weight: $font-weight-semibold;
+    padding: 12px 32px;
+    transition: background .3s;
+
+    &:hover {
+      background: zass-lighten($brand_text_color, 10%);
+    }
+  }
+}
+
+/***** Intranet layout *****/
+
+.intranet-grid {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 1fr;
+
+  @include desktop {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "carousel carousel"
+      "introduction quick-links"
+      "departments announcements"
+      "activity activity";
+  }
+}
+
+/***** Carousel and introduction *****/
+
+#company-carousel {
+  grid-area: carousel;
+}
+
+/***** Carousel and introduction *****/
+
+#company-carousel {
+  text-align: center;
+
+  .carousel-item {
+    display: none;
+    padding: 40px;
+    background: linear-gradient(135deg, $brand_color, zass-lighten($brand_color, 10%));
+    border-radius: 8px;
+    color: $brand_text_color;
+  }
+
+  .carousel-item.active {
+    display: block;
+  }
+}
+
+.introduction {
+  grid-area: introduction;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#introductions-carousel {
+  text-align: center;
+
+  .carousel-item {
+    display: none;
+  }
+
+  .carousel-item.active {
+    display: block;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    margin-bottom: 10px;
+  }
+}
+
+.quick-links {
+  grid-area: quick-links;
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+  }
+
+  &-item {
+    flex: 1 1 120px;
+    margin: 10px;
+
+    a {
+      display: block;
+      padding: 20px;
+      background: $brand_color;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: $brand_text_color;
+      transition: background .3s;
+
+      &:hover {
+        background: zass-darken($brand_color, 5%);
+      }
+    }
+  }
+}
+
+.departments { grid-area: departments; }
+
+.announcements { grid-area: announcements; }
+
+#announcements-carousel {
+  text-align: center;
+
+  .carousel-item {
+    display: none;
+  }
+
+  .carousel-item.active {
+    display: block;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+}
+
+.activity { grid-area: activity; }
+
 /***** Promoted articles *****/
 
 .promoted-articles {
@@ -58,23 +211,7 @@
 
 }
 
-/***** Community section in homepage *****/
-.community {
-  text-align: center;
 
-  &-image {
-    min-height: 300px;
-    margin-top: 32px;
-    background-image: url($community_image);
-    background-position: center;
-    background-repeat: no-repeat;
-    max-width: 100%;
-  }
-
-  @include standalone-link;
-}
-
-.community,
 .activity {
   border-top: 1px solid $low-contrast-border-color;
   padding: 30px 0;

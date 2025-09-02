@@ -15,13 +15,17 @@
   "brand_group_label": "Marque",
   "brand_text_color_description": "Couleur de la marque pour les états Survol et Actif",
   "brand_text_color_label": "Couleur du texte de la marque",
+  "carousel_description": "JSON array of slides to display on home page carousel",
+  "carousel_group_label": "Carousel",
+  "carousel_label": "Carousel items",
   "colors_group_label": "Couleurs",
   "community_background_image_description": "Image de premier plan sur la page des sujets de la communauté",
   "community_background_image_label": "Image de premier plan pour la communauté",
-  "community_image_description": "Image pour la section Communauté de la page d’accueil",
-  "community_image_label": "Bannière Communauté",
   "community_post_group_label": "Éléments des publications dans la communauté",
   "community_topic_group_label": "Éléments des sujets de la communauté",
+  "departments_description": "JSON array of departments to display on home page",
+  "departments_group_label": "Departments",
+  "departments_label": "Departments",
   "favicon_description": "Icône affichée dans la barre d’adresse de votre navigateur",
   "favicon_label": "Favoricône",
   "follow_article_description": "Les utilisateurs peuvent s’abonner à un article spécifique",
@@ -72,5 +76,7 @@
   "text_font_description": "Police pour le texte du corps",
   "text_font_label": "Police du texte",
   "visited_link_color_description": "Couleur du texte pour les éléments de liens consultés",
-  "visited_link_color_label": "Couleur des liens consultés"
+  "visited_link_color_label": "Couleur des liens consultés",
+  "departments_description": "JSON array of departments to display on home page",
+  "departments_label": "Departments"
 }

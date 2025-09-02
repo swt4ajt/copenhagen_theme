@@ -15,13 +15,17 @@
   "brand_group_label": "Brand",
   "brand_text_color_description": "Brand colour for hover and active states",
   "brand_text_color_label": "Brand text colour",
+  "carousel_description": "JSON array of slides to display on home page carousel",
+  "carousel_group_label": "Carousel",
+  "carousel_label": "Carousel items",
   "colors_group_label": "Colours",
   "community_background_image_description": "Hero image on the community topics page",
   "community_background_image_label": "Community hero image",
-  "community_image_description": "Image for the community section on the home page",
-  "community_image_label": "Community banner",
   "community_post_group_label": "Community post elements",
   "community_topic_group_label": "Community topic elements",
+  "departments_description": "JSON array of departments to display on home page",
+  "departments_group_label": "Departments",
+  "departments_label": "Departments",
   "favicon_description": "Icon displayed in the address bar of your browser",
   "favicon_label": "Favicon",
   "follow_article_description": "Users can follow a specific article",
@@ -72,5 +76,7 @@
   "text_font_description": "Font for body text",
   "text_font_label": "Text Font",
   "visited_link_color_description": "Text colour for visited link elements",
-  "visited_link_color_label": "Visited link colour"
+  "visited_link_color_label": "Visited link colour",
+  "departments_description": "JSON array of departments to display on home page",
+  "departments_label": "Departments"
 }

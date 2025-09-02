@@ -1,40 +1,87 @@
 <h1 class="visibility-hidden">{{ help_center.name }}</h1>
 
-<section id="main-content" class="section hero">
-    <div class="hero-inner">
-        <h2 class="visibility-hidden">{{ t 'search' }}</h2>
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="search-icon" aria-hidden="true">
-            <circle cx="4.5" cy="4.5" r="4" fill="none" stroke="currentColor"/>
-            <path stroke="currentColor" stroke-linecap="round" d="M11 11L7.5 7.5"/>
-        </svg>
-        {{search submit=false instant=settings.instant_search class='search search-full'}}
-    </div>
+<div id="main-content" class="container">
+<section class="hero hero--brand">
+  <div class="hero-inner">
+    <h2>{{ help_center.name }}</h2>
+    <p>Your secure hub for company resources and updates.</p>
+    <a href="#company-carousel" class="btn btn-primary">Explore</a>
+  </div>
 </section>
 
+<div id="main-content" class="container intranet-grid">
 <div class="container">
-    {{#if user.authenticated}}
-        <section class="section user-content">
-            <h2>{{ t 'your_content' }}</h2>
-            <ul class="content-list">
-                {{#each categories}}
-                    <li class="content-item">
-                        <span class="label">Label-{{name}}</span>
-                        <ul class="articles-list">
-                            {{#each articles}}
-                                <li class="article-item">
-                                    <span class="label">Label-{{../name}}-{{title}}</span>
-                                    <a href="{{url}}">{{title}}</a>
-                                </li>
-                            {{/each}}
-                        </ul>
-                    </li>
-                {{/each}}
-            </ul>
-        </section>
-    {{else}}
-        <section class="section unauthenticated-message">
-            <h2>{{ t 'browse_site' }}</h2>
-            <p>{{ t 'unauthenticated_browse_message' }}</p>
-        </section>
-    {{/if}}
+  <section id="company-carousel" class="carousel section">
+    <script id="carousel-data" type="application/json">
+      {{{settings.carousel}}}
+    </script>
+  </section>
+
+  <section class="section introduction">
+    <h2>Welcome to the Company Intranet</h2>
+    <p>Stay informed with announcements and explore resources for every department.</p>
+    <h2>Introductions</h2>
+    <div id="introductions-carousel" class="carousel"></div>
+  </section>
+
+  <section class="section departments">
+    <h2>Departments</h2>
+    <section class="blocks">
+      <ul class="blocks-list"></ul>
+    </section>
+    <script id="departments-data" type="application/json">
+      {{{settings.departments}}}
+    </script>
+  </section>
+
+  {{#if promoted_articles}}
+  <section class="section announcements">
+    <h2>Announcements</h2>
+    <ul class="article-list promoted-articles">
+      {{#each promoted_articles}}
+        <li class="promoted-articles-item">
+          <a href="{{url}}">
+            {{title}}
+            {{#if internal}}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16" class="icon-lock" title="{{t 'internal'}}">
+                <rect width="12" height="9" x="2" y="7" fill="currentColor" rx="1" ry="1"/>
+                <path fill="none" stroke="currentColor" d="M4.5 7.5V4a3.5 3.5 0 017 0v3.5"/>
+              </svg>
+            {{/if}}
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+  </section>
+  {{/if}}
+
+  {{#if help_center.community_enabled}}
+    <section class="section home-section community">
+      <h2>{{t 'community'}}</h2>
+      {{#link 'community' class='community-link'}}
+        {{t 'join_conversation'}}
+      {{/link}}
+
+      <div class="community-image"></div>
+    <section class="section announcements">
+      <h2>Announcements</h2>
+      <div id="announcements-carousel" class="carousel">
+        {{#each promoted_articles}}
+          <div class="carousel-item" data-article-id="{{id}}">
+            <a href="{{url}}">
+              <img alt="{{title}}" />
+              <span>{{title}}</span>
+              {{#if internal}}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16" class="icon-lock" title="{{t 'internal'}}">
+                  <rect width="12" height="9" x="2" y="7" fill="currentColor" rx="1" ry="1"/>
+                  <path fill="none" stroke="currentColor" d="M4.5 7.5V4a3.5 3.5 0 017 0v3.5"/>
+                </svg>
+              {{/if}}
+            </a>
+          </div>
+        {{/each}}
+      </div>
+    </section>
+  {{/if}}
+
 </div>

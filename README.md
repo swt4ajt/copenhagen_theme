@@ -76,6 +76,10 @@ List of templates in the theme:
 * Section page
 * Subscriptions page
 * User profile page
+* Service list page (optional, service catalog specific)
+* Service page (optional, service catalog specific)
+* Approval request list page (optional, approvals specific)
+* Approval request page (optional, approvals specific)
 
 You can add up to 10 optional templates for:
  * Article page

@@ -6,12 +6,6 @@ import {
   Message,
   FileList,
 } from "@zendeskgarden/react-forms";
-import {
-  Close,
-  Notification,
-  Title,
-  useToast,
-} from "@zendeskgarden/react-notifications";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "react-i18next";
@@ -19,9 +13,11 @@ import type { AttachmentField } from "../../data-types";
 import { FileListItem } from "./FileListItem";
 import type { AttachedFile } from "./useAttachedFiles";
 import { useAttachedFiles } from "./useAttachedFiles";
+import { useNotify } from "../../../shared/notifications/useNotify";
 
 interface AttachmentProps {
   field: AttachmentField;
+  baseLocale: string;
 }
 
 async function fetchCsrfToken() {
@@ -42,7 +38,10 @@ export interface UploadFileResponse {
   };
 }
 
-export function Attachments({ field }: AttachmentProps): JSX.Element {
+export function Attachments({
+  field,
+  baseLocale,
+}: AttachmentProps): JSX.Element {
   const { label, error, name, attachments } = field;
   const {
     files,
@@ -58,33 +57,69 @@ export function Attachments({ field }: AttachmentProps): JSX.Element {
     })) ?? []
   );
 
-  const { addToast } = useToast();
+  const notify = useNotify();
   const { t } = useTranslation();
 
-  const notifyError = useCallback(
-    (fileName: string) => {
-      addToast(({ close }) => (
-        <Notification type="error">
-          <Title>
-            {t(
-              "new-request-form.attachments.upload-error-title",
-              "Upload error"
-            )}
-          </Title>
-          {t(
+  const uploadFailedTitle = useCallback(
+    (file: File) => {
+      return t(
+        "new-request-form.attachments.upload-failed-title",
+        "Upload failed",
+        { fileName: file.name }
+      );
+    },
+    [t]
+  );
+
+  const convertError = useCallback(
+    (file: File, xhr: XMLHttpRequest) => {
+      if (
+        xhr.response?.error == "RecordInvalid" &&
+        !!xhr.response?.details?.base
+      ) {
+        const errorMessage = xhr.response?.details?.base
+          ?.map(
+            (errorString: { description: string }) => errorString?.description
+          )
+          .join(t("new-request-form.attachments.error-separator", "; "));
+        return {
+          title: uploadFailedTitle(file),
+          errorMessage,
+        };
+      } else if (
+        xhr.response?.error == "AttachmentFilenameTooLong" ||
+        xhr.response?.error == "AttachmentTooLarge"
+      ) {
+        return {
+          title: uploadFailedTitle(file),
+          errorMessage: xhr.response?.description,
+        };
+      } else {
+        return {
+          title: t(
+            "new-request-form.attachments.upload-error-title",
+            "Upload error"
+          ),
+          errorMessage: t(
             "new-request-form.attachments.upload-error-description",
             "There was an error uploading {{fileName}}. Try again or upload another file.",
-            { fileName }
-          )}
-
-          <Close
-            aria-label={t("new-request-form.close-label", "Close")}
-            onClick={close}
-          />
-        </Notification>
-      ));
+            { fileName: file.name }
+          ),
+        };
+      }
     },
-    [addToast, t]
+    [t, uploadFailedTitle]
+  );
+
+  const notifyError = useCallback(
+    (title: string, errorMessage: string) => {
+      notify({
+        title,
+        message: errorMessage,
+        type: "error",
+      });
+    },
+    [notify]
   );
 
   const onDrop = useCallback(
@@ -96,6 +131,7 @@ export function Attachments({ field }: AttachmentProps): JSX.Element {
 
         const url = new URL(`${window.location.origin}/api/v2/uploads.json`);
         url.searchParams.append("filename", file.name);
+        url.searchParams.append("locale", baseLocale);
         xhr.open("POST", url);
 
         // If the browser returns a type for the file, use it as the Content-Type header,
@@ -134,13 +170,15 @@ export function Attachments({ field }: AttachmentProps): JSX.Element {
             } = xhr.response as UploadFileResponse;
             setUploaded(pendingId, { id: token, file_name, url: content_url });
           } else {
-            notifyError(file.name);
+            const { title, errorMessage } = convertError(file, xhr);
+            notifyError(title, errorMessage);
             removePendingFile(pendingId);
           }
         });
 
         xhr.addEventListener("error", () => {
-          notifyError(file.name);
+          const { title, errorMessage } = convertError(file, xhr);
+          notifyError(title, errorMessage);
           removePendingFile(pendingId);
         });
 
@@ -153,6 +191,8 @@ export function Attachments({ field }: AttachmentProps): JSX.Element {
       setPendingFileProgress,
       setUploaded,
       notifyError,
+      convertError,
+      baseLocale,
     ]
   );
 

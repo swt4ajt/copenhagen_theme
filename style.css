@@ -1313,6 +1313,142 @@ ul {
   text-align: center;
 }
 
+/***** Hero branding *****/
+.hero--brand {
+  background: linear-gradient(135deg, $brand_color, lighten($brand_color, 15%));
+  color: $brand_text_color;
+  padding: 80px 20px;
+  text-align: center;
+}
+.hero--brand .hero-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.hero--brand .btn {
+  background: $brand_text_color;
+  border: 0;
+  border-radius: 4px;
+  color: $brand_color;
+  font-weight: 600;
+  padding: 12px 32px;
+  transition: background 0.3s;
+}
+.hero--brand .btn:hover {
+  background: lighten($brand_text_color, 10%);
+}
+
+/***** Intranet layout *****/
+.intranet-grid {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) {
+  .intranet-grid {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: "carousel carousel" "introduction quick-links" "departments announcements" "activity activity";
+  }
+}
+
+/***** Carousel and introduction *****/
+#company-carousel {
+  grid-area: carousel;
+}
+
+/***** Carousel and introduction *****/
+#company-carousel {
+  text-align: center;
+}
+#company-carousel .carousel-item {
+  display: none;
+  padding: 40px;
+  background: linear-gradient(135deg, $brand_color, lighten($brand_color, 10%));
+  border-radius: 8px;
+  color: $brand_text_color;
+}
+#company-carousel .carousel-item.active {
+  display: block;
+}
+
+.introduction {
+  grid-area: introduction;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#introductions-carousel {
+  text-align: center;
+}
+#introductions-carousel .carousel-item {
+  display: none;
+}
+#introductions-carousel .carousel-item.active {
+  display: block;
+}
+#introductions-carousel img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+#introductions-carousel h3 {
+  margin-bottom: 10px;
+}
+
+.quick-links {
+  grid-area: quick-links;
+}
+.quick-links-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+.quick-links-item {
+  flex: 1 1 120px;
+  margin: 10px;
+}
+.quick-links-item a {
+  display: block;
+  padding: 20px;
+  background: $brand_color;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  color: $brand_text_color;
+  transition: background 0.3s;
+}
+.quick-links-item a:hover {
+  background: darken($brand_color, 5%);
+}
+
+.departments {
+  grid-area: departments;
+}
+
+.announcements {
+  grid-area: announcements;
+}
+
+#announcements-carousel {
+  text-align: center;
+}
+#announcements-carousel .carousel-item {
+  display: none;
+}
+#announcements-carousel .carousel-item.active {
+  display: block;
+}
+#announcements-carousel img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.activity {
+  grid-area: activity;
+}
+
 /***** Promoted articles *****/
 .promoted-articles {
   display: flex;
@@ -1358,30 +1494,6 @@ ul {
   }
 }
 
-/***** Community section in homepage *****/
-.community {
-  text-align: center;
-}
-.community-image {
-  min-height: 300px;
-  margin-top: 32px;
-  background-image: url($community_image);
-  background-position: center;
-  background-repeat: no-repeat;
-  max-width: 100%;
-}
-.community a {
-  color: $link_color;
-  text-decoration: underline;
-}
-.community a:visited {
-  color: $visited_link_color;
-}
-.community a:hover, .community a:active, .community a:focus {
-  color: $hover_link_color;
-}
-
-.community,
 .activity {
   border-top: 1px solid #ddd;
   padding: 30px 0;
@@ -4719,4 +4831,113 @@ zd-summary-block {
 }
 [dir=rtl] zd-summary-block {
   border-right-color: #859fa1;
+}
+
+.service-catalog-description {
+  display: flow-root;
+}
+.service-catalog-description a {
+  color: $link_color;
+  text-decoration: underline;
+}
+.service-catalog-description a:visited {
+  color: $visited_link_color;
+}
+.service-catalog-description a:hover, .service-catalog-description a:active, .service-catalog-description a:focus {
+  color: $hover_link_color;
+}
+.service-catalog-description img {
+  height: auto;
+  max-width: 100%;
+}
+.service-catalog-description p > img.image-style-align-left {
+  float: left;
+  margin: 8px 20px 6px 0;
+}
+.service-catalog-description p > img.image-style-align-right {
+  float: right;
+  margin: 8px 0px 6px 20px;
+}
+.service-catalog-description p > img.image-style-block-align-right {
+  margin-left: auto;
+  margin-right: 0;
+}
+.service-catalog-description p > img.image-style-block-align-left {
+  margin-left: 0;
+  margin-right: auto;
+}
+.service-catalog-description figure.image {
+  display: table;
+  margin: 0 auto;
+}
+.service-catalog-description figure.image > img {
+  display: block;
+  width: 100%;
+}
+.service-catalog-description figure.image.image-style-align-left {
+  float: left;
+  margin: 8px 20px 6px 0;
+}
+.service-catalog-description figure.image.image-style-align-right {
+  float: right;
+  margin: 8px 0px 6px 20px;
+}
+.service-catalog-description figure.image.image-style-block-align-right {
+  margin-left: auto;
+  margin-right: 0;
+}
+.service-catalog-description figure.image.image-style-block-align-left {
+  margin-left: 0;
+  margin-right: auto;
+}
+.service-catalog-description figcaption {
+  padding: 10px 0;
+  font-size: 12px;
+  text-align: center;
+  background-color: darken($background_color, 5%);
+}
+.service-catalog-description ul,
+.service-catalog-description ol {
+  padding-left: 20px;
+  list-style-position: outside;
+  margin: 20px 0 20px 20px;
+}
+[dir=rtl] .service-catalog-description ul,
+[dir=rtl] .service-catalog-description ol {
+  padding-right: 20px;
+  padding-left: 0;
+  margin-left: 0;
+  margin-right: 20px;
+}
+.service-catalog-description ul > ul,
+.service-catalog-description ol > ol,
+.service-catalog-description ol > ul,
+.service-catalog-description ul > ol,
+.service-catalog-description li > ul,
+.service-catalog-description li > ol {
+  margin: 0;
+}
+.service-catalog-description ul {
+  list-style-type: disc;
+}
+.service-catalog-description :not(pre) > code {
+  background: darken($background_color, 3%);
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 0 5px;
+  margin: 0 2px;
+}
+.service-catalog-description pre {
+  background: darken($background_color, 3%);
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 10px 15px;
+  overflow: auto;
+  white-space: pre;
+}
+.service-catalog-description blockquote {
+  border-left: 1px solid #ddd;
+  color: lighten($text_color, 20%);
+  font-style: italic;
+  padding: 0 15px;
 }
