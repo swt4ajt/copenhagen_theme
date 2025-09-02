@@ -737,7 +737,7 @@
     if (!list) return;
     const locale = document.documentElement.lang;
     try {
-      const resp = await fetch(`/api/v2/help_center/${locale}/categories/4961264026655/sections.json`);
+      const resp = await fetch(`/api/v2/help_center/{locale}/categories/4961264026655/sections`);
       const data = await resp.json();
       data.sections.forEach((section) => {
         const li = document.createElement('li');
