@@ -1126,7 +1126,7 @@ ul {
 
 /***** Hero component *****/
 .hero {
-  background-image: url($homepage_background_image);
+  background-image: url("");
   background-position: center;
   background-size: cover;
   height: 300px;
@@ -1346,13 +1346,8 @@ ul {
 @media (min-width: 1024px) {
   .intranet-grid {
     grid-template-columns: 2fr 1fr;
-    grid-template-areas: "carousel carousel" "introduction quick-links" "departments announcements" "activity activity";
+    grid-template-areas: "carousel carousel" "introduction quick-links" "departments departments" "activity activity";
   }
-}
-
-/***** Carousel and introduction *****/
-#company-carousel {
-  grid-area: carousel;
 }
 
 /***** Carousel and introduction *****/
@@ -1366,6 +1361,12 @@ ul {
   border-radius: 8px;
   color: $brand_text_color;
 }
+#company-carousel .carousel-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
 #company-carousel .carousel-item.active {
   display: block;
 }
@@ -1376,21 +1377,23 @@ ul {
   margin-bottom: 40px;
 }
 
-#introductions-carousel {
+#introductions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
   text-align: center;
 }
-#introductions-carousel .carousel-item {
-  display: none;
-}
-#introductions-carousel .carousel-item.active {
+#introductions-grid .intro-item a {
   display: block;
+  color: inherit;
+  text-decoration: none;
 }
-#introductions-carousel img {
+#introductions-grid .intro-item img {
   max-width: 100%;
   height: auto;
   margin-bottom: 10px;
 }
-#introductions-carousel h3 {
+#introductions-grid .intro-item h3 {
   margin-bottom: 10px;
 }
 
@@ -1427,22 +1430,7 @@ ul {
 }
 
 .announcements {
-  grid-area: announcements;
-}
-
-#announcements-carousel {
-  text-align: center;
-}
-#announcements-carousel .carousel-item {
-  display: none;
-}
-#announcements-carousel .carousel-item.active {
-  display: block;
-}
-#announcements-carousel img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 10px;
+  grid-area: carousel;
 }
 
 .activity {
@@ -2443,7 +2431,7 @@ ul {
 
 /***** Community *****/
 .community-hero {
-  background-image: url($community_background_image);
+  background-image: url("");
   margin-bottom: 10px;
 }
 .community-footer {

@@ -53,15 +53,9 @@
     grid-template-areas:
       "carousel carousel"
       "introduction quick-links"
-      "departments announcements"
+      "departments departments"
       "activity activity";
   }
-}
-
-/***** Carousel and introduction *****/
-
-#company-carousel {
-  grid-area: carousel;
 }
 
 /***** Carousel and introduction *****/
@@ -75,6 +69,13 @@
     background: linear-gradient(135deg, $brand_color, zass-lighten($brand_color, 10%));
     border-radius: 8px;
     color: $brand_text_color;
+
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
   }
 
   .carousel-item.active {
@@ -88,25 +89,28 @@
   margin-bottom: 40px;
 }
 
-#introductions-carousel {
+#introductions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
   text-align: center;
 
-  .carousel-item {
-    display: none;
-  }
+  .intro-item {
+    a {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
 
-  .carousel-item.active {
-    display: block;
-  }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
 
-  img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-
-  h3 {
-    margin-bottom: 10px;
+    h3 {
+      margin-bottom: 10px;
+    }
   }
 }
 
@@ -144,25 +148,7 @@
 
 .departments { grid-area: departments; }
 
-.announcements { grid-area: announcements; }
-
-#announcements-carousel {
-  text-align: center;
-
-  .carousel-item {
-    display: none;
-  }
-
-  .carousel-item.active {
-    display: block;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-}
+.announcements { grid-area: carousel; }
 
 .activity { grid-area: activity; }
 
