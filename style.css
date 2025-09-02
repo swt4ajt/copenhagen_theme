@@ -1712,7 +1712,7 @@ ul {
 }
 @media (min-width: 1024px) {
   .article-container {
-    flex-direction: row;
+    flex-direction: row-reverse;
   }
 }
 .article-header {
