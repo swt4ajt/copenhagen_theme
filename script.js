@@ -948,7 +948,7 @@
 
     // Use the search endpoint to guarantee sorting by created_at desc
     // Docs behavior: respects user permissions/segments automatically
-    const url = `/api/v2/help_center/${encodeURIComponent(locale)}/articles/search.json?query=*`
+    const url = `/api/v2/help_center/articles/search.json?query=*`
       + `&sort_by=created_at&sort_order=desc&per_page=${encodeURIComponent(limit)}`
       + `&include=sections,categories,users`;
 
