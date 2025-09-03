@@ -5332,5 +5332,8 @@ body.dark-mode .request-sidebar {
   background-color: #222;
   color: #eee;
 }
+body.dark-mode .introduction-item {
+  color: #000000;
+}
 
 /*# sourceMappingURL=style.css.map */

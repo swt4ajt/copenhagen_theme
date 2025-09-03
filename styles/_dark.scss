@@ -6,4 +6,8 @@ body.dark-mode {
     background-color: $dark_background_color;
     color: $dark_text_color;
   }
+
+  .introduction-item {
+    color: #000000; // Light color for better contrast in dark mode
+  }
 }
