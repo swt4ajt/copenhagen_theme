@@ -10,11 +10,12 @@
       flex: 0 0 80%;
     }
     flex: 1;
-    max-width: 100%
+    max-width: 100%;
   }
 
   &-subscribe button {
     @extend .button;
+
     &[data-selected="true"] {
       @extend .button-primary;
     }
@@ -50,5 +51,44 @@
 
   &[aria-hidden="true"] {
     display: none;
+  }
+}
+
+/* Introductions grid */
+#introductions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* responsive */
+  gap: 32px;
+  text-align: center;
+
+  .intro-item {
+    background: #fff;
+    border: 1px solid $low-contrast-border-color;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    a {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+    }
+
+    p {
+      margin: 0;
+    }
   }
 }

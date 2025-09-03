@@ -2,12 +2,12 @@
 .article {
   /*
   * The article grid is defined this way to optimize readability:
-  * Sidebar | Content | Free space
-  * 17%     | 66%     | 17%
+  * Free space | Content | Sidebar
+  * 8%         | 75%     | 17%
   */
   @include desktop {
-    flex: 1 0 66%;
-    max-width: 66%;
+    flex: 1 0 75%;
+    max-width: 75%;
     min-width: 640px;
     padding: 0 30px;
   }
@@ -16,7 +16,7 @@
 
   &-container {
     @include desktop {
-      flex-direction: row;
+      flex-direction: row-reverse;
     }
 
     display: flex;

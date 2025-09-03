@@ -658,153 +658,362 @@
     }
   });
 
-  function initCarousel(selector, limit = Infinity) {
-    const container = document.querySelector(selector);
-    if (!container) return;
-    let slides = Array.from(container.querySelectorAll(".carousel-item"));
-    if (limit !== Infinity) {
-      slides.slice(limit).forEach((slide) => slide.remove());
-      slides = slides.slice(0, limit);
-    }
-    let index = 0;
-    if (slides.length) {
-      slides[0].classList.add("active");
-      setInterval(() => {
-        slides[index].classList.remove("active");
-        index = (index + 1) % slides.length;
-        slides[index].classList.add("active");
-      }, 5000);
-    }
-  }
+  // --- Announcements + Introductions loaders (clean + safe) ---
 
-  function renderCarousel() {
-    const dataEl = document.getElementById('carousel-data');
-    if (!dataEl) return;
-    const raw = dataEl.textContent.trim();
-    if (!raw) return;
-    try {
-      const slides = JSON.parse(raw);
-    try {
-      const slides = JSON.parse(dataEl.textContent);
-      const container = document.getElementById('company-carousel');
-      if (container && Array.isArray(slides)) {
-        slides.forEach((slide) => {
-          if (slide) {
-            const div = document.createElement('div');
-            div.className = 'carousel-item';
-            div.textContent = typeof slide === 'string' ? slide : slide.text;
+  (function () {
+
+    // Helpers
+    const extractFirstImage = (html = "") => {
+      const m = html.match(/<img[^>]+src="([^"]+)"/i);
+      return m ? m[1] : null;
+    };
+
+    const stripHtml = (html = "") => html.replace(/<[^>]+>/g, "");
+    const truncateWords = (text = "", n = 20) =>
+      text.split(/\s+/).filter(Boolean).slice(0, n).join(" ");
+
+    // --- Announcements (label: Announcements) ---
+    async function loadAnnouncements() {
+      const container = document.querySelector("#announcement-carousel");
+      const list = document.querySelector("#announcement-list");
+      if (!container && !list) return;
+
+      try {
+        const resp = await fetch(
+          "/api/v2/help_center/articles.json?label_names=Announcements&per_page=4&sort_by=created_at&sort_order=desc"
+        );
+        const data = await resp.json().catch(() => null);
+        if (!data || !Array.isArray(data.articles)) return;
+
+        data.articles.forEach((article) => {
+          const body = article.body || "";
+          const title = article.title || "";
+          const url = article.html_url || "#";
+
+          if (container) {
+            const div = document.createElement("div");
+            div.className = "carousel-item";
+            const imgUrl = extractFirstImage(body);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.className = "carousel-link";
+            if (imgUrl) {
+              link.innerHTML = `<img src="${imgUrl}" alt="${title}"><span class="carousel-caption">${title}</span>`;
+            } else {
+              link.innerHTML = `<span class="carousel-caption no-image">${title}</span>`;
+            }
+
+            div.appendChild(link);
             container.appendChild(div);
           }
-        });
-        initCarousel();
-      }
-    } catch (e) {
-      console.error('Invalid carousel data', e);
-    }
-  }
 
-  function renderDepartments() {
-    const dataEl = document.getElementById('departments-data');
-    if (!dataEl) return;
-    const raw = dataEl.textContent.trim();
-    if (!raw) return;
-    try {
-      const departments = JSON.parse(raw);
-
-  function renderDepartments() {
-    const dataEl = document.getElementById('departments-data');
-    if (!dataEl) return;
-    try {
-      const departments = JSON.parse(dataEl.textContent);
-      const list = document.querySelector('.departments .blocks-list');
-      if (list && Array.isArray(departments)) {
-        departments.forEach((dep) => {
-          if (dep && dep.name && dep.url) {
-            const li = document.createElement('li');
-            li.className = 'blocks-item';
-            li.innerHTML = `<a href="${dep.url}" class="blocks-item-link"><span class="blocks-item-title">${dep.name}</span></a>`;
+          if (list) {
+            const li = document.createElement("li");
+            li.className = "announcement-item";
+            li.innerHTML = `<a href="${url}">${title}</a>`;
             list.appendChild(li);
           }
         });
-      }
-    } catch (e) {
-      console.error('Invalid departments data', e);
-    }
-  }
 
-  document.addEventListener('DOMContentLoaded', renderCarousel);
-  document.addEventListener('DOMContentLoaded', renderDepartments);
-  document.addEventListener('DOMContentLoaded', initCarousel);
-  async function loadAnnouncementImages() {
-    const slides = document.querySelectorAll(
-      "#announcements-carousel .carousel-item"
-    );
-    for (const slide of slides) {
-      const id = slide.dataset.articleId;
-      if (!id) continue;
-      try {
-        const response = await fetch(`/api/v2/help_center/articles/${id}.json`);
-        const data = await response.json();
-        const match = data.article.body.match(/<img[^>]+src="([^"]+)"/i);
-        if (match) {
-          const img = slide.querySelector("img");
-          if (img) {
-            img.src = match[1];
-          }
+        if (container && container.children.length) {
+          let index = 0;
+          const items = Array.from(container.children);
+          items[0].classList.add("active");
+          setInterval(() => {
+            items[index].classList.remove("active");
+            index = (index + 1) % items.length;
+            items[index].classList.add("active");
+          }, 5000);
         }
-      } catch (e) {
-        // ignore errors
+      } catch {
+        /* ignore */
       }
     }
-  }
 
-  async function loadIntroductions() {
-    const container = document.querySelector("#introductions-carousel");
-    if (!container) return;
+    /**
+     * Small Introductions block:
+     * - If #introductions-carousel exists, render cards with image+title+snippet
+     * - If #introductions-list exists, render a simple UL list of titles
+     * Data source: articles labeled "introductions"
+     */
+    async function loadIntroductions() {
+      const container = document.querySelector("#introductions-carousel");
+      const list = document.querySelector("#introductions-list");
+      if (!container && !list) return;
+
+      try {
+        const resp = await fetch(
+          "/api/v2/help_center/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc"
+        );
+        const data = await resp.json().catch(() => null);
+        if (!data || !Array.isArray(data.articles)) return;
+
+        data.articles.forEach((article) => {
+          const body = article.body || "";
+          const title = article.title || "";
+          const url = article.html_url || "#";
+          const imgUrl = extractFirstImage(body);
+          const imgTag = imgUrl ? `<img src="${imgUrl}" alt="${title}">` : "";
+          const text = truncateWords(stripHtml(body), 20);
+
+          if (container) {
+            const div = document.createElement("div");
+            div.className = "intro-item";
+            div.innerHTML = `<a href="${url}">${imgTag}<h3>${title}</h3><p>${text}...</p></a>`;
+            container.appendChild(div);
+          }
+
+          if (list) {
+            const li = document.createElement("li");
+            li.className = "introduction-item";
+            li.textContent = title;
+            list.appendChild(li);
+          }
+        });
+      } catch {
+        /* ignore */
+      }
+    }
+
+    /**
+     * Full Introductions section tiles:
+     * - Replaces the default `.article-list` with a grid of tiles for section 4964692123039
+     * - Section endpoint
+     */
+    async function loadIntroductionTiles() {
+      // Only activate on the Introductions section page
+      if (!window.location.href.includes("4964692123039-Introductions")) return;
+
+      const list = document.querySelector(".article-list");
+      if (!list) return;
+
+      // Hide standard list and append grid
+      list.style.display = "none";
+      const container = document.createElement("div");
+      container.id = "introductions-grid";
+      list.parentNode.appendChild(container);
+
+      try {
+        const resp = await fetch(
+          "/api/v2/help_center/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc"
+        );
+        const data = await resp.json().catch(() => null);
+        if (!data || !Array.isArray(data.articles)) return;
+
+        data.articles.forEach((article) => {
+          const body = article.body || "";
+          const title = article.title || "";
+          const url = article.html_url || "#";
+          const img =
+            extractFirstImage(body) ||
+            "https://via.placeholder.com/200?text=Pending%20Image";
+          const text = truncateWords(stripHtml(body), 20);
+
+          const div = document.createElement("div");
+          div.className = "intro-item";
+          div.innerHTML = `<a href="${url}"><img src="${img}" alt="${title}"><h3>${title}</h3><p>${text}...</p></a>`;
+          container.appendChild(div);
+        });
+      } catch {
+        /* ignore */
+      }
+    }
+
+    // Homepage introductions grid (latest 4 from section 4964692123039)
+    async function loadHomeIntroductionsGrid() {
+      if (window.location.href.includes("4964692123039-Introductions")) return;
+
+      const container = document.querySelector("#introductions-grid");
+      if (!container) return;
+
+      try {
+        const resp = await fetch(
+          "/api/v2/help_center/sections/4964692123039/articles.json?per_page=4&sort_by=created_at&sort_order=desc"
+        );
+        const data = await resp.json().catch(() => null);
+        if (!data || !Array.isArray(data.articles)) return;
+
+        data.articles.slice(0, 4).forEach((article) => {
+          const body = article.body || "";
+          const title = article.title || "";
+          const url = article.html_url || "#";
+          const img =
+            extractFirstImage(body) ||
+            "https://via.placeholder.com/200?text=Pending%20Image";
+          const text = truncateWords(stripHtml(body), 20);
+
+          const div = document.createElement("div");
+          div.className = "intro-item";
+          div.innerHTML = `<a href="${url}"><img src="${img}" alt="${title}"><h3>${title}</h3><p>${text}...</p></a>`;
+          container.appendChild(div);
+        });
+      } catch {
+        /* ignore */
+      }
+    }
+
+    // Bootstrap
+    function init() {
+      loadAnnouncements();
+      loadIntroductions();
+      loadIntroductionTiles();
+      loadHomeIntroductionsGrid();
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  })();
+
+  async function loadDepartments() {
+    const list = document.querySelector(".department-rail .blocks-list");
+    if (!list) return;
     try {
-      const secResp = await fetch("/api/v2/help_center/sections.json?per_page=100");
-      const secData = await secResp.json();
-      const introSection = secData.sections.find(
-        (s) => s.name && s.name.toLowerCase() === "introductions"
+      const resp = await fetch(
+        "/api/v2/help_center/categories/4961264026655/sections.json"
       );
-      if (!introSection) return;
-      const artResp = await fetch(
-        `/api/v2/help_center/sections/${introSection.id}/articles.json?per_page=3&sort_by=created_at&sort_order=desc`
-      );
-      const artData = await artResp.json();
-      artData.articles.forEach((article) => {
-        const div = document.createElement("div");
-        div.className = "carousel-item";
-        const match = article.body.match(/<img[^>]+src="([^"]+)"/i);
-        const img = match
-          ? `<img src="${match[1]}" alt="${article.title}" />`
-          : "";
-        const text = article.body
-          .replace(/<[^>]+>/g, "")
-          .split(/\s+/)
-          .slice(0, 20)
-          .join(" ");
-        div.innerHTML = `${img}<h3>${article.title}</h3><p>${text} <a href="${article.html_url}">read more...</a></p>`;
-        container.appendChild(div);
+      const data = await resp.json();
+      data.sections.forEach((section) => {
+        const li = document.createElement("li");
+        li.className = "department-rail-item";
+        const a = document.createElement("a");
+        a.href = section.html_url;
+        a.textContent = section.name;
+        li.appendChild(a);
+        list.appendChild(li);
       });
-      initCarousel("#introductions-carousel", 3);
     } catch (e) {
       // ignore errors
     }
   }
 
-  function init() {
-    initCarousel("#company-carousel");
-    const announcementCarousel = document.querySelector(
-      "#announcements-carousel"
-    );
-    if (announcementCarousel) {
-      initCarousel("#announcements-carousel", 3);
-      loadAnnouncementImages();
+  document.addEventListener("DOMContentLoaded", loadDepartments);
+
+  /* eslint-disable check-file/filename-naming-convention */
+  window.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.querySelector(".theme-toggle");
+    const body = document.body;
+    const STORAGE_KEY = "preferred-theme";
+
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === "dark") {
+      body.classList.add("dark-mode");
     }
-    loadIntroductions();
+
+    if (toggle) {
+      toggle.addEventListener("click", () => {
+        const isDark = body.classList.toggle("dark-mode");
+        localStorage.setItem(STORAGE_KEY, isDark ? "dark" : "light");
+      });
+    }
+  });
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("request-form-container");
+    if (!container) {
+      return;
+    }
+
+    const dataUrl = container.dataset.forms;
+
+    fetch(dataUrl)
+      .then((response) => response.json())
+      .then((forms) => {
+        forms.forEach((form) => {
+          const card = document.createElement("div");
+          card.className = "request-form-card";
+          card.innerHTML = `
+          <h3>${form.name}</h3>
+          <p>${form.description}</p>
+          <a href="/forms/${form.id}" class="request-form-link">Open</a>
+        `;
+          container.appendChild(card);
+        });
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error("Failed to load request forms:", error);
+      });
+  });
+
+
+  // ---- Latest 5 Articles (Home) --------------------------------------------
+(function () {
+  'use strict';
+
+  async function fetchLatestArticles(limit = 5) {
+    // Base endpoint – sorted by created_at desc
+    const url = `/api/v2/help_center/articles.json?sort_by=created_at&sort_order=desc&per_page=${encodeURIComponent(limit)}`;
+
+    const resp = await fetch(url, { credentials: 'same-origin' });
+    if (!resp.ok) throw new Error(`Latest articles request failed: ${resp.status}`);
+    return resp.json();
   }
 
-  document.addEventListener("DOMContentLoaded", init);
+  function formatDate(iso) {
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+    } catch {
+      return iso;
+    }
+  }
 
+  function renderLatestArticles(data) {
+    const list = document.getElementById('latest-articles-list');
+    if (!list) return;
+
+    const articles = Array.isArray(data?.articles) ? data.articles : [];
+    list.innerHTML = '';
+
+    if (!articles.length) {
+      list.innerHTML = `<li class="latest-articles-empty">No recent articles yet.</li>`;
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+
+    articles.slice(0, 5).forEach((a) => {
+      const li = document.createElement('li');
+      li.className = 'latest-articles-item';
+
+      const href = a.html_url || '#';
+      const created = formatDate(a.created_at);
+
+      li.innerHTML = `
+        <a class="latest-articles-link" href="${href}">
+          <span class="latest-articles-title">${a.title || 'Untitled article'}</span>
+          <time class="latest-articles-date" datetime="${a.created_at}">${created}</time>
+        </a>
+      `;
+      frag.appendChild(li);
+    });
+
+    list.appendChild(frag);
+  }
+
+  async function initLatestArticles() {
+    const list = document.getElementById('latest-articles-list');
+    if (!list) return;
+
+    list.innerHTML = `<li class="latest-articles-loading">Loading…</li>`;
+
+    try {
+      const data = await fetchLatestArticles(5);
+      renderLatestArticles(data);
+    } catch (err) {
+      console.error(err);
+      list.innerHTML = `<li class="latest-articles-error">Couldn’t load latest articles.</li>`;
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLatestArticles);
+  } else {
+    initLatestArticles();
+  }
 })();
+   })();

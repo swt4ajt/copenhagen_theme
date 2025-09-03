@@ -1,0 +1,17 @@
+[
+  {
+    "id": "it-support",
+    "name": "IT requests",
+    "description": "Raise a request for IT support or hardware."
+  },
+  {
+    "id": "risk-submission",
+    "name": "Risk-Submission Portal",
+    "description": "Submit a risk issue or incident."
+  },
+  {
+    "id": "sales-ops",
+    "name": "Sales Operations",
+    "description": "Ask a question or request help from Sales Ops."
+  }
+]
