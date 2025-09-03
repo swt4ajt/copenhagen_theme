@@ -701,7 +701,7 @@
             if (imgUrl) {
               link.innerHTML = `<img src="${imgUrl}" alt="${title}"><span class="carousel-caption">${title}</span>`;
             } else {
-              link.innerHTML = `<span class="carousel-caption no-image">${title}</span>`;
+              link.innerHTML = `<img src="/assets/image-pending.jpg" alt="No image available"><span class="carousel-caption no-image">${title}</span>`;
             }
 
             div.appendChild(link);
@@ -1017,4 +1017,3 @@
   }
 })();
    })();
-
