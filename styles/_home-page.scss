@@ -80,9 +80,11 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   .carousel-item {
+    min-height: 300px;
     display: none;
 
     .carousel-link {
+      min-height: 300px;
       display: block;
       position: relative;
       text-decoration: none;
@@ -126,6 +128,10 @@
 }
 
 .department-rail {
+  background: $brand_color;
+  border-radius: 8px;
+  padding: 16px;
+
   h2 {
     margin-bottom: 10px;
   }
@@ -146,7 +152,14 @@
       display: block;
       padding: 8px 12px;
       border: 1px solid $low-contrast-border-color;
+      background: rgba($brand_color, 0.08); // subtle highlight for each item
+      color: $brand_text_color;
       border-radius: 4px;
+      transition: background 0.2s;
+
+      &:hover {
+        background: rgba($brand_color, 0.18);
+      }
     }
   }
 }
