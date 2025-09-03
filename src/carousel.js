@@ -175,7 +175,7 @@
       const data = await resp.json().catch(() => null);
       if (!data || !Array.isArray(data.articles)) return;
 
-      data.articles.slice(0, 4).forEach((article) => {
+      data.articles.slice(0, 6).forEach((article) => {
         const body = article.body || "";
         const title = article.title || "";
         const url = article.html_url || "#";
