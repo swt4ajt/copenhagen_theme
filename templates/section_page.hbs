@@ -41,47 +41,45 @@
       {{pagination "section.sections"}}
 
       {{#if section.articles}}
-        {{#if (eq section.id "4964692123039")}}
-          <div id="introductions-grid">
-            {{#each section.articles}}
-              <div class="intro-item">
-                <a href="{{url}}">
-                  {{#if image_url}}
-                    <img src="{{image_url}}" alt="{{title}}" />
-                  {{else}}
+        {{#if section.id}}
+          {{#if (section.id "4964692123039")}}
+            <div id="introductions-grid">
+              {{#each section.articles}}
+                <div class="intro-item">
+                  <a href="{{url}}">
                     <img src="/assets/Image_not_available.png" alt="No image available" />
+                    <h3>{{title}}</h3>
+                    <p>
+                      {{#if excerpt}}
+                        {{excerpt}}
+                      {{else}}
+                        <span class="text-muted">No description available.</span>
+                      {{/if}}
+                    </p>
+                  </a>
+                </div>
+              {{/each}}
+            </div>
+          {{else}}
+            <ul class="article-list">
+              {{#each section.articles}}
+                <li class="article-list-item {{#if promoted}} article-promoted{{/if}}">
+                  {{#if promoted}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 12 12" class="icon-star">
+                      <path fill="currentColor" d="M2.88 11.73c-.19 0-.39-.06-.55-.18a.938.938 0 01-.37-1.01l.8-3L.35 5.57a.938.938 0 01-.3-1.03c.12-.37.45-.63.85-.65L4 3.73 5.12.83c.14-.37.49-.61.88-.61s.74.24.88.6L8 3.73l3.11.17a.946.946 0 01.55 1.68L9.24 7.53l.8 3a.95.95 0 01-1.43 1.04L6 9.88l-2.61 1.69c-.16.1-.34.16-.51.16z"/>
+                    </svg>
                   {{/if}}
-                  <h3>{{title}}</h3>
-                  <p>
-                    {{#if body}}
-                      {{truncate body 120}}
-                    {{else}}
-                      <span class="text-muted">No description available.</span>
-                    {{/if}}
-                  </p>
-                </a>
-              </div>
-            {{/each}}
-          </div>
-        {{else}}
-          <ul class="article-list">
-            {{#each section.articles}}
-              <li class="article-list-item {{#if promoted}} article-promoted{{/if}}">
-                {{#if promoted}}
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 12 12" class="icon-star" title="{{t 'promoted'}}">
-                    <path fill="currentColor" d="M2.88 11.73c-.19 0-.39-.06-.55-.18a.938.938 0 01-.37-1.01l.8-3L.35 5.57a.938.938 0 01-.3-1.03c.12-.37.45-.63.85-.65L4 3.73 5.12.83c.14-.37.49-.61.88-.61s.74.24.88.6L8 3.73l3.11.17a.946.946 0 01.55 1.68L9.24 7.53l.8 3a.95.95 0 01-1.43 1.04L6 9.88l-2.61 1.69c-.16.1-.34.16-.51.16z"/>
-                  </svg>
-                {{/if}}
-                <a href="{{url}}" class="article-list-link">{{title}}</a>
-                {{#if internal}}
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16" class="icon-lock" title="{{t 'internal'}}">
-                    <rect width="12" height="9" x="2" y="7" fill="currentColor" rx="1" ry="1"/>
-                    <path fill="none" stroke="currentColor" d="M4.5 7.5V4a3.5 3.5 0 017 0v3.5"/>
-                  </svg>
-                {{/if}}
-              </li>
-            {{/each}}
-          </ul>
+                  <a href="{{url}}" class="article-list-link">{{title}}</a>
+                  {{#if internal}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" focusable="false" viewBox="0 0 16 16" class="icon-lock">
+                      <rect width="12" height="9" x="2" y="7" fill="currentColor" rx="1" ry="1"/>
+                      <path fill="none" stroke="currentColor" d="M4.5 7.5V4a3.5 3.5 0 017 0v3.5"/>
+                    </svg>
+                  {{/if}}
+                </li>
+              {{/each}}
+            </ul>
+          {{/if}}
         {{/if}}
       {{else}}
         <i class="section-empty">
