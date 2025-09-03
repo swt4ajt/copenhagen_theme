@@ -170,7 +170,7 @@
 
     try {
       const resp = await fetch(
-        "/api/v2/help_center/sections/4964692123039/articles.json?per_page=4&sort_by=created_at&sort_order=desc"
+        "/api/v2/help_center/sections/4964692123039/articles.json?per_page=6&sort_by=created_at&sort_order=desc"
       );
       const data = await resp.json().catch(() => null);
       if (!data || !Array.isArray(data.articles)) return;
