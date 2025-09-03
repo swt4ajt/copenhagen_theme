@@ -13,9 +13,6 @@
   const truncateWords = (text = "", n = 20) =>
     text.split(/\s+/).filter(Boolean).slice(0, n).join(" ");
 
-  const getLocale = () =>
-    (document.documentElement.lang || "en-us").toLowerCase();
-
   // --- Announcements (label: Announcements) ---
   async function loadAnnouncements() {
     const container = document.querySelector("#announcement-carousel");
@@ -24,7 +21,7 @@
 
     try {
       const resp = await fetch(
-        `/api/v2/help_center/${getLocale()}/articles.json?label_names=Announcements&per_page=4&sort_by=created_at&sort_order=desc`
+        "/api/v2/help_center/articles.json?label_names=Announcements&per_page=4&sort_by=created_at&sort_order=desc"
       );
       const data = await resp.json().catch(() => null);
       if (!data || !Array.isArray(data.articles)) return;
@@ -79,7 +76,7 @@
    * Small Introductions block:
    * - If #introductions-carousel exists, render cards with image+title+snippet
    * - If #introductions-list exists, render a simple UL list of titles
-   * Data source: articles labeled "introductions" (locale-aware)
+   * Data source: articles labeled "introductions"
    */
   async function loadIntroductions() {
     const container = document.querySelector("#introductions-carousel");
@@ -88,7 +85,7 @@
 
     try {
       const resp = await fetch(
-        `/api/v2/help_center/${getLocale()}/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc`
+        "/api/v2/help_center/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc"
       );
       const data = await resp.json().catch(() => null);
       if (!data || !Array.isArray(data.articles)) return;
@@ -123,7 +120,7 @@
   /**
    * Full Introductions section tiles:
    * - Replaces the default `.article-list` with a grid of tiles for section 4964692123039
-   * - Locale-aware section endpoint
+   * - Section endpoint
    */
   async function loadIntroductionTiles() {
     // Only activate on the Introductions section page
@@ -140,7 +137,7 @@
 
     try {
       const resp = await fetch(
-        `/api/v2/help_center/${getLocale()}/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc`
+        "/api/v2/help_center/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc"
       );
       const data = await resp.json().catch(() => null);
       if (!data || !Array.isArray(data.articles)) return;
@@ -173,7 +170,7 @@
 
     try {
       const resp = await fetch(
-        `/api/v2/help_center/${getLocale()}/sections/4964692123039/articles.json?per_page=4&sort_by=created_at&sort_order=desc`
+        "/api/v2/help_center/sections/4964692123039/articles.json?per_page=4&sort_by=created_at&sort_order=desc"
       );
       const data = await resp.json().catch(() => null);
       if (!data || !Array.isArray(data.articles)) return;

@@ -49,8 +49,16 @@
   grid-template-columns: 1fr;
 
   @include desktop {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 70% 20%;
+    justify-content: space-between;
   }
+}
+
+.main-column,
+.right-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .announcement-list,
