@@ -1,4 +1,9 @@
 body.dark-mode {
   background-color: $dark_background_color;
   color: $dark_text_color;
+
+  .request-sidebar {
+    background-color: $dark_background_color;
+    color: $dark_text_color;
+  }
 }

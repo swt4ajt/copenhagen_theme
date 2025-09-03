@@ -1,6 +1,5 @@
-// Vanilla JS debounce function, by Josh W. Comeau:
-// https://www.joshwcomeau.com/snippets/javascript/debounce/
-function debounce(callback, wait) {
+// Search field clear button and debounce logic
+export function debounce(callback, wait) {
   let timeoutId = null;
   return (...args) => {
     window.clearTimeout(timeoutId);
@@ -10,16 +9,11 @@ function debounce(callback, wait) {
   };
 }
 
-// Define variables for search field
-let searchFormFilledClassName = "search-has-value";
-let searchFormSelector = "form[role='search']";
+const searchFormFilledClassName = "search-has-value";
+const searchFormSelector = "form[role='search']";
 
-// Clear the search input, and then return focus to it
 function clearSearchInput(event) {
-  event.target
-    .closest(searchFormSelector)
-    .classList.remove(searchFormFilledClassName);
-
+  event.target.closest(searchFormSelector).classList.remove(searchFormFilledClassName);
   let input;
   if (event.target.tagName === "INPUT") {
     input = event.target;
@@ -32,9 +26,6 @@ function clearSearchInput(event) {
   input.focus();
 }
 
-// Have the search input and clear button respond
-// when someone presses the escape key, per:
-// https://twitter.com/adambsilver/status/1152452833234554880
 function clearSearchInputOnKeypress(event) {
   const searchInputDeleteKeys = ["Delete", "Escape"];
   if (searchInputDeleteKeys.includes(event.key)) {
@@ -42,11 +33,6 @@ function clearSearchInputOnKeypress(event) {
   }
 }
 
-// Create an HTML button that all users -- especially keyboard users --
-// can interact with, to clear the search input.
-// To learn more about this, see:
-// https://adrianroselli.com/2019/07/ignore-typesearch.html#Delete
-// https://www.scottohara.me/blog/2022/02/19/custom-clear-buttons.html
 function buildClearSearchButton(inputId) {
   const button = document.createElement("button");
   button.setAttribute("type", "button");
@@ -60,7 +46,6 @@ function buildClearSearchButton(inputId) {
   return button;
 }
 
-// Append the clear button to the search form
 function appendClearSearchButton(input, form) {
   const searchClearButton = buildClearSearchButton(input.id);
   form.append(searchClearButton);
@@ -69,9 +54,6 @@ function appendClearSearchButton(input, form) {
   }
 }
 
-// Add a class to the search form when the input has a value;
-// Remove that class from the search form when the input doesn't have a value.
-// Do this on a delay, rather than on every keystroke.
 const toggleClearSearchButtonAvailability = debounce((event) => {
   const form = event.target.closest(searchFormSelector);
   form.classList.toggle(
@@ -80,17 +62,17 @@ const toggleClearSearchButtonAvailability = debounce((event) => {
   );
 }, 200);
 
-// Search
-
-window.addEventListener("DOMContentLoaded", () => {
-  // Set up clear functionality for the search field
-  const searchForms = [...document.querySelectorAll(searchFormSelector)];
-  const searchInputs = searchForms.map((form) =>
-    form.querySelector("input[type='search']")
-  );
-  searchInputs.forEach((input) => {
-    appendClearSearchButton(input, input.closest(searchFormSelector));
-    input.addEventListener("keyup", clearSearchInputOnKeypress);
-    input.addEventListener("keyup", toggleClearSearchButtonAvailability);
+export function initSearch() {
+  window.addEventListener("DOMContentLoaded", () => {
+    const searchForms = [...document.querySelectorAll(searchFormSelector)];
+    const searchInputs = searchForms.map((form) =>
+      form.querySelector("input[type='search']")
+    );
+    searchInputs.forEach((input) => {
+      appendClearSearchButton(input, input.closest(searchFormSelector));
+      input.addEventListener("keyup", clearSearchInputOnKeypress);
+      input.addEventListener("keyup", toggleClearSearchButtonAvailability);
+    });
   });
-});
+}
+

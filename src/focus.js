@@ -1,3 +1,4 @@
+// Focus management for forms
 const key = "returnFocusTo";
 
 export function saveFocus() {
@@ -13,3 +14,10 @@ export function returnFocus() {
     returnFocusToEl && returnFocusToEl.focus && returnFocusToEl.focus();
   }
 }
+
+export function initFocus() {
+  window.addEventListener("DOMContentLoaded", () => {
+    returnFocus();
+  });
+}
+
