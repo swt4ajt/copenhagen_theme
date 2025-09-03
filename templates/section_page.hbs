@@ -42,26 +42,100 @@
 
             {{#if section.articles}}
                 {{#is section.id 4964692123039}}
-                {{!-- Tiled grid for Introductions section --}}
-                    <div id="introductions-grid">
+                {{!-- Tiled grid for the Introductions section --}}
+                    <div id="introductions-grid" class="introductions-grid">
                         {{#each section.articles}}
-                            <div class="intro-item">
+                            <article
+                                    class="intro-item"
+                                    data-article-id="{{id}}"
+                                    aria-labelledby="intro-title-{{id}}"
+                            >
                                 <a href="{{url}}">
-                                    <img src="{{asset 'image-pending.jpg'}}" alt="No image available" />
-                                    <h3>{{title}}</h3>
-                                    <p>
+                                    <img
+                                            class="intro-img"
+                                            src="{{asset 'image-pending.jpg'}}"
+                                            alt="Article image"
+                                            loading="lazy"
+                                    />
+                                    <h3 id="intro-title-{{id}}" class="intro-title">{{title}}</h3>
+                                    <p class="intro-excerpt">
                                         {{#if excerpt}}
                                             {{excerpt}}
                                         {{else}}
-                                            <span class="text-muted">No description available.</span>
+                                            Loading preview…
                                         {{/if}}
                                     </p>
                                 </a>
-                            </div>
+                            </article>
                         {{/each}}
                     </div>
+
+                    {{!-- Inline, safe JS to hydrate each tile from the article body --}}
+                    <script>
+                        (function () {
+                          'use strict';
+
+                          // Derive locale from Help Center or URL
+                          var locale = (window.HelpCenter && HelpCenter.user && HelpCenter.user.locale) ||
+                                       (function () {
+                                         var m = location.pathname.match(/\/hc\/([^/]+)/);
+                                         return (m && m[1]) || 'en-us';
+                                       })();
+
+                          function firstImageSrc(html) {
+                            var m = html && html.match(/<img[^>]+src="([^"]+)"/i);
+                            return m ? m[1] : null;
+                          }
+
+                          function stripHtml(html) {
+                            var tmp = document.createElement('div');
+                            tmp.innerHTML = html || '';
+                            return (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
+                          }
+
+                          function truncateWords(text, n) {
+                            var parts = (text || '').split(/\s+/).filter(Boolean);
+                            if (parts.length <= n) return text || '';
+                            return parts.slice(0, n).join(' ') + '…';
+                          }
+
+                          function hydrateTile(tile) {
+                            var id = tile.getAttribute('data-article-id');
+                            if (!id) return;
+
+                            var apiUrl = '/api/v2/help_center/' + locale + '/articles/' + id + '.json';
+
+                            fetch(apiUrl)
+                              .then(function (r) { return r.ok ? r.json() : null; })
+                              .then(function (data) {
+                                if (!data || !data.article) return;
+                                var body = data.article.body || '';
+                                var title = data.article.title || '';
+                                var img = firstImageSrc(body) || '{{asset "image-pending.jpg"}}';
+                    var text = truncateWords(stripHtml(body), 40);
+
+                    var imgEl = tile.querySelector('.intro-img');
+                    if (imgEl) imgEl.src = img;
+
+                    var titleEl = tile.querySelector('.intro-title');
+                    if (titleEl && title) titleEl.textContent = title;
+
+                    var p = tile.querySelector('.intro-excerpt');
+                    if (p) p.textContent = text || 'No description available.';
+                  })
+                  .catch(function () { /* swallow errors per tile */ });
+              }
+
+              document.addEventListener('DOMContentLoaded', function () {
+                var grid = document.getElementById('introductions-grid');
+                if (!grid) return;
+                var tiles = grid.querySelectorAll('.intro-item[data-article-id]');
+                tiles.forEach ? tiles.forEach(hydrateTile) : Array.prototype.forEach.call(tiles, hydrateTile);
+              });
+            })();
+                    </script>
                 {{else}}
-                {{!-- Default article list for all other sections --}}
+                {{!-- Default list for all other sections --}}
                     <ul class="article-list">
                         {{#each section.articles}}
                             <li class="article-list-item {{#if promoted}}article-promoted{{/if}}">
