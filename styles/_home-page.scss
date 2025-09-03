@@ -231,6 +231,46 @@ a {
   }
 }
 
+/***** Recent Articles *****/
+
+.recent-articles {
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin-bottom: 40px;
+
+  @include desktop {
+    padding: 32px;
+  }
+}
+
+.recent-articles h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: $brand_color;
+}
+
+.recent-articles ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.recent-articles li {
+  margin-bottom: 12px;
+}
+
+.recent-articles a {
+  color: $link_color;
+  text-decoration: none;
+  transition: color 0.2s;
+  &:hover {
+    color: $hover_link_color;
+  }
+}
+
 /***** Buttons *****/
 
 .btn {

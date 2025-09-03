@@ -1513,6 +1513,46 @@ a:hover {
   color: #39FED9;
 }
 
+/***** Recent Articles *****/
+.recent-articles {
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin-bottom: 40px;
+}
+@media (min-width: 1024px) {
+  .recent-articles {
+    padding: 32px;
+  }
+}
+
+.recent-articles h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #10B5F9;
+}
+
+.recent-articles ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.recent-articles li {
+  margin-bottom: 12px;
+}
+
+.recent-articles a {
+  color: #10B5F9;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.recent-articles a:hover {
+  color: #39FED9;
+}
+
 /***** Buttons *****/
 .btn {
   display: inline-block;
