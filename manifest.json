@@ -1,7 +1,7 @@
 {
   "name": "Uniken",
   "author": "Zendesk",
-  "version": "4.11.69",
+  "version": "4.11.70",
   "api_version": 4,
   "default_locale": "en-us",
   "settings": [
@@ -215,17 +215,24 @@
       "label": "carousel_group_label",
       "variables": [
         {
-          "identifier": "carousel",
-          "type": "text",
-          "description": "carousel_description",
-          "label": "carousel_label",
-          "value": "a,b,c"
+          "identifier": "carousel_autoplay",
+          "type": "checkbox",
+          "description": "Enable or disable autoplay for the homepage carousel.",
+          "label": "Carousel autoplay",
+          "value": true
         },
         {
-          "label": "Carousel tiles",
+          "identifier": "carousel_autoplay_speed",
+          "type": "number",
+          "description": "Set the speed of the carousel autoplay in milliseconds.",
+          "label": "Carousel autoplay speed (ms)",
+          "value": 5000
+        },
+        {
           "identifier": "carousel_tiles",
           "type": "number",
           "description": "Number of tiles to display in the homepage carousel.",
+          "label": "Carousel tiles",
           "value": 6
         }
       ]
