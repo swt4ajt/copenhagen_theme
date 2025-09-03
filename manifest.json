@@ -1,7 +1,7 @@
 {
   "name": "Uniken",
   "author": "Zendesk",
-  "version": "4.11.68",
+  "version": "4.11.69",
   "api_version": 4,
   "default_locale": "en-us",
   "settings": [
@@ -220,6 +220,13 @@
           "description": "carousel_description",
           "label": "carousel_label",
           "value": "a,b,c"
+        },
+        {
+          "label": "Carousel tiles",
+          "identifier": "carousel_tiles",
+          "type": "number",
+          "description": "Number of tiles to display in the homepage carousel.",
+          "value": 6
         }
       ]
     },

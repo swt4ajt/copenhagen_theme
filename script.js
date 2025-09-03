@@ -796,12 +796,12 @@
 
       try {
         const resp = await fetch(
-          "/api/v2/help_center/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc"
+          `/api/v2/help_center/sections/4964692123039/articles.json?per_page=${settings.carousel_tiles}&sort_by=created_at&sort_order=desc`
         );
         const data = await resp.json().catch(() => null);
         if (!data || !Array.isArray(data.articles)) return;
 
-        data.articles.forEach((article) => {
+        data.articles.slice(0, settings.carousel_tiles).forEach((article) => {
           const body = article.body || "";
           const title = article.title || "";
           const url = article.html_url || "#";
@@ -829,7 +829,7 @@
 
       try {
         const resp = await fetch(
-          "/api/v2/help_center/sections/4964692123039/articles.json?per_page=6&sort_by=created_at&sort_order=desc"
+          `/api/v2/help_center/sections/4964692123039/articles.json?per_page=6&sort_by=created_at&sort_order=desc`
         );
         const data = await resp.json().catch(() => null);
         if (!data || !Array.isArray(data.articles)) return;
@@ -1017,3 +1017,4 @@
   }
 })();
    })();
+
