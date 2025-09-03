@@ -10,7 +10,7 @@
   };
 
   const stripHtml = (html = "") => html.replace(/<[^>]+>/g, "");
-  const truncateWords = (text = "", n = 20) =>
+  const truncateWords = (text = "", n = 50) =>
     text.split(/\s+/).filter(Boolean).slice(0, n).join(" ");
 
   // --- Announcements (label: Announcements) ---
@@ -85,7 +85,7 @@
 
     try {
       const resp = await fetch(
-        "/api/v2/help_center/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc"
+        "/api/v2/help_center/articles.json?label_names=introductions&per_page=6&sort_by=created_at&sort_order=desc"
       );
       const data = await resp.json().catch(() => null);
       if (!data || !Array.isArray(data.articles)) return;
@@ -96,7 +96,7 @@
         const url = article.html_url || "#";
         const imgUrl = extractFirstImage(body);
         const imgTag = imgUrl ? `<img src="${imgUrl}" alt="${title}">` : "";
-        const text = truncateWords(stripHtml(body), 20);
+        const text = truncateWords(stripHtml(body), 50);
 
         if (container) {
           const div = document.createElement("div");
@@ -182,7 +182,7 @@
         const img =
           extractFirstImage(body) ||
           "https://www.bigteams.com/wp-content/uploads/2017/08/image-pending.jpg";
-        const text = truncateWords(stripHtml(body), 100);
+        const text = truncateWords(stripHtml(body), 20);
 
         const div = document.createElement("div");
         div.className = "intro-item";
