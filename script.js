@@ -840,7 +840,7 @@
           const url = article.html_url || "#";
           const img =
             extractFirstImage(body) ||
-            "https://via.placeholder.com/200?text=Pending%20Image";
+            "https://www.bigteams.com/wp-content/uploads/2017/08/image-pending.jpg";
           const text = truncateWords(stripHtml(body), 20);
 
           const div = document.createElement("div");
