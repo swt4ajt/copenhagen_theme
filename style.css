@@ -5365,5 +5365,8 @@ body.dark-mode .request-sidebar {
 body.dark-mode .introduction-item {
   color: #000000;
 }
+body.dark-mode .introduction-item p {
+  color: #000;
+}
 
 /*# sourceMappingURL=style.css.map */

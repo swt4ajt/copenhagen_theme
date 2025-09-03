@@ -9,5 +9,9 @@ body.dark-mode {
 
   .introduction-item {
     color: #000000; // Light color for better contrast in dark mode
+
+    p {
+      color: #000; // Override paragraph text color to black
+    }
   }
 }
