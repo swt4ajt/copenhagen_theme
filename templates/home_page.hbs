@@ -20,9 +20,10 @@
     </section>
 
     {{#if settings.show_recent_activity}}
-      <section class="recent-activity home-section">
-        {{recent_activity scope='articles' limit=5}}
-      </section>
-    {{/if}}
+  <section class="recent-activity home-section">
+    <h2>Recent activity</h2>
+    {{recent_activity}}
+  </section>
+{{/if}}
   </aside>
 </div>
