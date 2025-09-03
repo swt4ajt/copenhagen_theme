@@ -16,7 +16,24 @@
 
         <section class="introductions home-section">
             <h2>Introductions</h2>
-            <div id="introductions-grid"></div>
+            <div id="introductions-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                <!-- Render up to 6 introduction tiles in a 3x2 grid -->
+                {{#each (slice introductions 0 6)}}
+                  <div class="intro-item">
+                    <a href="{{url}}">
+                      <img src="/assets/Image_not_available.png" alt="No image available" />
+                      <h3>{{title}}</h3>
+                      <p>
+                        {{#if excerpt}}
+                          {{excerpt}}
+                        {{else}}
+                          <span class="text-muted">No description available.</span>
+                        {{/if}}
+                      </p>
+                    </a>
+                  </div>
+                {{/each}}
+            </div>
         </section>
 
         <section class="home-section">
