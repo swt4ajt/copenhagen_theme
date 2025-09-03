@@ -1,29 +1,29 @@
 <h1 class="visibility-hidden">{{ help_center.name }}</h1>
 
 <div id="main-content" class="container intranet-grid">
-  <section class="main-column">
-    <section class="announcements home-section">
-      <h2>Company Announcements</h2>
-      <div id="announcement-carousel" class="announcement-carousel"></div>
+    <section class="main-column">
+        <section class="announcements home-section">
+            <h2>Company Announcements</h2>
+            <div id="announcement-carousel" class="announcement-carousel"></div>
+        </section>
+
+        <section class="introductions home-section">
+            <h2>Introductions</h2>
+            <div id="introductions-grid"></div>
+        </section>
     </section>
 
-    <section class="introductions home-section">
-      <h2>Introductions</h2>
-      <div id="introductions-grid"></div>
-    </section>
-  </section>
+    <aside class="right-rail">
+        <section class="department-rail home-section">
+            <h2>Departments</h2>
+            <ul class="blocks-list"></ul>
+        </section>
 
-  <aside class="right-rail">
-    <section class="department-rail home-section">
-      <h2>Departments</h2>
-      <ul class="blocks-list"></ul>
-    </section>
-
-    {{#if settings.show_recent_activity}}
-  <section class="home-section latest-articles">
-  <h2>Latest articles</h2>
-  <ul id="latest-articles-list" class="latest-articles-list" aria-live="polite"></ul>
-  </section>
-{{/if}}
-  </aside>
+        {{#if settings.show_recent_activity}}
+            <section class="home-section latest-articles">
+                <h2>Latest articles</h2>
+                <ul id="latest-articles-list" class="latest-articles-list" aria-live="polite"></ul>
+            </section>
+        {{/if}}
+    </aside>
 </div>
