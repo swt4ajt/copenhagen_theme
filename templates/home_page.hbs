@@ -1,57 +1,28 @@
 <h1 class="visibility-hidden">{{ help_center.name }}</h1>
 
-<section class="hero--brand">
-  <div class="hero-inner">
-    <h1>Welcome to the Uniken Intranet</h1>
-    <p>Your trusted resource for help, documentation, and company updates.</p>
-  </div>
-</section>
-
 <div id="main-content" class="container intranet-grid">
     <section class="main-column">
         <section class="announcements home-section">
-            <h2><a href="/hc/en-gb/sections/4970287381663-Company-Announcements">Company Announcements</a></h2>
+            <h2>Company Announcements</h2>
             <div id="announcement-carousel" class="announcement-carousel"></div>
         </section>
 
         <section class="introductions home-section">
             <h2>Introductions</h2>
-            <div id="introductions-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
-                <!-- Render up to 6 introduction tiles in a 3x2 grid -->
-                {{#each (slice introductions 0 6)}}
-                  <div class="intro-item">
-                    <a href="{{url}}">
-                      <img src="/assets/Image_not_available.png" alt="No image available" />
-                      <h3>{{title}}</h3>
-                      <p>
-                        {{#if excerpt}}
-                          {{excerpt}}
-                        {{else}}
-                          <span class="text-muted">No description available.</span>
-                        {{/if}}
-                      </p>
-                    </a>
-                  </div>
-                {{/each}}
-            </div>
+            <div id="introductions-grid"></div>
         </section>
 
-        <section class="home-section">
-            <div id="homepage-carousel"></div>
-        </section>
-    </section>
-
-    <aside class="right-rail">
-        <section class="department-rail home-section">
-            <h2>Departments</h2>
-            <ul class="blocks-list"></ul>
-        </section>
-
-        {{#if settings.show_recent_activity}}
-            <section class="home-section recent-articles">
-                <h2 class="recent-articles-title">Latest articles</h2>
-                <ul id="latest-articles-list" class="recent-articles-list" aria-live="polite"></ul>
+        <aside class="right-rail">
+            <section class="department-rail home-section">
+                <h2>Departments</h2>
+                <ul class="blocks-list"></ul>
             </section>
-        {{/if}}
-    </aside>
+
+            {{#if settings.show_recent_activity}}
+                <section class="home-section recent-articles">
+                    <h2 class="recent-articles-title">Latest articles</h2>
+                    <ul id="latest-articles-list" class="recent-articles-list" aria-live="polite"></ul>
+                </section>
+            {{/if}}
+        </aside>
 </div>
