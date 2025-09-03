@@ -701,7 +701,7 @@
             if (imgUrl) {
               link.innerHTML = `<img src="${imgUrl}" alt="${title}"><span class="carousel-caption">${title}</span>`;
             } else {
-              link.innerHTML = `<img src="/assets/image-pending.jpg" alt="No image available"><span class="carousel-caption no-image">${title}</span>`;
+              link.innerHTML = `<img src="/assets/image_not_available.png" alt="Image not available"><span class="carousel-caption no-image">${title}</span>`;
             }
 
             div.appendChild(link);
