@@ -1,10 +1,10 @@
 <h1 class="visibility-hidden">{{ help_center.name }}</h1>
 
 <section class="hero--brand">
-  <div class="hero-inner">
-    <h1>Welcome to the Uniken Intranet</h1>
-    <p>Your trusted resource for help, documentation, and company updates.</p>
-  </div>
+    <div class="hero-inner">
+        <h1>Welcome to the Uniken Intranet</h1>
+        <p>Your trusted resource for help, documentation, and company updates.</p>
+    </div>
 </section>
 
 <div id="main-content" class="container intranet-grid">
@@ -16,24 +16,8 @@
 
         <section class="introductions home-section">
             <h2>Introductions</h2>
-            <div id="introductions-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
-                <!-- Render up to 6 introduction tiles in a 3x2 grid -->
-                {{#each (slice introductions 0 6)}}
-                  <div class="intro-item">
-                    <a href="{{url}}">
-                      <img src="/assets/Image_not_available.png" alt="No image available" />
-                      <h3>{{title}}</h3>
-                      <p>
-                        {{#if excerpt}}
-                          {{excerpt}}
-                        {{else}}
-                          <span class="text-muted">No description available.</span>
-                        {{/if}}
-                      </p>
-                    </a>
-                  </div>
-                {{/each}}
-            </div>
+            {{!-- JS populates this with 6 tiles (3×2) from the Introductions section --}}
+            <div id="introductions-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;"></div>
         </section>
 
         <section class="home-section">

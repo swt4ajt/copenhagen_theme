@@ -23,51 +23,46 @@
     const menuButton = document.querySelector(".header .menu-button-mobile");
     const menuList = document.querySelector("#user-nav-mobile");
 
-    menuButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      toggleNavigation(menuButton, menuList);
-    });
-
-    menuList.addEventListener("keyup", (event) => {
-      if (event.keyCode === ESCAPE) {
+    if (menuButton && menuList) {
+      menuButton.addEventListener("click", (event) => {
         event.stopPropagation();
-        closeNavigation(menuButton, menuList);
-      }
-    });
+        toggleNavigation(menuButton, menuList);
+      });
+
+      menuList.addEventListener("keyup", (event) => {
+        if (event.keyCode === ESCAPE) {
+          event.stopPropagation();
+          closeNavigation(menuButton, menuList);
+        }
+      });
+    }
 
     // Toggles expanded aria to collapsible elements
-    const collapsible = document.querySelectorAll(
-      ".collapsible-nav, .collapsible-sidebar"
-    );
+    const collapsible = document.querySelectorAll(".collapsible-nav, .collapsible-sidebar");
 
     collapsible.forEach((element) => {
-      const toggle = element.querySelector(
-        ".collapsible-nav-toggle, .collapsible-sidebar-toggle"
-      );
+      const toggle = element.querySelector(".collapsible-nav-toggle, .collapsible-sidebar-toggle");
+      if (!toggle) return;
 
       element.addEventListener("click", () => {
         toggleNavigation(toggle, element);
       });
 
       element.addEventListener("keyup", (event) => {
-        console.log("escape");
         if (event.keyCode === ESCAPE) {
+          event.stopPropagation();
           closeNavigation(toggle, element);
         }
       });
     });
 
     // If multibrand search has more than 5 help centers or categories collapse the list
-    const multibrandFilterLists = document.querySelectorAll(
-      ".multibrand-filter-list"
-    );
+    const multibrandFilterLists = document.querySelectorAll(".multibrand-filter-list");
     multibrandFilterLists.forEach((filter) => {
       if (filter.children.length > 6) {
-        // Display the show more button
         const trigger = filter.querySelector(".see-all-filters");
+        if (!trigger) return;
         trigger.setAttribute("aria-hidden", false);
-
-        // Add event handler for click
         trigger.addEventListener("click", (event) => {
           event.stopPropagation();
           trigger.parentNode.removeChild(trigger);
@@ -211,17 +206,9 @@
       const startIndex =
         (this.menuItems.indexOf(currentItem) + 1) % this.menuItems.length;
 
-      // look up starting from current index
       let index = itemChars.indexOf(char, startIndex);
-
-      // if not found, start from start
-      if (index === -1) {
-        index = itemChars.indexOf(char, 0);
-      }
-
-      if (index > -1) {
-        this.focusByIndex(index);
-      }
+      if (index === -1) index = itemChars.indexOf(char, 0);
+      if (index > -1) this.focusByIndex(index);
     },
 
     outsideClickHandler: function (e) {
@@ -258,7 +245,6 @@
         case "Down": {
           e.stopPropagation();
           e.preventDefault();
-
           this.open();
           this.focusFirstMenuItem();
           break;
@@ -267,7 +253,6 @@
         case "Up": {
           e.stopPropagation();
           e.preventDefault();
-
           this.open();
           this.focusLastMenuItem();
           break;
@@ -276,7 +261,6 @@
         case "Escape": {
           e.stopPropagation();
           e.preventDefault();
-
           this.dismiss();
           this.toggle.focus();
           break;
@@ -288,16 +272,13 @@
       const key = e.key;
       const currentElement = this.menuItems[this.focusedIndex];
 
-      if (e.ctrlKey || e.altKey || e.metaKey) {
-        return;
-      }
+      if (e.ctrlKey || e.altKey || e.metaKey) return;
 
       switch (key) {
         case "Esc":
         case "Escape": {
           e.stopPropagation();
           e.preventDefault();
-
           this.dismiss();
           this.toggle.focus();
           break;
@@ -306,7 +287,6 @@
         case "Down": {
           e.stopPropagation();
           e.preventDefault();
-
           this.focusNextMenuItem(currentElement);
           break;
         }
@@ -374,13 +354,12 @@
     links.forEach((anchor) => {
       anchor.addEventListener("click", (event) => {
         event.preventDefault();
-        window.open(anchor.href, "", "height = 500, width = 500");
+        window.open(anchor.href, "", "height=500,width=500");
       });
     });
   });
 
-  // Vanilla JS debounce function, by Josh W. Comeau:
-  // https://www.joshwcomeau.com/snippets/javascript/debounce/
+  // Vanilla JS debounce
   function debounce(callback, wait) {
     let timeoutId = null;
     return (...args) => {
@@ -391,15 +370,12 @@
     };
   }
 
-  // Define variables for search field
+  // Search helpers
   let searchFormFilledClassName = "search-has-value";
   let searchFormSelector = "form[role='search']";
 
-  // Clear the search input, and then return focus to it
   function clearSearchInput(event) {
-    event.target
-      .closest(searchFormSelector)
-      .classList.remove(searchFormFilledClassName);
+    event.target.closest(searchFormSelector).classList.remove(searchFormFilledClassName);
 
     let input;
     if (event.target.tagName === "INPUT") {
@@ -413,9 +389,6 @@
     input.focus();
   }
 
-  // Have the search input and clear button respond
-  // when someone presses the escape key, per:
-  // https://twitter.com/adambsilver/status/1152452833234554880
   function clearSearchInputOnKeypress(event) {
     const searchInputDeleteKeys = ["Delete", "Escape"];
     if (searchInputDeleteKeys.includes(event.key)) {
@@ -423,11 +396,6 @@
     }
   }
 
-  // Create an HTML button that all users -- especially keyboard users --
-  // can interact with, to clear the search input.
-  // To learn more about this, see:
-  // https://adrianroselli.com/2019/07/ignore-typesearch.html#Delete
-  // https://www.scottohara.me/blog/2022/02/19/custom-clear-buttons.html
   function buildClearSearchButton(inputId) {
     const button = document.createElement("button");
     button.setAttribute("type", "button");
@@ -441,7 +409,6 @@
     return button;
   }
 
-  // Append the clear button to the search form
   function appendClearSearchButton(input, form) {
     const searchClearButton = buildClearSearchButton(input.id);
     form.append(searchClearButton);
@@ -450,26 +417,18 @@
     }
   }
 
-  // Add a class to the search form when the input has a value;
-  // Remove that class from the search form when the input doesn't have a value.
-  // Do this on a delay, rather than on every keystroke.
   const toggleClearSearchButtonAvailability = debounce((event) => {
     const form = event.target.closest(searchFormSelector);
-    form.classList.toggle(
-      searchFormFilledClassName,
-      event.target.value.length > 0
-    );
+    form.classList.toggle(searchFormFilledClassName, event.target.value.length > 0);
   }, 200);
 
   // Search
 
   window.addEventListener("DOMContentLoaded", () => {
-    // Set up clear functionality for the search field
     const searchForms = [...document.querySelectorAll(searchFormSelector)];
-    const searchInputs = searchForms.map((form) =>
-      form.querySelector("input[type='search']")
-    );
+    const searchInputs = searchForms.map((form) => form.querySelector("input[type='search']"));
     searchInputs.forEach((input) => {
+      if (!input) return;
       appendClearSearchButton(input, input.closest(searchFormSelector));
       input.addEventListener("keyup", clearSearchInputOnKeypress);
       input.addEventListener("keyup", toggleClearSearchButtonAvailability);
@@ -480,7 +439,7 @@
 
   function saveFocus() {
     const activeElementId = document.activeElement.getAttribute("id");
-    sessionStorage.setItem(key, "#" + activeElementId);
+    if (activeElementId) sessionStorage.setItem(key, "#" + activeElementId);
   }
 
   function returnFocus() {
@@ -495,44 +454,26 @@
   // Forms
 
   window.addEventListener("DOMContentLoaded", () => {
-    // In some cases we should preserve focus after page reload
+    // preserve focus after page reload
     returnFocus();
 
-    // show form controls when the textarea receives focus or back button is used and value exists
-    const commentContainerTextarea = document.querySelector(
-      ".comment-container textarea"
-    );
-    const commentContainerFormControls = document.querySelector(
-      ".comment-form-controls, .comment-ccs"
-    );
+    const commentContainerTextarea = document.querySelector(".comment-container textarea");
+    const commentContainerFormControls = document.querySelector(".comment-form-controls, .comment-ccs");
 
-    if (commentContainerTextarea) {
-      commentContainerTextarea.addEventListener(
-        "focus",
-        function focusCommentContainerTextarea() {
-          commentContainerFormControls.style.display = "block";
-          commentContainerTextarea.removeEventListener(
-            "focus",
-            focusCommentContainerTextarea
-          );
-        }
-      );
+    if (commentContainerTextarea && commentContainerFormControls) {
+      commentContainerTextarea.addEventListener("focus", function focusCommentContainerTextarea() {
+        commentContainerFormControls.style.display = "block";
+        commentContainerTextarea.removeEventListener("focus", focusCommentContainerTextarea);
+      });
 
       if (commentContainerTextarea.value !== "") {
         commentContainerFormControls.style.display = "block";
       }
     }
 
-    // Expand Request comment form when Add to conversation is clicked
-    const showRequestCommentContainerTrigger = document.querySelector(
-      ".request-container .comment-container .comment-show-container"
-    );
-    const requestCommentFields = document.querySelectorAll(
-      ".request-container .comment-container .comment-fields"
-    );
-    const requestCommentSubmit = document.querySelector(
-      ".request-container .comment-container .request-submit-comment"
-    );
+    const showRequestCommentContainerTrigger = document.querySelector(".request-container .comment-container .comment-show-container");
+    const requestCommentFields = document.querySelectorAll(".request-container .comment-container .comment-fields");
+    const requestCommentSubmit = document.querySelector(".request-container .comment-container .request-submit-comment");
 
     if (showRequestCommentContainerTrigger) {
       showRequestCommentContainerTrigger.addEventListener("click", () => {
@@ -540,26 +481,16 @@
         Array.prototype.forEach.call(requestCommentFields, (element) => {
           element.style.display = "block";
         });
-        requestCommentSubmit.style.display = "inline-block";
-
-        if (commentContainerTextarea) {
-          commentContainerTextarea.focus();
-        }
+        if (requestCommentSubmit) requestCommentSubmit.style.display = "inline-block";
+        if (commentContainerTextarea) commentContainerTextarea.focus();
       });
     }
 
-    // Mark as solved button
-    const requestMarkAsSolvedButton = document.querySelector(
-      ".request-container .mark-as-solved:not([data-disabled])"
-    );
-    const requestMarkAsSolvedCheckbox = document.querySelector(
-      ".request-container .comment-container input[type=checkbox]"
-    );
-    const requestCommentSubmitButton = document.querySelector(
-      ".request-container .comment-container input[type=submit]"
-    );
+    const requestMarkAsSolvedButton = document.querySelector(".request-container .mark-as-solved:not([data-disabled])");
+    const requestMarkAsSolvedCheckbox = document.querySelector(".request-container .comment-container input[type=checkbox]");
+    const requestCommentSubmitButton = document.querySelector(".request-container .comment-container input[type=submit]");
 
-    if (requestMarkAsSolvedButton) {
+    if (requestMarkAsSolvedButton && requestMarkAsSolvedCheckbox && requestCommentSubmitButton) {
       requestMarkAsSolvedButton.addEventListener("click", () => {
         requestMarkAsSolvedCheckbox.setAttribute("checked", true);
         requestCommentSubmitButton.disabled = true;
@@ -568,49 +499,32 @@
       });
     }
 
-    // Change Mark as solved text according to whether comment is filled
-    const requestCommentTextarea = document.querySelector(
-      ".request-container .comment-container textarea"
-    );
-
-    const usesWysiwyg =
-      requestCommentTextarea &&
-      requestCommentTextarea.dataset.helper === "wysiwyg";
+    const requestCommentTextarea = document.querySelector(".request-container .comment-container textarea");
+    const usesWysiwyg = requestCommentTextarea && requestCommentTextarea.dataset.helper === "wysiwyg";
 
     function isEmptyPlaintext(s) {
-      return s.trim() === "";
+      return (s || "").trim() === "";
     }
 
     function isEmptyHtml(xml) {
       const doc = new DOMParser().parseFromString(`<_>${xml}</_>`, "text/xml");
       const img = doc.querySelector("img");
-      return img === null && isEmptyPlaintext(doc.children[0].textContent);
+      return img === null && isEmptyPlaintext(doc.children[0].textContent || "");
     }
 
     const isEmpty = usesWysiwyg ? isEmptyHtml : isEmptyPlaintext;
 
-    if (requestCommentTextarea) {
+    if (requestCommentTextarea && requestMarkAsSolvedButton) {
       requestCommentTextarea.addEventListener("input", () => {
         if (isEmpty(requestCommentTextarea.value)) {
-          if (requestMarkAsSolvedButton) {
-            requestMarkAsSolvedButton.innerText =
-              requestMarkAsSolvedButton.getAttribute("data-solve-translation");
-          }
+          requestMarkAsSolvedButton.innerText = requestMarkAsSolvedButton.getAttribute("data-solve-translation");
         } else {
-          if (requestMarkAsSolvedButton) {
-            requestMarkAsSolvedButton.innerText =
-              requestMarkAsSolvedButton.getAttribute(
-                "data-solve-and-submit-translation"
-              );
-          }
+          requestMarkAsSolvedButton.innerText = requestMarkAsSolvedButton.getAttribute("data-solve-and-submit-translation");
         }
       });
     }
 
-    const selects = document.querySelectorAll(
-      "#request-status-select, #request-organization-select"
-    );
-
+    const selects = document.querySelectorAll("#request-status-select, #request-organization-select");
     selects.forEach((element) => {
       element.addEventListener("change", (event) => {
         event.stopPropagation();
@@ -619,7 +533,6 @@
       });
     });
 
-    // Submit requests filter form on search in the request list page
     const quickSearch = document.querySelector("#quick-search");
     if (quickSearch) {
       quickSearch.addEventListener("keyup", (event) => {
@@ -631,23 +544,17 @@
       });
     }
 
-    // Submit organization form in the request page
-    const requestOrganisationSelect = document.querySelector(
-      "#request-organization select"
-    );
-
+    const requestOrganisationSelect = document.querySelector("#request-organization select");
     if (requestOrganisationSelect) {
       requestOrganisationSelect.addEventListener("change", () => {
         requestOrganisationSelect.form.submit();
       });
 
       requestOrganisationSelect.addEventListener("click", (e) => {
-        // Prevents Ticket details collapsible-sidebar to close on mobile
         e.stopPropagation();
       });
     }
 
-    // If there are any error notifications below an input field, focus that field
     const notificationElm = document.querySelector(".notification-error");
     if (
       notificationElm &&
@@ -672,75 +579,97 @@
     const truncateWords = (text = "", n = 20) =>
       text.split(/\s+/).filter(Boolean).slice(0, n).join(" ");
 
+    // NEW: locale + full article fetch helpers
+    function getLocale() {
+      return (window.HelpCenter && HelpCenter.user && HelpCenter.user.locale)
+        || (location.pathname.match(/\/hc\/([^/]+)/) || [,"en-us"])[1];
+    }
+
+    async function fetchArticleFull(locale, id) {
+      const res = await fetch(`/api/v2/help_center/${locale}/articles/${id}.json`);
+      if (!res.ok) return null;
+      return res.json().catch(() => null);
+    }
+
     // --- Announcements (label: Announcements) ---
     async function loadAnnouncements() {
       const container = document.querySelector("#announcement-carousel");
       const list = document.querySelector("#announcement-list");
       if (!container && !list) return;
 
+      const locale = getLocale();
+
+      let data;
       try {
         const resp = await fetch(
           "/api/v2/help_center/articles.json?label_names=Announcements&per_page=4&sort_by=created_at&sort_order=desc"
         );
-        const data = await resp.json().catch(() => null);
-        if (!data || !Array.isArray(data.articles)) return;
+        data = await resp.json();
+      } catch { data = null; }
 
-        data.articles.forEach((article) => {
-          const body = article.body || "";
-          const title = article.title || "";
-          const url = article.html_url || "#";
+      const articles = Array.isArray(data?.articles) ? data.articles : [];
+      if (!articles.length) return;
 
-          if (container) {
-            const div = document.createElement("div");
-            div.className = "carousel-item";
-            const imgUrl = extractFirstImage(body);
+      if (container) container.innerHTML = "";
+      if (list) list.innerHTML = "";
 
-            const link = document.createElement("a");
-            link.href = url;
-            link.className = "carousel-link";
-            if (imgUrl) {
-              link.innerHTML = `<img src="${imgUrl}" alt="${title}"><span class="carousel-caption">${title}</span>`;
-            } else {
-              link.innerHTML = `<img src="/assets/image_not_available.png" alt="Image not available"><span class="carousel-caption no-image">${title}</span>`;
-            }
+      for (let i = 0; i < articles.length; i++) {
+        const a = articles[i];
+        const url = a.html_url || a.url || "#";
+        const title = a.title || "";
 
-            div.appendChild(link);
-            container.appendChild(div);
-          }
+        // Hydrate full body for image/text
+        let body = "";
+        try {
+          const full = await fetchArticleFull(locale, a.id);
+          body = full?.article?.body || "";
+        } catch { /* ignore */ }
 
-          if (list) {
-            const li = document.createElement("li");
-            li.className = "announcement-item";
-            li.innerHTML = `<a href="${url}">${title}</a>`;
-            list.appendChild(li);
-          }
-        });
+        const imgUrl = extractFirstImage(body);
+        const text = truncateWords(stripHtml(body), 24);
 
-        if (container && container.children.length) {
-          let index = 0;
-          const items = Array.from(container.children);
-          items[0].classList.add("active");
-          setInterval(() => {
-            items[index].classList.remove("active");
-            index = (index + 1) % items.length;
-            items[index].classList.add("active");
-          }, 5000);
+        if (container) {
+          const div = document.createElement("div");
+          div.className = "carousel-item" + (i === 0 ? " active" : "");
+          div.innerHTML = `
+            <a href="${url}" class="carousel-link">
+              <img src="${imgUrl || '/assets/Image_not_available.png'}" alt="${title}">
+              <span class="carousel-caption">${title}</span>
+            </a>`;
+          container.appendChild(div);
         }
-      } catch {
-        /* ignore */
+
+        if (list) {
+          const li = document.createElement("li");
+          li.className = "announcement-item";
+          li.innerHTML = `<a href="${url}">${title}</a>`;
+          list.appendChild(li);
+        }
+      }
+
+      // simple rotation if desired
+      if (container && container.children.length) {
+        let index = 0;
+        const items = Array.from(container.children);
+        items[0].classList.add("active");
+        setInterval(() => {
+          items[index].classList.remove("active");
+          index = (index + 1) % items.length;
+          items[index].classList.add("active");
+        }, 5000);
       }
     }
 
     /**
-     * Small Introductions block:
-     * - If #introductions-carousel exists, render cards with image+title+snippet
-     * - If #introductions-list exists, render a simple UL list of titles
+     * Small Introductions block (optional legacy list by label)
      * Data source: articles labeled "introductions"
      */
     async function loadIntroductions() {
       const container = document.querySelector("#introductions-carousel");
       const list = document.querySelector("#introductions-list");
       if (!container && !list) return;
+
+      const locale = getLocale();
 
       try {
         const resp = await fetch(
@@ -749,8 +678,13 @@
         const data = await resp.json().catch(() => null);
         if (!data || !Array.isArray(data.articles)) return;
 
-        data.articles.forEach((article) => {
-          const body = article.body || "";
+        for (const article of data.articles) {
+          let body = "";
+          try {
+            const full = await fetchArticleFull(locale, article.id);
+            body = full?.article?.body || "";
+          } catch { /* ignore */ }
+
           const title = article.title || "";
           const url = article.html_url || "#";
           const imgUrl = extractFirstImage(body);
@@ -770,7 +704,7 @@
             li.textContent = title;
             list.appendChild(li);
           }
-        });
+        }
       } catch {
         /* ignore */
       }
@@ -779,10 +713,8 @@
     /**
      * Full Introductions section tiles:
      * - Replaces the default `.article-list` with a grid of tiles for section 4964692123039
-     * - Section endpoint
      */
     async function loadIntroductionTiles() {
-      // Only activate on the Introductions section page
       if (!window.location.href.includes("4964692123039-Introductions")) return;
 
       const list = document.querySelector(".article-list");
@@ -801,55 +733,80 @@
         const data = await resp.json().catch(() => null);
         if (!data || !Array.isArray(data.articles)) return;
 
-        data.articles.slice(0, settings.carousel_tiles).forEach((article) => {
-          const body = article.body || "";
+        for (const article of data.articles.slice(0, 6)) {
           const title = article.title || "";
           const url = article.html_url || "#";
-          const img =
-            extractFirstImage(body) ||
-            "https://www.bigteams.com/wp-content/uploads/2017/08/image-pending.jpg";
+
+          // fetch full body for image + text
+          let body = "";
+          try {
+            const full = await fetchArticleFull(getLocale(), article.id);
+            body = full?.article?.body || "";
+          } catch { /* ignore */ }
+
+          const img = extractFirstImage(body) || "/assets/Image_not_available.png";
           const text = truncateWords(stripHtml(body), 20);
 
           const div = document.createElement("div");
           div.className = "intro-item";
           div.innerHTML = `<a href="${url}"><img src="${img}" alt="${title}"><h3>${title}</h3><p>${text}...</p></a>`;
           container.appendChild(div);
-        });
+        }
       } catch {
         /* ignore */
       }
     }
 
-    // Homepage introductions grid (latest 6 from section 4964692123039)
+    // Homepage introductions grid (3×2 from section 4964692123039)
     async function loadHomeIntroductionsGrid() {
-      if (window.location.href.includes("4964692123039-Introductions")) return;
-
       const container = document.querySelector("#introductions-grid");
       if (!container) return;
 
+      const locale = getLocale();
+
+      // 1) Get the latest 6 from the section (list payload; no bodies)
+      let list;
       try {
         const resp = await fetch(
           `/api/v2/help_center/sections/4964692123039/articles.json?per_page=6&sort_by=created_at&sort_order=desc`
         );
-        const data = await resp.json().catch(() => null);
-        if (!data || !Array.isArray(data.articles)) return;
-
-        data.articles.slice(0, 6).forEach((article) => {
-          const body = article.body || "";
-          const title = article.title || "";
-          const url = article.html_url || "#";
-          const img =
-            extractFirstImage(body) ||
-            "https://www.bigteams.com/wp-content/uploads/2017/08/image-pending.jpg";
-          const text = truncateWords(stripHtml(body), 20);
-
-          const div = document.createElement("div");
-          div.className = "intro-item";
-          div.innerHTML = `<a href="${url}"><img src="${img}" alt="${title}"><h3>${title}</h3><p>${text}...</p></a>`;
-          container.appendChild(div);
-        });
+        list = await resp.json();
       } catch {
-        /* ignore */
+        list = null;
+      }
+      const articles = Array.isArray(list?.articles) ? list.articles.slice(0, 6) : [];
+      if (!articles.length) return;
+
+      // 2) Render placeholders first (fast paint)
+      container.innerHTML = articles.map(a => `
+        <article class="intro-item" data-article-id="${a.id}">
+          <a href="${a.html_url || a.url || '#'}">
+            <img src="/assets/Image_not_available.png" alt="" class="intro-img">
+            <h3 class="intro-title">${a.title || ''}</h3>
+            <p class="intro-excerpt">${a.excerpt || 'Loading…'}</p>
+          </a>
+        </article>
+      }).join("");
+
+      // 3) Hydrate each card with real body -> image + better excerpt
+      for (const a of articles) {
+        const tile = container.querySelector(`.intro-item[data-article-id="${a.id}"]`);
+        if (!tile) continue;
+
+        try {
+          const data = await fetchArticleFull(locale, a.id);
+          const body = data?.article?.body || "";
+          const img = extractFirstImage(body);
+          const txt = truncateWords(stripHtml(body), 40);
+
+          const imgEl = tile.querySelector(".intro-img");
+          if (imgEl && img) imgEl.src = img;
+
+          const p = tile.querySelector(".intro-excerpt");
+          if (p) p.textContent = txt || a.excerpt || "No description available.";
+        } catch {
+          /* soft-fail per tile */
+        }
       }
     }
 
@@ -868,11 +825,9 @@
     const list = document.querySelector(".department-rail .blocks-list");
     if (!list) return;
     try {
-      const resp = await fetch(
-        "/api/v2/help_center/categories/4961264026655/sections.json"
-      );
+      const resp = await fetch("/api/v2/help_center/categories/4961264026655/sections.json");
       const data = await resp.json();
-      data.sections.forEach((section) => {
+      (data.sections || []).forEach((section) => {
         const li = document.createElement("li");
         li.className = "department-rail-item";
         const a = document.createElement("a");
@@ -909,9 +864,7 @@
 
   window.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("request-form-container");
-    if (!container) {
-      return;
-    }
+    if (!container) return;
 
     const dataUrl = container.dataset.forms;
 
@@ -922,98 +875,91 @@
           const card = document.createElement("div");
           card.className = "request-form-card";
           card.innerHTML = `
-          <h3>${form.name}</h3>
-          <p>${form.description}</p>
-          <a href="/forms/${form.id}" class="request-form-link">Open</a>
-        `;
+            <h3>${form.name}</h3>
+            <p>${form.description}</p>
+            <a href="/forms/${form.id}" class="request-form-link">Open</a>
+          `;
           container.appendChild(card);
         });
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console
         console.error("Failed to load request forms:", error);
       });
   });
 
 
   // ---- Latest 5 Articles (Home) --------------------------------------------
-(function () {
-  'use strict';
+  (function () {
+    'use strict';
 
-  async function fetchLatestArticles(limit = 5) {
-    // Base endpoint – sorted by created_at desc
-    const url = `/api/v2/help_center/articles.json?sort_by=created_at&sort_order=desc&per_page=${encodeURIComponent(limit)}`;
+    async function fetchLatestArticles(limit = 5) {
+      const url = `/api/v2/help_center/articles.json?sort_by=created_at&sort_order=desc&per_page=${encodeURIComponent(limit)}`;
+      const resp = await fetch(url, { credentials: 'same-origin' });
+      if (!resp.ok) throw new Error(`Latest articles request failed: ${resp.status}`);
+      return resp.json();
+    }
 
-    const resp = await fetch(url, { credentials: 'same-origin' });
-    if (!resp.ok) throw new Error(`Latest articles request failed: ${resp.status}`);
-    return resp.json();
-  }
+    function formatDate(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+      } catch {
+        return iso;
+      }
+    }
 
-  function formatDate(iso) {
-    try {
-      const d = new Date(iso);
-      return d.toLocaleDateString(undefined, {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
+    function renderLatestArticles(data) {
+      const list = document.getElementById('latest-articles-list');
+      if (!list) return;
+
+      const articles = Array.isArray(data?.articles) ? data.articles : [];
+      list.innerHTML = '';
+
+      if (!articles.length) {
+        list.innerHTML = `<li class="latest-articles-empty">No recent articles yet.</li>`;
+        return;
+      }
+
+      const frag = document.createDocumentFragment();
+
+      articles.slice(0, 5).forEach((a) => {
+        const li = document.createElement('li');
+        li.className = 'latest-articles-item';
+
+        const href = a.html_url || '#';
+        const created = formatDate(a.created_at);
+
+        li.innerHTML = `
+          <a class="latest-articles-link" href="${href}">
+            <span class="latest-articles-title">${a.title || 'Untitled article'}</span>
+            <time class="latest-articles-date" datetime="${a.created_at}">${created}</time>
+          </a>
+        `;
+        frag.appendChild(li);
       });
-    } catch {
-      return iso;
-    }
-  }
 
-  function renderLatestArticles(data) {
-    const list = document.getElementById('latest-articles-list');
-    if (!list) return;
-
-    const articles = Array.isArray(data?.articles) ? data.articles : [];
-    list.innerHTML = '';
-
-    if (!articles.length) {
-      list.innerHTML = `<li class="latest-articles-empty">No recent articles yet.</li>`;
-      return;
+      list.appendChild(frag);
     }
 
-    const frag = document.createDocumentFragment();
+    async function initLatestArticles() {
+      const list = document.getElementById('latest-articles-list');
+      if (!list) return;
 
-    articles.slice(0, 5).forEach((a) => {
-      const li = document.createElement('li');
-      li.className = 'latest-articles-item';
+      list.innerHTML = `<li class="latest-articles-loading">Loading…</li>`;
 
-      const href = a.html_url || '#';
-      const created = formatDate(a.created_at);
-
-      li.innerHTML = `
-        <a class="latest-articles-link" href="${href}">
-          <span class="latest-articles-title">${a.title || 'Untitled article'}</span>
-          <time class="latest-articles-date" datetime="${a.created_at}">${created}</time>
-        </a>
-      `;
-      frag.appendChild(li);
-    });
-
-    list.appendChild(frag);
-  }
-
-  async function initLatestArticles() {
-    const list = document.getElementById('latest-articles-list');
-    if (!list) return;
-
-    list.innerHTML = `<li class="latest-articles-loading">Loading…</li>`;
-
-    try {
-      const data = await fetchLatestArticles(5);
-      renderLatestArticles(data);
-    } catch (err) {
-      console.error(err);
-      list.innerHTML = `<li class="latest-articles-error">Couldn’t load latest articles.</li>`;
+      try {
+        const data = await fetchLatestArticles(5);
+        renderLatestArticles(data);
+      } catch (err) {
+        console.error(err);
+        list.innerHTML = `<li class="latest-articles-error">Couldn’t load latest articles.</li>`;
+      }
     }
-  }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLatestArticles);
-  } else {
-    initLatestArticles();
-  }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLatestArticles);
+    } else {
+      initLatestArticles();
+    }
+  })();
 })();
-   })();
