@@ -137,13 +137,19 @@
 }
 
 .department-rail {
-  background: $department_list_bg_color;
-  border-radius: 8px;
-  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 24px 20px;
+  margin-bottom: 32px;
   color: $department_list_text_color;
 
   h2 {
-    color: $department_list_text_color;
+    color: #17494D;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    text-align: center;
   }
 
   .blocks-list {
@@ -152,25 +158,36 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 18px;
   }
 
   .department-rail-item {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    padding: 16px 18px;
+    transition: box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
     margin: 0;
 
     a {
+      text-decoration: none;
+      color: #17494D;
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
       display: block;
-      padding: 8px 12px;
-      border: 1px solid $low-contrast-border-color;
-      background: rgba($department_list_bg_color, 0.08);
-      color: $department_list_text_color;
-      border-radius: 4px;
-      transition: background 0.2s;
-
-      &:hover {
-        background: rgba($department_list_bg_color, 0.18);
-      }
+      padding: 0;
+      border: none;
+      background: none;
+      border-radius: 0;
+      transition: color 0.2s;
     }
+  }
+
+  .department-rail-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
   }
 }
 

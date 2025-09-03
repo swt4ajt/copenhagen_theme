@@ -796,7 +796,7 @@
 
       try {
         const resp = await fetch(
-          `/api/v2/help_center/sections/4964692123039/articles.json?per_page=${settings.carousel_tiles}&sort_by=created_at&sort_order=desc`
+          `/api/v2/help_center/sections/4964692123039/articles.json?per_page=6&sort_by=created_at&sort_order=desc`
         );
         const data = await resp.json().catch(() => null);
         if (!data || !Array.isArray(data.articles)) return;
@@ -820,7 +820,7 @@
       }
     }
 
-    // Homepage introductions grid (latest 4 from section 4964692123039)
+    // Homepage introductions grid (latest 6 from section 4964692123039)
     async function loadHomeIntroductionsGrid() {
       if (window.location.href.includes("4964692123039-Introductions")) return;
 
@@ -834,7 +834,7 @@
         const data = await resp.json().catch(() => null);
         if (!data || !Array.isArray(data.articles)) return;
 
-        data.articles.slice(0, 4).forEach((article) => {
+        data.articles.slice(0, 6).forEach((article) => {
           const body = article.body || "";
           const title = article.title || "";
           const url = article.html_url || "#";
