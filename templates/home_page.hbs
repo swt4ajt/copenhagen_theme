@@ -20,8 +20,9 @@
     </section>
 
     {{#if settings.show_recent_activity}}
-  <section class="recent-activity home-section">
-    {{recent_activity}}
+  <section class="home-section latest-articles">
+  <h2>Latest articles</h2>
+  <ul id="latest-articles-list" class="latest-articles-list" aria-live="polite"></ul>
   </section>
 {{/if}}
   </aside>
