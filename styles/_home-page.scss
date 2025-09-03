@@ -128,12 +128,13 @@
 }
 
 .department-rail {
-  background: $brand_color;
+  background: $department_list_bg_color;
   border-radius: 8px;
   padding: 16px;
+  color: $department_list_text_color;
 
   h2 {
-    margin-bottom: 10px;
+    color: $department_list_text_color;
   }
 
   .blocks-list {
@@ -152,13 +153,13 @@
       display: block;
       padding: 8px 12px;
       border: 1px solid $low-contrast-border-color;
-      background: rgba($brand_color, 0.08); // subtle highlight for each item
-      color: $brand_text_color;
+      background: rgba($department_list_bg_color, 0.08);
+      color: $department_list_text_color;
       border-radius: 4px;
       transition: background 0.2s;
 
       &:hover {
-        background: rgba($brand_color, 0.18);
+        background: rgba($department_list_bg_color, 0.18);
       }
     }
   }

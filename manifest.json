@@ -1,7 +1,7 @@
 {
   "name": "Copenhagen",
   "author": "Zendesk",
-  "version": "4.11.51",
+  "version": "4.11.52",
   "api_version": 4,
   "default_locale": "en-us",
   "settings": [
@@ -70,6 +70,20 @@
           "description": "dark_text_color_description",
           "label": "dark_text_color_label",
           "value": "#FFFFFF"
+        },
+        {
+          "identifier": "department_list_bg_color",
+          "type": "color",
+          "description": "Background color for the department list on the homepage right rail.",
+          "label": "Department List Background Color",
+          "value": "#E6F1F2"
+        },
+        {
+          "identifier": "department_list_text_color",
+          "type": "color",
+          "description": "Text color for the department list on the homepage right rail.",
+          "label": "Department List Text Color",
+          "value": "#17494D"
         }
       ]
     },
