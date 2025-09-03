@@ -1805,6 +1805,36 @@ button {
   margin: 40px !important;
 }
 
+.latest-articles-item {
+  margin-bottom: 20px;
+}
+
+.latest-articles-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.latest-articles-title {
+  display: block;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.latest-articles-date {
+  display: block;
+  font-size: 0.95rem;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+.latest-articles-section {
+  display: block;
+  font-size: 0.95rem;
+  color: #1F73B7;
+}
+
 @media (max-width: 768px) {
   .intranet-grid {
     grid-template-columns: 1fr;
