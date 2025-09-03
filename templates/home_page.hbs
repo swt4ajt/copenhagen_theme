@@ -11,6 +11,12 @@
     <ul class="blocks-list"></ul>
   </aside>
 
+  {{#if settings.show_recent_activity}}
+    <section class="recent-activity home-section">
+      {{recent_activity scope='articles' limit=5}}
+    </section>
+  {{/if}}
+
   <section class="introductions home-section">
     <h2>Introductions</h2>
     <div id="introductions-grid"></div>
