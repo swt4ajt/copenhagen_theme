@@ -223,16 +223,22 @@
         },
         {
           "identifier": "carousel_autoplay_speed",
-          "type": "number",
+          "type": "range",
           "description": "Set the speed of the carousel autoplay in milliseconds.",
           "label": "Carousel autoplay speed (ms)",
+          "min": 1000,
+          "max": 15000,
+          "step": 500,
           "value": 5000
         },
         {
           "identifier": "carousel_tiles",
-          "type": "number",
+          "type": "range",
           "description": "Number of tiles to display in the homepage carousel.",
           "label": "Carousel tiles",
+          "min": 1,
+          "max": 12,
+          "step": 1,
           "value": 6
         }
       ]
