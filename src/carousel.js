@@ -182,7 +182,7 @@
         const img =
           extractFirstImage(body) ||
           "https://www.bigteams.com/wp-content/uploads/2017/08/image-pending.jpg";
-        const text = truncateWords(stripHtml(body), 20);
+        const text = truncateWords(stripHtml(body), 100);
 
         const div = document.createElement("div");
         div.className = "intro-item";
