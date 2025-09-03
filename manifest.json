@@ -219,7 +219,7 @@
           "type": "number",
           "label": "Carousel tile count",
           "description": "Number of tiles to display in the homepage carousel.",
-          "value": 6
+          "value": "6"
         }
       ]
     },
