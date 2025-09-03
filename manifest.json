@@ -216,7 +216,7 @@
       "variables": [
         {
           "identifier": "carousel_tile_count",
-          "type": "number",
+          "type": "text",
           "label": "Carousel tile count",
           "description": "Number of tiles to display in the homepage carousel.",
           "value": "6"
