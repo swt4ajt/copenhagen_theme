@@ -49,11 +49,13 @@
                                 <a href="{{url}}">
                                     <img src="{{asset 'image-pending.jpg'}}" alt="No image available" />
                                     <h3>{{title}}</h3>
-                                    {{#if body}}
-                                        <p>{{excerpt body characters=160}}</p>
-                                    {{else}}
-                                        <p class="text-muted">No description available.</p>
-                                    {{/if}}
+                                    <p>
+                                        {{#if excerpt}}
+                                            {{excerpt}}
+                                        {{else}}
+                                            <span class="text-muted">No description available.</span>
+                                        {{/if}}
+                                    </p>
                                 </a>
                             </div>
                         {{/each}}
