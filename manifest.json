@@ -217,8 +217,8 @@
         {
           "identifier": "carousel_tile_count",
           "type": "number",
-          "description": "Number of tiles to display in the homepage carousel.",
           "label": "Carousel tile count",
+          "description": "Number of tiles to display in the homepage carousel.",
           "value": 6
         }
       ]
