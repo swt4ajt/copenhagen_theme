@@ -1,28 +1,28 @@
 <h1 class="visibility-hidden">{{ help_center.name }}</h1>
 
 <div id="main-content" class="container intranet-grid">
-  <section class="announcements home-section">
-    <h2>Company Announcements</h2>
-    <div id="announcement-carousel" class="announcement-carousel"></div>
-  </section>
-
-  <aside class="department-rail home-section">
-    <h2>Departments</h2>
-    <ul class="blocks-list"></ul>
-  </aside>
-
-  {{#if settings.show_recent_activity}}
-    <section class="recent-activity home-section">
-      {{recent_activity scope='articles' limit=5}}
+  <section class="main-column">
+    <section class="announcements home-section">
+      <h2>Company Announcements</h2>
+      <div id="announcement-carousel" class="announcement-carousel"></div>
     </section>
-  {{/if}}
 
-  <section class="introductions home-section">
-    <h2>Introductions</h2>
-    <div id="introductions-grid"></div>
+    <section class="introductions home-section">
+      <h2>Introductions</h2>
+      <div id="introductions-grid"></div>
+    </section>
   </section>
 
-  {{#if settings.show_recent_activity}}
-    {{{recent_activity scope='articles' limit=5 class='recent-activity home-section'}}}
-  {{/if}}
+  <aside class="right-rail">
+    <section class="department-rail home-section">
+      <h2>Departments</h2>
+      <ul class="blocks-list"></ul>
+    </section>
+
+    {{#if settings.show_recent_activity}}
+      <section class="recent-activity home-section">
+        {{recent_activity scope='articles' limit=5}}
+      </section>
+    {{/if}}
+  </aside>
 </div>

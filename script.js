@@ -672,8 +672,6 @@
     const truncateWords = (text = "", n = 20) =>
       text.split(/\s+/).filter(Boolean).slice(0, n).join(" ");
 
-    const getLocale = () => (document.documentElement.lang || "en-us").toLowerCase();
-
     // --- Announcements (label: Announcements) ---
     async function loadAnnouncements() {
       const container = document.querySelector("#announcement-carousel");
@@ -682,7 +680,7 @@
 
       try {
         const resp = await fetch(
-          `/api/v2/help_center/${getLocale()}/articles.json?label_names=Announcements&per_page=4&sort_by=created_at&sort_order=desc`
+          "/api/v2/help_center/articles.json?label_names=Announcements&per_page=4&sort_by=created_at&sort_order=desc"
         );
         const data = await resp.json().catch(() => null);
         if (!data || !Array.isArray(data.articles)) return;
@@ -692,23 +690,23 @@
           const title = article.title || "";
           const url = article.html_url || "#";
 
-            if (container) {
-              const div = document.createElement("div");
-              div.className = "carousel-item";
-              const imgUrl = extractFirstImage(body);
+          if (container) {
+            const div = document.createElement("div");
+            div.className = "carousel-item";
+            const imgUrl = extractFirstImage(body);
 
-              const link = document.createElement("a");
-              link.href = url;
-              link.className = "carousel-link";
-              if (imgUrl) {
-                link.innerHTML = `<img src="${imgUrl}" alt="${title}"><span class="carousel-caption">${title}</span>`;
-              } else {
-                link.innerHTML = `<span class="carousel-caption no-image">${title}</span>`;
-              }
-
-              div.appendChild(link);
-              container.appendChild(div);
+            const link = document.createElement("a");
+            link.href = url;
+            link.className = "carousel-link";
+            if (imgUrl) {
+              link.innerHTML = `<img src="${imgUrl}" alt="${title}"><span class="carousel-caption">${title}</span>`;
+            } else {
+              link.innerHTML = `<span class="carousel-caption no-image">${title}</span>`;
             }
+
+            div.appendChild(link);
+            container.appendChild(div);
+          }
 
           if (list) {
             const li = document.createElement("li");
@@ -737,7 +735,7 @@
      * Small Introductions block:
      * - If #introductions-carousel exists, render cards with image+title+snippet
      * - If #introductions-list exists, render a simple UL list of titles
-     * Data source: articles labeled "introductions" (locale-aware)
+     * Data source: articles labeled "introductions"
      */
     async function loadIntroductions() {
       const container = document.querySelector("#introductions-carousel");
@@ -746,7 +744,7 @@
 
       try {
         const resp = await fetch(
-          `/api/v2/help_center/${getLocale()}/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc`
+          "/api/v2/help_center/articles.json?label_names=introductions&per_page=5&sort_by=created_at&sort_order=desc"
         );
         const data = await resp.json().catch(() => null);
         if (!data || !Array.isArray(data.articles)) return;
@@ -781,7 +779,7 @@
     /**
      * Full Introductions section tiles:
      * - Replaces the default `.article-list` with a grid of tiles for section 4964692123039
-     * - Locale-aware section endpoint
+     * - Section endpoint
      */
     async function loadIntroductionTiles() {
       // Only activate on the Introductions section page
@@ -798,7 +796,7 @@
 
       try {
         const resp = await fetch(
-          `/api/v2/help_center/${getLocale()}/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc`
+          "/api/v2/help_center/sections/4964692123039/articles.json?per_page=100&sort_by=created_at&sort_order=desc"
         );
         const data = await resp.json().catch(() => null);
         if (!data || !Array.isArray(data.articles)) return;
@@ -807,7 +805,9 @@
           const body = article.body || "";
           const title = article.title || "";
           const url = article.html_url || "#";
-          const img = extractFirstImage(body) || "https://via.placeholder.com/200?text=Pending%20Image";
+          const img =
+            extractFirstImage(body) ||
+            "https://via.placeholder.com/200?text=Pending%20Image";
           const text = truncateWords(stripHtml(body), 20);
 
           const div = document.createElement("div");
@@ -829,7 +829,7 @@
 
       try {
         const resp = await fetch(
-          `/api/v2/help_center/${getLocale()}/sections/4964692123039/articles.json?per_page=4&sort_by=created_at&sort_order=desc`
+          "/api/v2/help_center/sections/4964692123039/articles.json?per_page=4&sort_by=created_at&sort_order=desc"
         );
         const data = await resp.json().catch(() => null);
         if (!data || !Array.isArray(data.articles)) return;
@@ -867,10 +867,9 @@
   async function loadDepartments() {
     const list = document.querySelector(".department-rail .blocks-list");
     if (!list) return;
-    const locale = document.documentElement.lang;
     try {
       const resp = await fetch(
-        `/api/v2/help_center/categories/4961264026655/sections.json`
+        "/api/v2/help_center/categories/4961264026655/sections.json"
       );
       const data = await resp.json();
       data.sections.forEach((section) => {
@@ -888,5 +887,52 @@
   }
 
   document.addEventListener("DOMContentLoaded", loadDepartments);
+
+  /* eslint-disable check-file/filename-naming-convention */
+  window.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.querySelector(".theme-toggle");
+    const body = document.body;
+    const STORAGE_KEY = "preferred-theme";
+
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === "dark") {
+      body.classList.add("dark-mode");
+    }
+
+    if (toggle) {
+      toggle.addEventListener("click", () => {
+        const isDark = body.classList.toggle("dark-mode");
+        localStorage.setItem(STORAGE_KEY, isDark ? "dark" : "light");
+      });
+    }
+  });
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("request-form-container");
+    if (!container) {
+      return;
+    }
+
+    const dataUrl = container.dataset.forms;
+
+    fetch(dataUrl)
+      .then((response) => response.json())
+      .then((forms) => {
+        forms.forEach((form) => {
+          const card = document.createElement("div");
+          card.className = "request-form-card";
+          card.innerHTML = `
+          <h3>${form.name}</h3>
+          <p>${form.description}</p>
+          <a href="/forms/${form.id}" class="request-form-link">Open</a>
+        `;
+          container.appendChild(card);
+        });
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error("Failed to load request forms:", error);
+      });
+  });
 
 })();
