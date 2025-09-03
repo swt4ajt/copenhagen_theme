@@ -71,6 +71,7 @@
 .announcement-item,
 .introduction-item {
   margin-bottom: 20px;
+  min-height: 200px; // Ensures fixed height for items without images
 }
 
 .announcement-carousel {
