@@ -935,4 +935,103 @@
       });
   });
 
+
+  // ---- Latest 5 Articles (Home) --------------------------------------------
+(function () {
+  'use strict';
+
+  async function fetchLatestArticles(limit = 5) {
+    // Try to get locale from the Help Center global; fallback to URL
+    const locale =
+      (window.HelpCenter && HelpCenter.user && HelpCenter.user.locale) ||
+      (location.pathname.split('/')[1] || 'en-us');
+
+    // Use the search endpoint to guarantee sorting by created_at desc
+    // Docs behavior: respects user permissions/segments automatically
+    const url = `/api/v2/help_center/${encodeURIComponent(locale)}/articles/search.json?query=*`
+      + `&sort_by=created_at&sort_order=desc&per_page=${encodeURIComponent(limit)}`
+      + `&include=sections,categories,users`;
+
+    const resp = await fetch(url, { credentials: 'same-origin' });
+    if (!resp.ok) throw new Error(`Latest articles request failed: ${resp.status}`);
+    return resp.json();
+  }
+
+  function formatDate(iso) {
+    try {
+      // Let the browser localise; fallback to raw
+      const d = new Date(iso);
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    } catch {
+      return iso;
+    }
+  }
+
+  function renderLatestArticles(data) {
+    const list = document.getElementById('latest-articles-list');
+    if (!list) return;
+
+    const articles = Array.isArray(data?.results) ? data.results : [];
+    list.innerHTML = '';
+
+    if (!articles.length) {
+      list.innerHTML = `<li class="latest-articles-empty">No recent articles yet.</li>`;
+      return;
+    }
+
+    // Optional: quick lookup maps for included sections/categories
+    const sectionsById = new Map((data?.sections || []).map(s => [s.id, s]));
+    const categoriesById = new Map((data?.categories || []).map(c => [c.id, c]));
+
+    const frag = document.createDocumentFragment();
+
+    articles.slice(0, 5).forEach(a => {
+      const li = document.createElement('li');
+      li.className = 'latest-articles-item';
+
+      const href = a.html_url || '#';
+      const created = formatDate(a.created_at);
+
+      // Optional labels (uncomment if you want breadcrumbs)
+      // const section = a.section_id ? sectionsById.get(a.section_id) : null;
+      // const category = section && section.category_id ? categoriesById.get(section.category_id) : null;
+      // const crumb = [category?.name, section?.name].filter(Boolean).join(' · ');
+
+      li.innerHTML = `
+        <a class="latest-articles-link" href="${href}">
+          <span class="latest-articles-title">${a.title || 'Untitled article'}</span>
+          <time class="latest-articles-date" datetime="${a.created_at}">${created}</time>
+          <!-- <span class="latest-articles-crumb">${crumb || ''}</span> -->
+        </a>
+      `;
+      frag.appendChild(li);
+    });
+
+    list.appendChild(frag);
+  }
+
+  async function initLatestArticles() {
+    const list = document.getElementById('latest-articles-list');
+    if (!list) return;
+
+    // Simple loading state
+    list.innerHTML = `<li class="latest-articles-loading">Loading…</li>`;
+
+    try {
+      const data = await fetchLatestArticles(5);
+      renderLatestArticles(data);
+    } catch (err) {
+      console.error(err);
+      list.innerHTML = `<li class="latest-articles-error">Couldn’t load latest articles.</li>`;
+    }
+  }
+
+  // Run once DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLatestArticles);
+  } else {
+    initLatestArticles();
+  }
+})();
+
 })();
