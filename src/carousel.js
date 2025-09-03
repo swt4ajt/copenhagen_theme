@@ -42,7 +42,7 @@
           if (imgUrl) {
             link.innerHTML = `<img src="${imgUrl}" alt="${title}"><span class="carousel-caption">${title}</span>`;
           } else {
-            link.innerHTML = `<span class="carousel-caption no-image">${title}</span>`;
+            link.innerHTML = `<div class="carousel-image-placeholder"></div><span class="carousel-caption no-image">${title}</span>`;
           }
 
           div.appendChild(link);
