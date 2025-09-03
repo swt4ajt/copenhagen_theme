@@ -16,27 +16,32 @@
 /***** Hero branding *****/
 
 .hero--brand {
-  background: linear-gradient(135deg, $brand_color, zass-lighten($brand_color, 15%));
-  color: $brand_text_color;
-  padding: 80px 20px;
-  text-align: center;
+  display: none;
 
-  .hero-inner {
-    max-width: 640px;
-    margin: 0 auto;
-  }
+  @include desktop {
+    display: block;
+    background: linear-gradient(135deg, #17494D, #1F73B7 70%);
+    color: #fff;
+    padding: 64px 0 48px 0;
+    text-align: center;
+    margin-bottom: 32px;
 
-  .btn {
-    background: $brand_text_color;
-    border: 0;
-    border-radius: 4px;
-    color: $brand_color;
-    font-weight: $font-weight-semibold;
-    padding: 12px 32px;
-    transition: background .3s;
+    .hero-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-    &:hover {
-      background: zass-lighten($brand_text_color, 10%);
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 0;
     }
   }
 }

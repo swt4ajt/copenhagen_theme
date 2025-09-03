@@ -1315,26 +1315,32 @@ ul {
 
 /***** Hero branding *****/
 .hero--brand {
-  background: linear-gradient(135deg, #0070f3, zass-lighten(#0070f3, 15%));
-  color: #fff;
-  padding: 80px 20px;
-  text-align: center;
+  display: none;
 }
-.hero--brand .hero-inner {
-  max-width: 640px;
-  margin: 0 auto;
-}
-.hero--brand .btn {
-  background: #fff;
-  border: 0;
-  border-radius: 4px;
-  color: #0070f3;
-  font-weight: 600;
-  padding: 12px 32px;
-  transition: background 0.3s;
-}
-.hero--brand .btn:hover {
-  background: zass-lighten(#fff, 10%);
+@media (min-width: 1024px) {
+  .hero--brand {
+    display: block;
+    background: linear-gradient(135deg, #17494D, #1F73B7 70%);
+    color: #fff;
+    padding: 64px 0 48px 0;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .hero--brand .hero-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .hero--brand h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .hero--brand p {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 0;
+  }
 }
 
 /***** Intranet layout *****/
