@@ -1,7 +1,7 @@
 {
   "name": "Uniken",
   "author": "Zendesk",
-  "version": "4.12.01",
+  "version": "4.12.02",
   "api_version": 4,
   "default_locale": "en-us",
   "settings": [

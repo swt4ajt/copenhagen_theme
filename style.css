@@ -3581,67 +3581,31 @@ button {
 /* Sidebar navigation that collapses on mobile */
 @media (min-width: 1024px) {
   .collapsible-sidebar {
-    max-height: none;
-    padding: 0;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 0 0 30px;
+    display: block;
   }
 }
 .collapsible-sidebar {
   flex: 1;
-  max-height: 45px;
-  overflow: hidden;
+  max-height: none !important;
+  overflow: visible !important;
   padding: 10px 0;
   position: relative;
 }
-.collapsible-sidebar-title {
-  margin-top: 0;
-}
-@media (min-width: 1024px) {
-  .collapsible-sidebar-toggle {
-    display: none;
-  }
-}
-.collapsible-sidebar-toggle {
-  position: absolute;
-  top: 22.5px;
-  transform: translateY(-50%);
-  right: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-}
-[dir=rtl] .collapsible-sidebar-toggle {
-  left: 0;
-  right: auto;
-}
-.collapsible-sidebar-toggle-icon {
-  display: none;
-}
-.collapsible-sidebar-toggle[aria-expanded=false] .chevron-icon {
-  display: inline-block;
-}
-.collapsible-sidebar-toggle[aria-expanded=true] .x-icon {
-  display: inline-block;
-}
-.collapsible-sidebar-toggle:focus {
-  outline: none;
-  border: 1px solid #10B5F9;
-}
-@media (min-width: 1024px) {
-  .collapsible-sidebar-body {
-    display: block;
-  }
+.collapsible-sidebar.expanded {
+  max-height: none !important;
+  overflow: visible !important;
+  display: block;
 }
 .collapsible-sidebar-body {
-  display: none;
+  display: block !important;
+  max-height: none !important;
+  overflow: visible !important;
 }
-.collapsible-sidebar[aria-expanded=true] {
-  max-height: none;
-}
-.collapsible-sidebar[aria-expanded=true] .collapsible-sidebar-body {
-  display: block;
+.collapsible-sidebar-toggle {
+  display: none !important;
 }
 
 /***** My activities *****/

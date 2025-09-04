@@ -1,69 +1,30 @@
 /* Sidebar navigation that collapses on mobile */
 .collapsible-sidebar {
   @include desktop {
-    max-height: none;
-    padding: 0;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 0 0 30px;
+    display: block;
   }
   flex: 1;
-  max-height: 45px;
-  overflow: hidden;
+  max-height: none !important;
+  overflow: visible !important;
   padding: 10px 0;
   position: relative;
 
-  &-title {
-    margin-top: 0;
-  }
-
-  &-toggle {
-    @include desktop { display: none; }
-    position: absolute;
-    top: calc(45px / 2);
-    transform: translateY(-50%);
-    right: 0;
-    padding: 0;
-    border: 0;
-    background: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-
-    [dir="rtl"] & {
-      left: 0;
-      right: auto;
-    }
-
-    &-icon {
-      display: none;
-    }
-  
-    &[aria-expanded="false"] {
-      .chevron-icon {
-        display: inline-block;
-      }
-    }
-    
-    &[aria-expanded="true"] {
-      .x-icon {
-        display: inline-block;
-      }
-    }
-
-    &:focus {
-      outline: none;
-      border: 1px solid $brand_color;
-    }
+  &.expanded {
+    max-height: none !important;
+    overflow: visible !important;
+    display: block;
   }
 
   &-body {
-    @include desktop { display: block; }
-    display: none;
+    display: block !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
-  &[aria-expanded="true"] {
-    max-height: none;
-
-    .collapsible-sidebar-body {
-      display: block;
-    }
+  &-toggle {
+    display: none !important;
   }
 }
