@@ -1,0 +1,39 @@
+{{! Employee Offboarding Request Form }}
+<h1>Employee Offboarding</h1>
+<form id="employeeOffboardingForm">
+  <div id="employeeOffboardingFields">
+    <!-- Dynamic fields will be rendered here -->
+  </div>
+  <button type="submit">Submit</button>
+  <button type="button" id="resetEmployeeOffboardingForm">Reset</button>
+</form>
+<script>
+  fetch('/assets/request-forms.json')
+    .then(res => res.json())
+    .then(data => {
+      const formId = '4959424709919'; // Offboarding form ID
+      const fields = data[formId]?.fields || [];
+      const fieldsContainer = document.getElementById('employeeOffboardingFields');
+      fieldsContainer.innerHTML = fields.map(field => {
+        return `<label>${field.label}<input name=\"${field.name}\" type=\"${field.type || 'text'}\" /></label>`;
+      }).join('');
+    });
+
+  document.getElementById('employeeOffboardingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    fetch('/api/submit-request', {
+      method: 'POST',
+      body: JSON.stringify(Object.fromEntries(formData)),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(res => {
+      if (res.ok) alert('Request submitted!');
+      else alert('Submission failed.');
+    });
+  });
+
+  document.getElementById('resetEmployeeOffboardingForm').addEventListener('click', function() {
+    document.getElementById('employeeOffboardingForm').reset();
+  });
+</script>

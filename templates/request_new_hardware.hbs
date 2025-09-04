@@ -1,0 +1,39 @@
+{{! Request for New Hardware Form }}
+<h1>Request for New Hardware</h1>
+<form id="hardwareRequestForm">
+  <div id="hardwareRequestFields">
+    <!-- Dynamic fields will be rendered here -->
+  </div>
+  <button type="submit">Submit</button>
+  <button type="button" id="resetHardwareRequestForm">Reset</button>
+</form>
+<script>
+  fetch('/assets/request-forms.json')
+    .then(res => res.json())
+    .then(data => {
+      const formId = '4959443538975'; // Hardware request form ID
+      const fields = data[formId]?.fields || [];
+      const fieldsContainer = document.getElementById('hardwareRequestFields');
+      fieldsContainer.innerHTML = fields.map(field => {
+        return `<label>${field.label}<input name=\"${field.name}\" type=\"${field.type || 'text'}\" /></label>`;
+      }).join('');
+    });
+
+  document.getElementById('hardwareRequestForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    fetch('/api/submit-request', {
+      method: 'POST',
+      body: JSON.stringify(Object.fromEntries(formData)),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(res => {
+      if (res.ok) alert('Request submitted!');
+      else alert('Submission failed.');
+    });
+  });
+
+  document.getElementById('resetHardwareRequestForm').addEventListener('click', function() {
+    document.getElementById('hardwareRequestForm').reset();
+  });
+</script>

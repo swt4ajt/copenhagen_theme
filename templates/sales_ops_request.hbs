@@ -1,0 +1,43 @@
+{{! Sales Ops Request Form }}
+<h1>Sales Ops</h1>
+<form id="salesOpsForm">
+  <div id="salesOpsFields">
+    <!-- Dynamic fields will be rendered here -->
+  </div>
+  <button type="submit">Submit</button>
+  <button type="button" id="resetSalesOpsForm">Reset</button>
+</form>
+<script>
+  // Fetch fields for Sales Ops request from request-forms.json
+  fetch('/assets/request-forms.json')
+    .then(res => res.json())
+    .then(data => {
+      const formId = '4964521982623'; // Sales Ops form ID
+      const fields = data[formId]?.fields || [];
+      const fieldsContainer = document.getElementById('salesOpsFields');
+      fieldsContainer.innerHTML = fields.map(field => {
+        return `<label>${field.label}<input name="${field.name}" type="${field.type || 'text'}" /></label>`;
+      }).join('');
+    });
+
+  // Submit handler
+  document.getElementById('salesOpsForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    // Submit request as current user
+    fetch('/api/submit-request', {
+      method: 'POST',
+      body: JSON.stringify(Object.fromEntries(formData)),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(res => {
+      if (res.ok) alert('Request submitted!');
+      else alert('Submission failed.');
+    });
+  });
+
+  // Reset handler
+  document.getElementById('resetSalesOpsForm').addEventListener('click', function() {
+    document.getElementById('salesOpsForm').reset();
+  });
+</script>
