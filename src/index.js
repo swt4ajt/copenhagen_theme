@@ -9,3 +9,11 @@ import "./carousel";
 import "./departments";
 import "./modules/theme-toggle";
 import "./requestFormsList";
+import "./holidaysCalendar";
+
+// Initialize holidays notification banner on category pages
+window.addEventListener("DOMContentLoaded", () => {
+  if (document.querySelector('#holidays-banner') && document.querySelector('.pending-holidays-2025')) {
+    window.renderHolidaysBanner('#holidays-banner');
+  }
+});
