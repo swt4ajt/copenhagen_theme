@@ -1002,6 +1002,8 @@ ul {
 /***** Search field *****/
 .search-container {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .search {
@@ -1012,6 +1014,7 @@ ul {
   display: flex;
   position: relative;
   transition: border 0.12s ease-in-out;
+  align-items: center;
 }
 .search:focus-within {
   border-color: #0070f3;
@@ -1033,6 +1036,10 @@ ul {
   flex: 1 1 auto;
   height: 40px;
   width: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin: 0;
+  vertical-align: middle;
 }
 .search input[type=search]:focus {
   color: #555;
@@ -1112,7 +1119,9 @@ ul {
   top: 50%;
   transform: translateY(-50%);
   position: absolute;
-  left: 15px;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1;
   width: 18px;
   height: 18px;
