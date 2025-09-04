@@ -12,32 +12,6 @@
   </div>
 
   <div class="article-container" id="article-container">
-    <aside class="article-sidebar" aria-labelledby="section-articles-title">
-      {{#if settings.show_articles_in_section}}
-        <div class="collapsible-sidebar expanded">
-          <span id="section-articles-title" class="collapsible-sidebar-title sidenav-title">
-            {{t 'articles_in_section'}}
-          </span>
-          <div class="collapsible-sidebar-body">
-            <ul>
-              {{#each section.articles}}
-                <li>
-                  <a href="{{url}}" 
-                     class="sidenav-item {{#is id ../article.id}}current-article{{/is}}"
-                     {{#is id ../article.id}}aria-current="page"{{/is}}>
-                       {{title}}
-                  </a>
-                </li>
-              {{/each}}
-            </ul>
-            {{#if section.more_articles}}
-              <a href="{{section.url}}" class="article-sidebar-item">{{t 'see_more'}}</a>
-            {{/if}}
-          </div>
-        </div>
-      {{/if}}
-    </aside>
-
     <article id="main-content" class="article">
       <header class="article-header">
         <h1 title="{{article.title}}" class="article-title">
@@ -316,6 +290,31 @@
           </section>
         </div>
       {{/if}}
-    </article>
+  </article>
+  {{#if settings.show_articles_in_section}}
+    <aside class="article-sidebar" aria-labelledby="section-articles-title">
+      <div class="collapsible-sidebar expanded">
+        <span id="section-articles-title" class="collapsible-sidebar-title sidenav-title">
+          {{t 'articles_in_section'}}
+        </span>
+        <div class="collapsible-sidebar-body">
+          <ul>
+            {{#each section.articles}}
+              <li>
+                <a href="{{url}}"
+                   class="sidenav-item {{#is id ../article.id}}current-article{{/is}}"
+                   {{#is id ../article.id}}aria-current="page"{{/is}}>
+                   {{title}}
+                </a>
+              </li>
+            {{/each}}
+          </ul>
+          {{#if section.more_articles}}
+            <a href="{{section.url}}" class="article-sidebar-item">{{t 'see_more'}}</a>
+          {{/if}}
+        </div>
+      </div>
+    </aside>
+  {{/if}}
   </div>
 </div>
