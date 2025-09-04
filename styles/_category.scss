@@ -57,3 +57,131 @@
   color: $brand_color;
   font-size: 18px;
 }
+
+.category-hero {
+  background: var(--brand-color, #005fa3);
+  color: var(--brand-text-color, #fff);
+  padding: 48px 24px 32px 24px;
+  text-align: center;
+  border-radius: 16px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+
+  .category-hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .category-hero-description {
+    font-size: 1.2rem;
+    opacity: 0.85;
+    margin-bottom: 0;
+  }
+}
+
+.section-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+
+  .section-tile {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: box-shadow 0.2s;
+
+    &:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    }
+
+    .section-tile-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+
+      a {
+        color: var(--brand-color, #005fa3);
+        text-decoration: none;
+
+        &:hover { text-decoration: underline; }
+      }
+    }
+
+    .section-tile-description {
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .section-tile-link {
+      background: var(--brand-color, #005fa3);
+      color: var(--brand-text-color, #fff);
+      border-radius: 6px;
+      padding: 8px 18px;
+      font-weight: 500;
+      text-decoration: none;
+      margin-top: auto;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #003e6b;
+      }
+    }
+  }
+}
+
+.right-rail {
+  padding-left: 32px;
+
+  .recent-articles {
+    background: #f7f9fb;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+
+    .recent-articles-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--brand-color, #005fa3);
+    }
+
+    .recent-articles-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .recent-article-link {
+        color: #222;
+        text-decoration: none;
+        display: block;
+        padding: 6px 0;
+        border-bottom: 1px solid #eaeaea;
+
+        &:hover {
+          color: var(--brand-color, #005fa3);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .category-main.intranet-grid {
+    flex-direction: column;
+
+    .right-rail {
+      padding-left: 0;
+      margin-top: 32px;
+    }
+  }
+
+  .category-hero {
+    padding: 32px 10px 24px 10px;
+  }
+}

@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="category-hero" style="background-color: {{brand_color}}; color: {{brand_text_color}};">
+  <div class="category-hero">
     <div class="category-hero-inner">
       <h1 class="category-hero-title">{{category.name}}</h1>
       {{#if category.description}}
@@ -31,7 +31,7 @@
             {{#if description}}
               <p class="section-tile-description">{{description}}</p>
             {{/if}}
-            <a href="{{url}}" class="section-tile-link" style="background-color: {{link_color}}; color: #fff;">View Section</a>
+            <a href="{{url}}" class="section-tile-link">View Section</a>
           </div>
         {{/each}}
       </div>
