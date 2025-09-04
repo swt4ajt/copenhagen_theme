@@ -1017,3 +1017,26 @@
   }
 })();
    })();
+  // Dark mode toggle in user dropdown
+  window.addEventListener("DOMContentLoaded", () => {
+    const darkModeToggle = document.querySelector('.dropdown-darkmode-toggle');
+    const body = document.body;
+    const STORAGE_KEY = "preferred-theme";
+
+    // Set initial theme from localStorage
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === "dark") {
+      body.classList.add("dark-mode");
+      if (darkModeToggle) darkModeToggle.textContent = '☀️ Toggle light mode';
+    } else {
+      if (darkModeToggle) darkModeToggle.textContent = '🌙 Toggle dark mode';
+    }
+
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', () => {
+        const isDark = body.classList.toggle('dark-mode');
+        localStorage.setItem(STORAGE_KEY, isDark ? 'dark' : 'light');
+        darkModeToggle.textContent = isDark ? '☀️ Toggle light mode' : '🌙 Toggle dark mode';
+      });
+    }
+  });
