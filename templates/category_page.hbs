@@ -39,7 +39,12 @@
     <aside class="right-rail">
       <section class="recent-articles home-section">
         <h2 class="recent-articles-title">Recent Articles</h2>
-        {{recent_articles}}
+        <ul
+          id="latest-articles-list"
+          class="recent-articles-list"
+          data-category-id="{{category.id}}"
+          aria-live="polite"
+        ></ul>
       </section>
     </aside>
   </div>
