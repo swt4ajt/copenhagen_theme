@@ -554,6 +554,35 @@ button {
   color: #1F73B7;
 }
 
+.introductions-grid-3x2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.introduction-tile {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.introduction-tile-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.introduction-tile-date {
+  font-size: 0.9rem;
+  color: #888;
+}
+
 @media (max-width: 768px) {
   .intranet-grid {
     grid-template-columns: 1fr;
