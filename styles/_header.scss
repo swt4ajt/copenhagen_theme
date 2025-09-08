@@ -259,3 +259,79 @@ $header-height: 71px;
 #zd-modal-container ~ .skip-navigation {
   display: none;
 }
+
+// --- Brand Navbar Styles ---
+.categories-nav {
+  background: $brand_color;
+  padding: 0 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 16px;
+
+  .categories-nav-list {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .category-dropdown {
+      position: relative;
+
+      .category-toggle {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .category-toggle:hover,
+      .category-toggle:focus {
+        background: rgba(255,255,255,0.12);
+        outline: none;
+      }
+      .category-sections-list {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        min-width: 180px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+        border-radius: 0 0 8px 8px;
+        z-index: 10;
+        padding: 8px 0;
+        margin: 0;
+        list-style: none;
+      }
+      &:hover .category-sections-list,
+      &:focus-within .category-sections-list {
+        display: block;
+      }
+      .category-sections-list li a {
+        display: block;
+        padding: 8px 20px;
+        color: $brand_color;
+        text-decoration: none;
+        font-size: 0.98rem;
+        transition: background 0.2s, color 0.2s;
+      }
+      .category-sections-list li a:hover,
+      .category-sections-list li a:focus {
+        background: $brand_color;
+        color: #fff;
+        border-radius: 4px;
+      }
+    }
+  }
+}

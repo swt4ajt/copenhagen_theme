@@ -10,6 +10,27 @@
     {{/link}}
   </div>
 
+  <!-- Dropdown Nav Bar for Categories -->
+  <nav class="categories-nav" aria-label="Main navigation">
+    <ul class="categories-nav-list">
+      {{#each categories}}
+        <li class="category-dropdown">
+          <button class="category-toggle" aria-haspopup="true" aria-expanded="false">
+            {{name}}
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" class="dropdown-chevron-icon" aria-hidden="true">
+              <path fill="none" stroke="currentColor" stroke-linecap="round" d="M3 4.5l2.6 2.6c.2.2.5.2.7 0L9 4.5"/>
+            </svg>
+          </button>
+          <ul class="category-sections-list">
+            {{#each sections}}
+              <li><a href="{{url}}">{{name}}</a></li>
+            {{/each}}
+          </ul>
+        </li>
+      {{/each}}
+    </ul>
+  </nav>
+
   <div class="nav-wrapper-desktop">
     <nav class="user-nav" id="user-nav" aria-label="{{t 'user_navigation'}}">
       <ul class="user-nav-list">
