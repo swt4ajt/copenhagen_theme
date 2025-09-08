@@ -1,9 +1,9 @@
 {
   "name": "Uniken",
   "author": "Zendesk",
-  "version": "4.12.39",
+  "version": "4.12.40",
   "api_version": 4,
-  "default_locale": "en-us",
+  "default_locale": "en-gb",
   "settings": [
     {
       "label": "colors_group_label",

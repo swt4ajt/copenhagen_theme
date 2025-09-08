@@ -169,18 +169,6 @@ a {
   border-radius: 8px 8px 0 0;
 }
 
-#main-content #introductions-grid {
-  grid-template-columns: 1fr;
-
-  @include tablet {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include desktop {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
 .department-rail {
   background: #f8fafc;
   border-radius: 12px;
