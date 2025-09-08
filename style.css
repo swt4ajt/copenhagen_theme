@@ -699,11 +699,6 @@ ul {
     display: none;
   }
 }
-@media (min-width: 768px) {
-  .nav-wrapper-desktop {
-    display: none;
-  }
-}
 @media (min-width: 1024px) {
   .nav-wrapper-desktop {
     display: inline-block;
@@ -881,6 +876,11 @@ ul {
   margin-bottom: 0;
 }
 @media (max-width: 768px) {
+  .categories-nav {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
   .categories-nav {
     display: none;
   }
@@ -1393,21 +1393,7 @@ ul {
 
 /***** Homepage *****/
 /***** Variables *****/
-/***** Typography *****/
-@font-face {
-  font-family: "Public Sans";
-  src: url("/assets/PublicSans-Regular.woff2") format("woff2"), url("/assets/PublicSans-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Public Sans";
-  src: url("/assets/PublicSans-Bold.woff2") format("woff2"), url("/assets/PublicSans-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+/*** Typography ***/
 body {
   font-family: "Public Sans", Helvetica, Arial, sans-serif;
   background: #EFF2F4;
