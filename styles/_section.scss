@@ -27,12 +27,17 @@
 }
 
 .section-list-item {
-  border-bottom: 1px solid $low-contrast-border-color;
+  background: #fff;
+  border: 1px solid $low-contrast-border-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   font-size: $font-size-bigger;
-  padding: 15px 0;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  transition: box-shadow 0.2s;
 
-  &:first-child {
-    border-top: 1px solid $low-contrast-border-color;
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   }
 
   a {
@@ -40,6 +45,14 @@
     color: $text_color;
     display: flex;
     justify-content: space-between;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $link_color;
+      text-decoration: underline;
+    }
   }
 }
 

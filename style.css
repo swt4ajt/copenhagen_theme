@@ -2223,18 +2223,30 @@ button {
 }
 
 .section-list-item {
-  border-bottom: 1px solid #ddd;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   font-size: 16px;
-  padding: 15px 0;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  transition: box-shadow 0.2s;
 }
-.section-list-item:first-child {
-  border-top: 1px solid #ddd;
+.section-list-item:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 .section-list-item a {
   align-items: center;
   color: #222;
   display: flex;
   justify-content: space-between;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.section-list-item a:hover {
+  color: #10B5F9;
+  text-decoration: underline;
 }
 
 .see-all-sections-trigger {
