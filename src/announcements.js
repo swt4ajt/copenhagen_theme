@@ -24,8 +24,19 @@ export async function renderAnnouncements() {
   articles.forEach((article, index) => {
     const item = document.createElement('div');
     item.className = `carousel-item${index === 0 ? ' active' : ''}`;
+
+    const body = article.body || '';
+    const imgMatch = body.match(/<img[^>]+src=["']([^"']+)["']/i);
+    const imgTag = imgMatch
+      ? `<img src="${imgMatch[1]}" alt="" />`
+      : '<span class="carousel-image-placeholder"></span>';
+    const captionClass = imgMatch ? 'carousel-caption' : 'carousel-caption no-image';
+
     item.innerHTML = `
-      <a href="${article.html_url}" class="carousel-link">${article.title}</a>
+      <a href="${article.html_url}" class="carousel-link">
+        ${imgTag}
+        <div class="${captionClass}">${article.title}</div>
+      </a>
     `;
     container.appendChild(item);
   });

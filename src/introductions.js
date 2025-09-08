@@ -2,16 +2,16 @@
 // Fetches and renders a 3x2 grid of introductions on the homepage
 
 export async function renderIntroductionsGrid() {
+  // Only run on the homepage
+  if (!document.body.classList.contains('home-page')) return;
+
   const container = document.getElementById('introductions-grid');
   if (!container) return;
 
-  // Only hydrate if there are no intro items (i.e., client-side render is needed)
-  if (container.querySelector('.intro-item')) {
-    return;
-  }
-
-  // Fetch 6 introductions (replace with your actual API endpoint or data source)
-  const resp = await fetch('/api/v2/help_center/articles.json?section_id=4964692123039&per_page=6');
+  const SECTION_ID = 4964692123039;
+  const resp = await fetch(
+    `/api/v2/help_center/sections/${SECTION_ID}/articles.json?sort_by=created_at&sort_order=desc&per_page=6`
+  );
   const data = await resp.json();
   const articles = Array.isArray(data.articles) ? data.articles : [];
 
