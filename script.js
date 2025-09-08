@@ -743,8 +743,19 @@
     articles.forEach((article, index) => {
       const item = document.createElement('div');
       item.className = `carousel-item${index === 0 ? ' active' : ''}`;
+
+      const body = article.body || '';
+      const imgMatch = body.match(/<img[^>]+src=["']([^"']+)["']/i);
+      const imgTag = imgMatch
+        ? `<img src="${imgMatch[1]}" alt="" />`
+        : '<span class="carousel-image-placeholder"></span>';
+      const captionClass = imgMatch ? 'carousel-caption' : 'carousel-caption no-image';
+
       item.innerHTML = `
-      <a href="${article.html_url}" class="carousel-link">${article.title}</a>
+      <a href="${article.html_url}" class="carousel-link">
+        ${imgTag}
+        <div class="${captionClass}">${article.title}</div>
+      </a>
     `;
       container.appendChild(item);
     });
@@ -769,12 +780,16 @@
   // Fetches and renders a 3x2 grid of introductions on the homepage
 
   async function renderIntroductionsGrid() {
+    // Only run on the homepage
+    if (!document.body.classList.contains('home-page')) return;
+
     const container = document.getElementById('introductions-grid');
     if (!container) return;
 
-    // Fetch latest introductions from the Introductions section
     const SECTION_ID = 4964692123039;
-    const resp = await fetch(`/api/v2/help_center/articles.json?section_id=${SECTION_ID}&per_page=6`);
+    const resp = await fetch(
+      `/api/v2/help_center/sections/${SECTION_ID}/articles.json?sort_by=created_at&sort_order=desc&per_page=6`
+    );
     const data = await resp.json();
     const articles = Array.isArray(data.articles) ? data.articles : [];
 
