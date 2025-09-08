@@ -777,15 +777,18 @@
   }
 
   // src/introductions.js
-  // Fetches and renders a 3x2 grid of introductions on the homepage
+  // Renders a grid of introductions with images and excerpts.
 
   async function renderIntroductionsGrid() {
     const container = document.getElementById('introductions-grid');
     if (!container) return;
 
     const SECTION_ID = 4964692123039;
+    const isSectionPage = window.location.pathname.includes(`/sections/${SECTION_ID}`);
+    const perPage = isSectionPage ? 100 : 6;
+
     const resp = await fetch(
-      `/api/v2/help_center/sections/${SECTION_ID}/articles.json?sort_by=created_at&sort_order=desc&per_page=6`
+      `/api/v2/help_center/sections/${SECTION_ID}/articles.json?sort_by=created_at&sort_order=desc&per_page=${perPage}`
     );
     const data = await resp.json();
     const articles = Array.isArray(data.articles) ? data.articles : [];
@@ -797,7 +800,7 @@
     }
 
     const grid = document.createElement('div');
-    grid.className = 'introductions-grid-3x2';
+    grid.className = isSectionPage ? 'introductions-grid-4wide' : 'introductions-grid-3x2';
 
     articles.forEach(article => {
       const tile = document.createElement('article');
@@ -805,6 +808,7 @@
       tile.setAttribute('data-article-id', article.id);
       tile.innerHTML = `
       <a href="${article.html_url}">
+        <img class="intro-img" src="/assets/image-pending.jpg" alt="Article image" loading="lazy" />
         <h3 class="intro-title">${article.title}</h3>
         <p class="intro-excerpt">Loading preview…</p>
       </a>
@@ -820,6 +824,11 @@
         const m = location.pathname.match(/\/hc\/([^/]+)/);
         return (m && m[1]) || 'en-us';
       })();
+
+    function firstImageSrc(html) {
+      const m = html && html.match(/<img[^>]+src=['"]([^'"]+)['"]/i);
+      return m ? m[1] : null;
+    }
 
     function stripHtml(html) {
       const tmp = document.createElement('div');
@@ -841,6 +850,9 @@
         .then(data => {
           if (!data || !data.article) return;
           const body = data.article.body || '';
+          const imgEl = tile.querySelector('.intro-img');
+          const src = firstImageSrc(body) || '/assets/image-pending.jpg';
+          if (imgEl) imgEl.src = src;
           const p = tile.querySelector('.intro-excerpt');
           if (p) p.textContent = truncateWords(stripHtml(body), 40) || 'No description available.';
         })
