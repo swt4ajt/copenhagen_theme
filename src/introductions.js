@@ -5,9 +5,8 @@ export async function renderIntroductionsGrid() {
   const container = document.getElementById('introductions-grid');
   if (!container) return;
 
-  // Fetch latest introductions from the Introductions section
-  const SECTION_ID = 4964692123039;
-  const resp = await fetch(`/api/v2/help_center/articles.json?section_id=${SECTION_ID}&per_page=6`);
+  // Fetch 6 introductions (replace with your actual API endpoint or data source)
+  const resp = await fetch('/api/v2/help_center/articles.json?section_id=4964692123039&per_page=6');
   const data = await resp.json();
   const articles = Array.isArray(data.articles) ? data.articles : [];
 
