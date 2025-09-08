@@ -5,74 +5,52 @@
   const ENTER = 13;
   const ESCAPE = 27;
 
-  function toggleNavigation(toggle, menu) {
+  // Helper: safely get element
+  const getElement = (selector) => document.querySelector(selector);
+
+  const toggleNavigation = (toggle, menu) => {
+    if (!toggle || !menu) return;
     const isExpanded = menu.getAttribute("aria-expanded") === "true";
     menu.setAttribute("aria-expanded", !isExpanded);
     toggle.setAttribute("aria-expanded", !isExpanded);
-  }
+  };
 
-  function closeNavigation(toggle, menu) {
+  const closeNavigation = (toggle, menu) => {
+    if (!toggle || !menu) return;
     menu.setAttribute("aria-expanded", false);
     toggle.setAttribute("aria-expanded", false);
     toggle.focus();
-  }
+  };
 
   // Navigation
-
   window.addEventListener("DOMContentLoaded", () => {
-    const menuButton = document.querySelector(".header .menu-button-mobile");
-    const menuList = document.querySelector("#user-nav-mobile");
+    const menuButton = getElement(".header .menu-button-mobile");
+    const menuList = getElement("#user-nav-mobile");
 
-    menuButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      toggleNavigation(menuButton, menuList);
-    });
-
-    menuList.addEventListener("keyup", (event) => {
-      if (event.keyCode === ESCAPE) {
+    if (menuButton && menuList) {
+      menuButton.addEventListener("click", (event) => {
         event.stopPropagation();
-        closeNavigation(menuButton, menuList);
-      }
-    });
-
-    // Toggles expanded aria to collapsible elements
-    const collapsible = document.querySelectorAll(
-      ".collapsible-nav, .collapsible-sidebar"
-    );
-
-    collapsible.forEach((element) => {
-      const toggle = element.querySelector(
-        ".collapsible-nav-toggle, .collapsible-sidebar-toggle"
-      );
-
-      element.addEventListener("click", () => {
-        toggleNavigation(toggle, element);
+        toggleNavigation(menuButton, menuList);
       });
 
-      element.addEventListener("keyup", (event) => {
-        console.log("escape");
+      menuList.addEventListener("keyup", (event) => {
         if (event.keyCode === ESCAPE) {
-          closeNavigation(toggle, element);
+          event.stopPropagation();
+          closeNavigation(menuButton, menuList);
         }
       });
-    });
+    }
 
-    // If multibrand search has more than 5 help centers or categories collapse the list
-    const multibrandFilterLists = document.querySelectorAll(
-      ".multibrand-filter-list"
-    );
-    multibrandFilterLists.forEach((filter) => {
-      if (filter.children.length > 6) {
-        // Display the show more button
-        const trigger = filter.querySelector(".see-all-filters");
-        trigger.setAttribute("aria-hidden", false);
-
-        // Add event handler for click
-        trigger.addEventListener("click", (event) => {
-          event.stopPropagation();
-          trigger.parentNode.removeChild(trigger);
-          filter.classList.remove("multibrand-filter-list--collapsed");
-        });
+    // Event delegation for collapsible elements
+    document.body.addEventListener("click", (event) => {
+      const toggle = event.target.closest(
+        ".collapsible-nav-toggle, .collapsible-sidebar-toggle"
+      );
+      const element = event.target.closest(
+        ".collapsible-nav, .collapsible-sidebar"
+      );
+      if (toggle && element) {
+        toggleNavigation(toggle, element);
       }
     });
   });
