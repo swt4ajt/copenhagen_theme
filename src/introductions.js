@@ -80,6 +80,12 @@ export async function renderIntroductionsGrid() {
       })
       .catch(() => {});
   });
+
+  if (isSectionPage) {
+    document.body.classList.add('section-page');
+  } else {
+    document.body.classList.remove('section-page');
+  }
 }
 
 if (document.readyState === 'loading') {
