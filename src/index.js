@@ -11,7 +11,9 @@ import "./modules/theme-toggle";
 import "./requestFormsList";
 import "./holidaysCalendar";
 import "./dynamicCategoriesNav";
+import "./announcements";
 import "./introductions";
+import "./latestArticles";
 
 // Initialize holidays notification banner on category pages
 window.addEventListener("DOMContentLoaded", () => {

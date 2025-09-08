@@ -717,6 +717,132 @@
     document.addEventListener("DOMContentLoaded", renderDynamicCategoriesNav);
   }
 
+  // src/announcements.js
+  // Fetches and renders a simple carousel of company announcements
+
+  async function renderAnnouncements() {
+    const container = document.getElementById('announcement-carousel');
+    if (!container) return;
+
+    const link = document.querySelector('.announcements h2 a');
+    const match = link && link.getAttribute('href').match(/sections\/(\d+)/);
+    const sectionId = match ? match[1] : null;
+
+    const resp = sectionId
+      ? await fetch(`/api/v2/help_center/sections/${sectionId}/articles.json?sort_by=created_at&sort_order=desc&per_page=5`)
+      : null;
+    const data = resp && (await resp.json());
+    const articles = (data && Array.isArray(data.articles)) ? data.articles : [];
+
+    container.innerHTML = '';
+    if (!articles.length) {
+      container.innerHTML = '<div class="announcement-empty">No announcements found.</div>';
+      return;
+    }
+
+    articles.forEach((article, index) => {
+      const item = document.createElement('div');
+      item.className = `carousel-item${index === 0 ? ' active' : ''}`;
+      item.innerHTML = `
+      <a href="${article.html_url}" class="carousel-link">${article.title}</a>
+    `;
+      container.appendChild(item);
+    });
+
+    let current = 0;
+    setInterval(() => {
+      const items = container.querySelectorAll('.carousel-item');
+      if (!items.length) return;
+      items[current].classList.remove('active');
+      current = (current + 1) % items.length;
+      items[current].classList.add('active');
+    }, 5000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderAnnouncements);
+  } else {
+    renderAnnouncements();
+  }
+
+  // src/introductions.js
+  // Fetches and renders a 3x2 grid of introductions on the homepage
+
+  async function renderIntroductionsGrid() {
+    const container = document.getElementById('introductions-grid');
+    if (!container) return;
+
+    // Fetch latest introductions from the Introductions section
+    const SECTION_ID = 4964692123039;
+    const resp = await fetch(`/api/v2/help_center/articles.json?section_id=${SECTION_ID}&per_page=6`);
+    const data = await resp.json();
+    const articles = Array.isArray(data.articles) ? data.articles : [];
+
+    container.innerHTML = '';
+    if (!articles.length) {
+      container.innerHTML = '<div class="introductions-empty">No introductions found.</div>';
+      return;
+    }
+
+    const grid = document.createElement('div');
+    grid.className = 'introductions-grid-3x2';
+
+    articles.forEach(article => {
+      const tile = document.createElement('div');
+      tile.className = 'introduction-tile';
+      tile.innerHTML = `
+      <a href="${article.html_url}" class="introduction-tile-link">
+        <div class="introduction-tile-title">${article.title}</div>
+        <div class="introduction-tile-date">${new Date(article.created_at).toLocaleDateString()}</div>
+      </a>
+    `;
+      grid.appendChild(tile);
+    });
+
+    container.appendChild(grid);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderIntroductionsGrid);
+  } else {
+    renderIntroductionsGrid();
+  }
+
+  // src/latestArticles.js
+  // Populates the latest articles list in the right rail
+
+  async function renderLatestArticles() {
+    const list = document.getElementById('latest-articles-list');
+    if (!list) return;
+
+    const resp = await fetch('/api/v2/help_center/articles.json?sort_by=created_at&sort_order=desc&per_page=5');
+    const data = await resp.json();
+    const articles = Array.isArray(data.articles) ? data.articles : [];
+
+    list.innerHTML = '';
+    if (!articles.length) {
+      list.innerHTML = '<li class="latest-articles-empty">No articles found.</li>';
+      return;
+    }
+
+    articles.forEach(article => {
+      const li = document.createElement('li');
+      li.className = 'latest-articles-item';
+      li.innerHTML = `
+      <a href="${article.html_url}" class="latest-articles-link">
+        <span class="latest-articles-title">${article.title}</span>
+        <span class="latest-articles-date">${new Date(article.created_at).toLocaleDateString()}</span>
+      </a>`;
+      list.appendChild(li);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderLatestArticles);
+  } else {
+    renderLatestArticles();
+  }
+
   // Initialize holidays notification banner on category pages
   window.addEventListener("DOMContentLoaded", () => {
     if (
