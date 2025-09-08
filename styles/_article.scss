@@ -244,51 +244,57 @@
   }
 }
 
-.recent-articles,
-.related-articles {
-  &-title {
-    @extend .comment-heading;
-  }
-
-  li {
-    margin-bottom: 15px;
-  }
+.right-rail .home-section,
+.right-rail .recent-articles,
+.right-rail .related-articles {
+  background: #f7f9fb;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
-.right-rail .collapsible-sidebar-body ul,
-.right-rail .article-relatives ul {
+.right-rail .home-section .sidenav-title,
+.right-rail .recent-articles-title,
+.right-rail .related-articles-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--brand-color, #005fa3);
+  display: block;
+}
+
+.right-rail .home-section ul,
+.right-rail .recent-articles ul,
+.right-rail .related-articles ul {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
-.right-rail .collapsible-sidebar-body li,
-.right-rail .article-relatives li {
-  background: #fff;
-  border: 1px solid $low-contrast-border-color;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  margin-bottom: 16px;
-  padding: 16px 20px;
-  transition: box-shadow 0.2s;
+.right-rail .home-section li,
+.right-rail .recent-articles li,
+.right-rail .related-articles li {
+  border-bottom: 1px solid #eaeaea;
 }
 
-.right-rail .collapsible-sidebar-body li:hover,
-.right-rail .article-relatives li:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+.right-rail .home-section li:last-child,
+.right-rail .recent-articles li:last-child,
+.right-rail .related-articles li:last-child {
+  border-bottom: none;
 }
 
-.right-rail .collapsible-sidebar-body a,
-.right-rail .article-relatives a {
+.right-rail .home-section a,
+.right-rail .recent-articles a,
+.right-rail .related-articles a {
   color: $text_color;
   text-decoration: none;
-  font-weight: 500;
   display: block;
+  padding: 6px 0;
   transition: color 0.2s;
 }
 
-.right-rail .collapsible-sidebar-body a:hover,
-.right-rail .article-relatives a:hover {
-  color: $link_color;
-  text-decoration: underline;
+.right-rail .home-section a:hover,
+.right-rail .recent-articles a:hover,
+.right-rail .related-articles a:hover {
+  color: var(--brand-color, #005fa3);
 }
