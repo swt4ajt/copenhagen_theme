@@ -780,9 +780,6 @@
   // Fetches and renders a 3x2 grid of introductions on the homepage
 
   async function renderIntroductionsGrid() {
-    // Only run on the homepage
-    if (!document.body.classList.contains('home-page')) return;
-
     const container = document.getElementById('introductions-grid');
     if (!container) return;
 
