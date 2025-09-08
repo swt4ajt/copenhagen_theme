@@ -717,6 +717,7 @@ ul {
 .nav-wrapper-desktop a {
   border: 0;
   color: #0070f3;
+  display: none;
   font-size: 14px;
   padding: 0 20px 0 0;
   width: auto;
@@ -4133,6 +4134,7 @@ button {
   }
 }
 .request-sidebar {
+  border-bottom: 1px solid #ddd;
   border-top: 1px solid #ddd;
   flex: 1 0 auto;
   order: 0;
@@ -5544,3 +5546,4 @@ body.dark-mode .introduction-item p {
   color: #000;
 }
 
+/*# sourceMappingURL=style.css.map */
