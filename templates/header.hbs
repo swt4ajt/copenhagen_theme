@@ -1,6 +1,7 @@
 <a class="skip-navigation" tabindex="1" href="#main-content">{{t 'skip_navigation' }}</a>
 
 <!-- Dropdown Nav Bar for Categories (moved above header for visibility) -->
+{{#if categories}}
 <nav class="categories-nav" aria-label="Main navigation">
   <ul class="categories-nav-list">
     {{#each categories}}
@@ -20,6 +21,7 @@
     {{/each}}
   </ul>
 </nav>
+{{/if}}
 
 <header class="header">
   <div class="logo">
