@@ -22,13 +22,22 @@ export async function renderIntroductionsGrid() {
   grid.className = 'introductions-grid-3x2';
 
   articles.forEach(article => {
-    const tile = document.createElement('article');
-    tile.className = 'intro-item';
-    tile.setAttribute('data-article-id', article.id);
+    // Extract first image from article body
+    let imgSrc = null;
+    if (article.body) {
+      const match = article.body.match(/<img[^>]+src=["']([^"']+)["']/i);
+      imgSrc = match ? match[1] : null;
+    }
+    if (!imgSrc) {
+      imgSrc = '/assets/image-pending.jpg'; // fallback image
+    }
+    const tile = document.createElement('div');
+    tile.className = 'introduction-tile';
     tile.innerHTML = `
-      <a href="${article.html_url}">
-        <h3 class="intro-title">${article.title}</h3>
-        <p class="intro-excerpt">Loading preview…</p>
+      <a href="${article.html_url}" class="introduction-tile-link">
+        <img src="${imgSrc}" class="introduction-tile-img" alt="Article image" loading="lazy" />
+        <div class="introduction-tile-title">${article.title}</div>
+        <div class="introduction-tile-date">${new Date(article.created_at).toLocaleDateString()}</div>
       </a>
     `;
     grid.appendChild(tile);
