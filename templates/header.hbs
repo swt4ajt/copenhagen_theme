@@ -1,28 +1,5 @@
 <a class="skip-navigation" tabindex="1" href="#main-content">{{t 'skip_navigation' }}</a>
 
-<!-- Dropdown Nav Bar for Categories (moved above header for visibility) -->
-{{#if categories}}
-<nav class="categories-nav" aria-label="Main navigation">
-  <ul class="categories-nav-list">
-    {{#each categories}}
-      <li class="category-dropdown">
-        <button class="category-toggle" aria-haspopup="true" aria-expanded="false">
-          {{name}}
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" class="dropdown-chevron-icon" aria-hidden="true">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" d="M3 4.5l2.6 2.6c.2.2.5.2.7 0L9 4.5"/>
-          </svg>
-        </button>
-        <ul class="category-sections-list">
-          {{#each sections}}
-            <li><a href="{{url}}">{{name}}</a></li>
-          {{/each}}
-        </ul>
-      </li>
-    {{/each}}
-  </ul>
-</nav>
-{{/if}}
-
 <header class="header">
   <div class="logo">
     {{#link 'help_center'}}
@@ -124,4 +101,6 @@
         <div id="holidays-banner"></div>
     </nav>
   </div>
+
+  <div id="dynamic-categories-nav"></div>
 </header>
