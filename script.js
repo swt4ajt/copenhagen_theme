@@ -417,11 +417,11 @@
 
   // Carousel module: fetches and renders tiles based on theme setting
 
-  async function renderCarousel(settings) {
+  async function renderCarousel(settings = {}) {
     const container = document.getElementById('homepage-carousel');
     if (!container) return;
 
-    const tileCount = settings.carousel_tile_count || 6;
+    const tileCount = parseInt(settings.carousel_tile_count, 10) || 6;
     const resp = await fetch(`/api/v2/help_center/articles.json?sort_by=created_at&sort_order=desc&per_page=${tileCount}`);
     const data = await resp.json();
     const articles = Array.isArray(data.articles) ? data.articles : [];
@@ -452,9 +452,9 @@
 
   // On DOMContentLoaded, render the carousel
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => renderCarousel(window.settings));
+    document.addEventListener('DOMContentLoaded', () => renderCarousel(window.settings || {}));
   } else {
-    renderCarousel(window.settings);
+    renderCarousel(window.settings || {});
   }
 
   async function loadDepartments() {
@@ -637,9 +637,11 @@
   // Fetches categories and sections from Zendesk Help Center API and renders them in the header
 
   const locale =
-    (window.HelpCenter && HelpCenter.user && HelpCenter.user.locale) ||
+    (window.HelpCenter &&
+      window.HelpCenter.user &&
+      window.HelpCenter.user.locale) ||
     document.documentElement.lang ||
-    'en-us';
+    "en-us";
   const API_BASE = `/api/v2/help_center/${locale}`;
 
   async function fetchCategories() {
@@ -655,31 +657,31 @@
   }
 
   function createDropdown(categoriesWithSections) {
-    const nav = document.createElement('nav');
-    nav.className = 'categories-nav';
-    nav.setAttribute('aria-label', 'Main navigation');
-    const ul = document.createElement('ul');
-    ul.className = 'categories-nav-list';
+    const nav = document.createElement("nav");
+    nav.className = "categories-nav";
+    nav.setAttribute("aria-label", "Main navigation");
+    const ul = document.createElement("ul");
+    ul.className = "categories-nav-list";
 
-    categoriesWithSections.forEach(cat => {
-      const li = document.createElement('li');
-      li.className = 'category-dropdown';
-      const btn = document.createElement('button');
-      btn.className = 'category-toggle';
-      btn.setAttribute('aria-haspopup', 'true');
-      btn.setAttribute('aria-expanded', 'false');
+    categoriesWithSections.forEach((cat) => {
+      const li = document.createElement("li");
+      li.className = "category-dropdown";
+      const btn = document.createElement("button");
+      btn.className = "category-toggle";
+      btn.setAttribute("aria-haspopup", "true");
+      btn.setAttribute("aria-expanded", "false");
       btn.textContent = cat.name;
       btn.onclick = () => {
-        menu.classList.toggle('open');
-        btn.setAttribute('aria-expanded', menu.classList.contains('open'));
+        menu.classList.toggle("open");
+        btn.setAttribute("aria-expanded", menu.classList.contains("open"));
       };
       li.appendChild(btn);
 
-      const menu = document.createElement('ul');
-      menu.className = 'category-sections-list';
-      cat.sections.forEach(section => {
-        const sectionLi = document.createElement('li');
-        const sectionA = document.createElement('a');
+      const menu = document.createElement("ul");
+      menu.className = "category-sections-list";
+      cat.sections.forEach((section) => {
+        const sectionLi = document.createElement("li");
+        const sectionA = document.createElement("a");
         sectionA.href = `/hc/${locale}/sections/${section.id}`;
         sectionA.textContent = section.name;
         sectionLi.appendChild(sectionA);
@@ -693,32 +695,35 @@
   }
 
   async function renderDynamicCategoriesNav() {
-    const container = document.getElementById('dynamic-categories-nav');
+    const container = document.getElementById("dynamic-categories-nav");
     if (!container) return;
     const categories = await fetchCategories();
     const categoriesWithSections = (
       await Promise.all(
-        categories.map(async cat => ({
+        categories.map(async (cat) => ({
           ...cat,
-          sections: await fetchSections(cat.id)
+          sections: await fetchSections(cat.id),
         }))
       )
-    ).filter(cat => cat.sections.length > 0);
-    container.innerHTML = '';
+    ).filter((cat) => cat.sections.length > 0);
+    container.innerHTML = "";
     container.appendChild(createDropdown(categoriesWithSections));
   }
 
   // Optionally, auto-run on DOMContentLoaded
-  if (document.readyState !== 'loading') {
+  if (document.readyState !== "loading") {
     renderDynamicCategoriesNav();
   } else {
-    document.addEventListener('DOMContentLoaded', renderDynamicCategoriesNav);
+    document.addEventListener("DOMContentLoaded", renderDynamicCategoriesNav);
   }
 
   // Initialize holidays notification banner on category pages
   window.addEventListener("DOMContentLoaded", () => {
-    if (document.querySelector('#holidays-banner') && document.querySelector('.pending-holidays-2025')) {
-      window.renderHolidaysBanner('#holidays-banner');
+    if (
+      document.querySelector("#holidays-banner") &&
+      document.querySelector(".pending-holidays-2025")
+    ) {
+      window.renderHolidaysBanner("#holidays-banner");
     }
   });
 

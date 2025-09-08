@@ -1,10 +1,10 @@
 // Carousel module: fetches and renders tiles based on theme setting
 
-export async function renderCarousel(settings) {
+export async function renderCarousel(settings = {}) {
   const container = document.getElementById('homepage-carousel');
   if (!container) return;
 
-  const tileCount = settings.carousel_tile_count || 6;
+  const tileCount = parseInt(settings.carousel_tile_count, 10) || 6;
   const resp = await fetch(`/api/v2/help_center/articles.json?sort_by=created_at&sort_order=desc&per_page=${tileCount}`);
   const data = await resp.json();
   const articles = Array.isArray(data.articles) ? data.articles : [];
@@ -35,8 +35,8 @@ export async function renderCarousel(settings) {
 
 // On DOMContentLoaded, render the carousel
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => renderCarousel(window.settings));
+  document.addEventListener('DOMContentLoaded', () => renderCarousel(window.settings || {}));
 } else {
-  renderCarousel(window.settings);
+  renderCarousel(window.settings || {});
 }
 

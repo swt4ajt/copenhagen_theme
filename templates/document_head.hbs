@@ -1,4 +1,8 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<!-- Load Public Sans from Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap" rel="stylesheet" />
 <!-- Make the translated search clear button label available for use in JS -->
 <!-- See buildClearSearchButton() in script.js -->
 <script type="text/javascript">window.searchClearButtonLabelLocalized = "{{t 'search_clear'}}";</script>
@@ -8,8 +12,25 @@
     document.write('<script async src="{{asset 'es-module-shims.js'}}"><\/script>');
   }
 </script>
+<script type="importmap">
+{
+  "imports": {
+    "new-request-form": "{{asset 'new-request-form-bundle.js'}}",
+    "flash-notifications": "{{asset 'flash-notifications-bundle.js'}}",
+    "service-catalog": "{{asset 'service-catalog-bundle.js'}}",
+    "approval-requests": "{{asset 'approval-requests-bundle.js'}}",
+    "approval-requests-translations": "{{asset 'approval-requests-translations-bundle.js'}}",
+    "new-request-form-translations": "{{asset 'new-request-form-translations-bundle.js'}}",
+    "service-catalog-translations": "{{asset 'service-catalog-translations-bundle.js'}}",
+    "shared": "{{asset 'shared-bundle.js'}}",
+    "ticket-fields": "{{asset 'ticket-fields-bundle.js'}}",
+    "wysiwyg": "{{asset 'wysiwyg-bundle.js'}}"
+  }
+}
+</script>
 <script type="module" src="{{asset 'script.js'}}"></script>
 <script type="module">
+  import { renderFlashNotifications } from "{{asset 'flash-notifications-bundle.js'}}";
 
   const settings = {{json settings}};
   const baseLocale = {{json help_center.base_locale}};
