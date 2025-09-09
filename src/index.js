@@ -11,15 +11,12 @@ import "./modules/theme-toggle";
 import "./requestFormsList";
 import "./holidaysCalendar";
 import "./dynamicCategoriesNav";
-import "./announcements";
-import "./introductions";
-import "./latestArticles";
 import { renderAnnouncements } from './announcements';
 import { renderIntroductions } from './introductions';
 import { renderLatestArticles } from './latestArticles';
 
-// Initialize holidays notification banner on category pages
-window.addEventListener("DOMContentLoaded", () => {
+// Initialize announcements, introductions, latest articles and holidays banner
+function initHomepageSections() {
   renderAnnouncements();
   renderIntroductions();
   renderLatestArticles();
@@ -29,4 +26,10 @@ window.addEventListener("DOMContentLoaded", () => {
   ) {
     window.renderHolidaysBanner("#holidays-banner");
   }
-});
+}
+
+if (document.readyState === "loading") {
+  window.addEventListener("DOMContentLoaded", initHomepageSections);
+} else {
+  initHomepageSections();
+}
