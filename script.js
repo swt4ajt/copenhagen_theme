@@ -413,6 +413,53 @@
     ) {
       notificationElm.previousElementSibling.focus();
     }
+
+    // Prefill and hide subject/description for specific ticket forms
+    const formId = document
+      .querySelector("form[data-ticket-form-id]")
+      ?.getAttribute("data-ticket-form-id");
+
+    const subjectMap = {
+      4959432829215: "New User Request",
+      4959424709919: "User Deactivation Request",
+    };
+
+    const descriptionMap = {
+      4959432829215:
+        "New user request, please review the information submitted in the form and then action accordingly",
+      4959424709919:
+        "User deactivation request, please review the information submitted in the form and then action accordingly",
+    };
+
+    if (formId && subjectMap[formId]) {
+      const subjectInput = document.querySelector('[name="request_subject"]');
+      const descriptionInput = document.querySelector(
+        '[name="request_description"]'
+      );
+
+      // Hide subject and description fields
+      if (subjectInput)
+        subjectInput
+          .closest(".form-field, .form-group, .form-control, label")
+          ?.style.setProperty("display", "none", "important");
+      if (descriptionInput)
+        descriptionInput
+          .closest(".form-field, .form-group, .form-control, label")
+          ?.style.setProperty("display", "none", "important");
+
+      // On form submit, prefill subject and description
+      const requestForm = document.querySelector("form[data-ticket-form-id]");
+      if (requestForm) {
+        requestForm.addEventListener(
+          "submit",
+          function () {
+            if (subjectInput) subjectInput.value = subjectMap[formId];
+            if (descriptionInput) descriptionInput.value = descriptionMap[formId];
+          },
+          true
+        );
+      }
+    }
   });
 
   // Carousel module: fetches and renders tiles based on theme setting
