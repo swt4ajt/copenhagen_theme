@@ -112,14 +112,6 @@
                     {{/if}}
                   </a>
                   <span class="badge badge--type" data-request-id="{{id}}" hidden></span>
-                  {{!-- TYPE BADGE next to subject --}}
-                  {{#each custom_fields}}
-                    {{#is id 4992033637535}}
-                      {{#if value}}
-                        <span class="badge badge--type" data-type="{{value}}">{{value}}</span>
-                      {{/if}}
-                    {{/is}}
-                  {{/each}}
 
                   <!-- Visible on mobile -->
                   <div class="requests-table-meta">
@@ -128,13 +120,6 @@
                     <span class="status-label status-label-request status-label-{{status}}" title="{{status_description}}">
                       {{status_name}}
                     </span>
-                    {{#each custom_fields}}
-                      {{#is id 4992033637535}}
-                        {{#if value}}
-                          <span class="badge badge--type" data-type="{{value}}">{{value}}</span>
-                        {{/if}}
-                      {{/is}}
-                    {{/each}}
                   </div>
                 </td>
                 <td>#{{id}}</td>
