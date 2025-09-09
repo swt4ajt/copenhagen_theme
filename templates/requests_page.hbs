@@ -111,11 +111,9 @@
                       {{excerpt description characters=50}}
                     {{/if}}
                   </a>
-                  {{#each custom_fields}}
-                    {{#if (eq id 4992033637535)}}
-                      <span class="status-label request-type-label" data-request-type="{{value}}">{{value}}</span>
-                    {{/if}}
-                  {{/each}}
+                  {{#if fields_4992033637535}}
+                    <span class="status-label request-type-label" data-request-type="{{fields_4992033637535}}">{{fields_4992033637535}}</span>
+                  {{/if}}
 
                   <!-- Visible on mobile -->
                   <div class="requests-table-meta">
@@ -124,11 +122,9 @@
                     <span class="status-label status-label-request status-label-{{status}}" title="{{status_description}}">
                       {{status_name}}
                     </span>
-                    {{#each custom_fields}}
-                      {{#if (eq id 4992033637535)}}
-                        <span class="status-label request-type-label" data-request-type="{{value}}">{{value}}</span>
-                      {{/if}}
-                    {{/each}}
+                    {{#if fields_4992033637535}}
+                      <span class="status-label request-type-label" data-request-type="{{fields_4992033637535}}">{{fields_4992033637535}}</span>
+                    {{/if}}
                   </div>
                 </td>
                 <td>#{{id}}</td>
