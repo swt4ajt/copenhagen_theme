@@ -3,14 +3,30 @@
 
     <h1 class="request-title">
         {{request.subject}}
-        {{!-- TYPE BADGE (Offboard / New Hire / etc.) --}}
-        {{#each request.custom_fields}}
-          {{#is id 4992033637535}}
-            {{#if value}}
-              <span class="badge badge--type" data-type="{{value}}">{{value}}</span>
-            {{/if}}
-          {{/is}}
-        {{/each}}
+        {{!-- TYPE BADGE via tags --}}
+        {{#if request.tags}}
+          {{#contains request.tags "offboard"}}
+            <span class="badge badge--type" data-type="offboard">Offboard</span>
+          {{/contains}}
+          {{#contains request.tags "new-hire"}}
+            <span class="badge badge--type" data-type="new-hire">New Hire</span>
+          {{/contains}}
+          {{#contains request.tags "sales_ops"}}
+            <span class="badge badge--type" data-type="sales_ops">SalesOps</span>
+          {{/contains}}
+          {{#contains request.tags "general_it"}}
+            <span class="badge badge--type" data-type="general_it">General IT</span>
+          {{/contains}}
+          {{#contains request.tags "hardware_request"}}
+            <span class="badge badge--type" data-type="hardware_request">Hardware Request</span>
+          {{/contains}}
+          {{#contains request.tags "software_request"}}
+            <span class="badge badge--type" data-type="software_request">Software Request</span>
+          {{/contains}}
+          {{#contains request.tags "google_group"}}
+            <span class="badge badge--type" data-type="google_group">Google Group</span>
+          {{/contains}}
+        {{/if}}
     </h1>
 
     <div id="main-content" class="request-container">
@@ -208,13 +224,29 @@
 
                     <dt>Request type</dt>
                     <dd>
-                      {{#each request.custom_fields}}
-                        {{#is id 4992033637535}}
-                          {{#if value}}
-                            <span class="badge badge--type" data-type="{{value}}">{{value}}</span>
-                          {{/if}}
-                        {{/is}}
-                      {{/each}}
+                      {{#if request.tags}}
+                        {{#contains request.tags "offboard"}}
+                          <span class="badge badge--type" data-type="offboard">Offboard</span>
+                        {{/contains}}
+                        {{#contains request.tags "new-hire"}}
+                          <span class="badge badge--type" data-type="new-hire">New Hire</span>
+                        {{/contains}}
+                        {{#contains request.tags "sales_ops"}}
+                          <span class="badge badge--type" data-type="sales_ops">SalesOps</span>
+                        {{/contains}}
+                        {{#contains request.tags "general_it"}}
+                          <span class="badge badge--type" data-type="general_it">General IT</span>
+                        {{/contains}}
+                        {{#contains request.tags "hardware_request"}}
+                          <span class="badge badge--type" data-type="hardware_request">Hardware Request</span>
+                        {{/contains}}
+                        {{#contains request.tags "software_request"}}
+                          <span class="badge badge--type" data-type="software_request">Software Request</span>
+                        {{/contains}}
+                        {{#contains request.tags "google_group"}}
+                          <span class="badge badge--type" data-type="google_group">Google Group</span>
+                        {{/contains}}
+                      {{/if}}
                     </dd>
 
                     {{#form 'organization' id='request-organization' class='hbs-form'}}
