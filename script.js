@@ -506,18 +506,20 @@
       return;
     }
 
-    const dataUrl = container.dataset.forms;
+    const dataUrl = container.dataset.forms || "/api/v2/ticket_forms.json";
 
     fetch(dataUrl)
       .then((response) => response.json())
-      .then((forms) => {
+      .then((data) => {
+        const forms = data.ticket_forms || data.forms || [];
         forms.forEach((form) => {
           const card = document.createElement("div");
           card.className = "request-form-card";
+          const description = form.description ? `<p>${form.description}</p>` : "";
           card.innerHTML = `
           <h3>${form.name}</h3>
-          <p>${form.description}</p>
-          <a href="/forms/${form.id}" class="request-form-link">Open</a>
+          ${description}
+          <a href="${window.location.pathname}?ticket_form_id=${form.id}" class="request-form-link">Open</a>
         `;
           container.appendChild(card);
         });
