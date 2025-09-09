@@ -8,17 +8,83 @@
     {
       "label": "colors_group_label",
       "variables": [
-        { "identifier": "brand_color", "type": "color", "description": "brand_color_description", "label": "brand_color_label", "value": "#17494D" },
-        { "identifier": "brand_text_color", "type": "color", "description": "brand_text_color_description", "label": "brand_text_color_label", "value": "#FFFFFF" },
-        { "identifier": "text_color", "type": "color", "description": "text_color_description", "label": "text_color_label", "value": "#2F3941" },
-        { "identifier": "link_color", "type": "color", "description": "link_color_description", "label": "link_color_label", "value": "#1F73B7" },
-        { "identifier": "hover_link_color", "type": "color", "description": "hover_link_color_description", "label": "hover_link_color_label", "value": "#0F3554" },
-        { "identifier": "visited_link_color", "type": "color", "description": "visited_link_color_description", "label": "visited_link_color_label", "value": "#9358B0" },
-        { "identifier": "background_color", "type": "color", "description": "background_color_description", "label": "background_color_label", "value": "#FFFFFF" },
-        { "identifier": "dark_background_color", "type": "color", "description": "dark_background_color_description", "label": "dark_background_color_label", "value": "#2F3941" },
-        { "identifier": "dark_text_color", "type": "color", "description": "dark_text_color_description", "label": "dark_text_color_label", "value": "#FFFFFF" },
-        { "identifier": "department_list_bg_color", "type": "color", "description": "Background color for the department list on the homepage right rail.", "label": "Department List Background Color", "value": "#E6F1F2" },
-        { "identifier": "department_list_text_color", "type": "color", "description": "Text color for the department list on the homepage right rail.", "label": "Department List Text Color", "value": "#17494D" }
+        {
+          "identifier": "brand_color",
+          "type": "color",
+          "description": "brand_color_description",
+          "label": "brand_color_label",
+          "value": "#17494D"
+        },
+        {
+          "identifier": "brand_text_color",
+          "type": "color",
+          "description": "brand_text_color_description",
+          "label": "brand_text_color_label",
+          "value": "#FFFFFF"
+        },
+        {
+          "identifier": "text_color",
+          "type": "color",
+          "description": "text_color_description",
+          "label": "text_color_label",
+          "value": "#2F3941"
+        },
+        {
+          "identifier": "link_color",
+          "type": "color",
+          "description": "link_color_description",
+          "label": "link_color_label",
+          "value": "#1F73B7"
+        },
+        {
+          "identifier": "hover_link_color",
+          "type": "color",
+          "description": "hover_link_color_description",
+          "label": "hover_link_color_label",
+          "value": "#0F3554"
+        },
+        {
+          "identifier": "visited_link_color",
+          "type": "color",
+          "description": "visited_link_color_description",
+          "label": "visited_link_color_label",
+          "value": "#9358B0"
+        },
+        {
+          "identifier": "background_color",
+          "type": "color",
+          "description": "background_color_description",
+          "label": "background_color_label",
+          "value": "#FFFFFF"
+        },
+        {
+          "identifier": "dark_background_color",
+          "type": "color",
+          "description": "dark_background_color_description",
+          "label": "dark_background_color_label",
+          "value": "#2F3941"
+        },
+        {
+          "identifier": "dark_text_color",
+          "type": "color",
+          "description": "dark_text_color_description",
+          "label": "dark_text_color_label",
+          "value": "#FFFFFF"
+        },
+        {
+          "identifier": "department_list_bg_color",
+          "type": "color",
+          "description": "Background color for the department list on the homepage right rail.",
+          "label": "Department List Background Color",
+          "value": "#E6F1F2"
+        },
+        {
+          "identifier": "department_list_text_color",
+          "type": "color",
+          "description": "Text color for the department list on the homepage right rail.",
+          "label": "Department List Text Color",
+          "value": "#17494D"
+        }
       ]
     },
     {
@@ -79,61 +145,179 @@
     {
       "label": "brand_group_label",
       "variables": [
-        { "identifier": "logo", "type": "file", "description": "logo_description", "label": "logo_label" },
-        { "identifier": "show_brand_name", "type": "checkbox", "description": "show_brand_name_description", "label": "show_brand_name_label", "value": true },
-        { "identifier": "favicon", "type": "file", "description": "favicon_description", "label": "favicon_label" }
+        {
+          "identifier": "logo",
+          "type": "file",
+          "description": "logo_description",
+          "label": "logo_label"
+        },
+        {
+          "identifier": "show_brand_name",
+          "type": "checkbox",
+          "description": "show_brand_name_description",
+          "label": "show_brand_name_label",
+          "value": true
+        },
+        {
+          "identifier": "favicon",
+          "type": "file",
+          "description": "favicon_description",
+          "label": "favicon_label"
+        }
       ]
     },
     {
       "label": "search_group_label",
       "variables": [
-        { "identifier": "instant_search", "type": "checkbox", "description": "instant_search_description", "label": "instant_search_label", "value": true },
-        { "identifier": "scoped_kb_search", "type": "checkbox", "description": "scoped_knowledge_base_search_description", "label": "scoped_knowledge_base_search_label_v2", "value": true },
-        { "identifier": "scoped_community_search", "type": "checkbox", "description": "scoped_community_search_description", "label": "scoped_community_search_label", "value": true }
+        {
+          "identifier": "instant_search",
+          "type": "checkbox",
+          "description": "instant_search_description",
+          "label": "instant_search_label",
+          "value": true
+        },
+        {
+          "identifier": "scoped_kb_search",
+          "type": "checkbox",
+          "description": "scoped_knowledge_base_search_description",
+          "label": "scoped_knowledge_base_search_label_v2",
+          "value": true
+        },
+        {
+          "identifier": "scoped_community_search",
+          "type": "checkbox",
+          "description": "scoped_community_search_description",
+          "label": "scoped_community_search_label",
+          "value": true
+        }
       ]
     },
     {
       "label": "home_page_group_label",
       "variables": [
-        { "identifier": "show_recent_activity", "type": "checkbox", "description": "recent_activity_description", "label": "recent_activity_label", "value": true },
-        { "identifier": "departments", "type": "text", "description": "departments_description", "label": "departments_label", "value": "Support, Sales, Billing" }
+        {
+          "identifier": "show_recent_activity",
+          "type": "checkbox",
+          "description": "recent_activity_description",
+          "label": "recent_activity_label",
+          "value": true
+        },
+        {
+          "identifier": "departments",
+          "type": "text",
+          "description": "departments_description",
+          "label": "departments_label",
+          "value": "Support, Sales, Billing"
+        }
       ]
     },
     {
       "label": "carousel_group_label",
       "variables": [
-        { "identifier": "carousel_tile_count", "type": "text", "label": "Carousel tile count", "description": "Number of tiles to display in the homepage carousel.", "value": "6" }
+        {
+          "identifier": "carousel_tile_count",
+          "type": "text",
+          "label": "Carousel tile count",
+          "description": "Number of tiles to display in the homepage carousel.",
+          "value": "6"
+        }
       ]
     },
     {
       "label": "article_page_group_label",
       "variables": [
-        { "identifier": "show_articles_in_section", "type": "checkbox", "description": "articles_in_section_description", "label": "articles_in_section_label", "value": true },
-        { "identifier": "show_article_author", "type": "checkbox", "description": "article_author_description", "label": "article_author_label", "value": true },
-        { "identifier": "show_article_comments", "type": "checkbox", "description": "article_comments_description", "label": "article_comments_label", "value": true },
-        { "identifier": "show_follow_article", "type": "checkbox", "description": "follow_article_description", "label": "follow_article_label", "value": true },
-        { "identifier": "show_recently_viewed_articles", "type": "checkbox", "description": "recently_viewed_articles_description", "label": "recently_viewed_articles_label", "value": true },
-        { "identifier": "show_related_articles", "type": "checkbox", "description": "related_articles_description", "label": "related_articles_label", "value": true },
-        { "identifier": "show_article_sharing", "type": "checkbox", "description": "article_sharing_description", "label": "article_sharing_label", "value": true }
+        {
+          "identifier": "show_articles_in_section",
+          "type": "checkbox",
+          "description": "articles_in_section_description",
+          "label": "articles_in_section_label",
+          "value": true
+        },
+        {
+          "identifier": "show_article_author",
+          "type": "checkbox",
+          "description": "article_author_description",
+          "label": "article_author_label",
+          "value": true
+        },
+        {
+          "identifier": "show_article_comments",
+          "type": "checkbox",
+          "description": "article_comments_description",
+          "label": "article_comments_label",
+          "value": true
+        },
+        {
+          "identifier": "show_follow_article",
+          "type": "checkbox",
+          "description": "follow_article_description",
+          "label": "follow_article_label",
+          "value": true
+        },
+        {
+          "identifier": "show_recently_viewed_articles",
+          "type": "checkbox",
+          "description": "recently_viewed_articles_description",
+          "label": "recently_viewed_articles_label",
+          "value": true
+        },
+        {
+          "identifier": "show_related_articles",
+          "type": "checkbox",
+          "description": "related_articles_description",
+          "label": "related_articles_label",
+          "value": true
+        },
+        {
+          "identifier": "show_article_sharing",
+          "type": "checkbox",
+          "description": "article_sharing_description",
+          "label": "article_sharing_label",
+          "value": true
+        }
       ]
     },
     {
       "label": "section_page_group_label",
       "variables": [
-        { "identifier": "show_follow_section", "type": "checkbox", "description": "follow_section_description", "label": "follow_section_label", "value": true }
+        {
+          "identifier": "show_follow_section",
+          "type": "checkbox",
+          "description": "follow_section_description",
+          "label": "follow_section_label",
+          "value": true
+        }
       ]
     },
     {
       "label": "community_post_group_label",
       "variables": [
-        { "identifier": "show_follow_post", "type": "checkbox", "description": "follow_post_description", "label": "follow_post_label", "value": true },
-        { "identifier": "show_post_sharing", "type": "checkbox", "description": "post_sharing_description", "label": "post_sharing_label", "value": true }
+        {
+          "identifier": "show_follow_post",
+          "type": "checkbox",
+          "description": "follow_post_description",
+          "label": "follow_post_label",
+          "value": true
+        },
+        {
+          "identifier": "show_post_sharing",
+          "type": "checkbox",
+          "description": "post_sharing_description",
+          "label": "post_sharing_label",
+          "value": true
+        }
       ]
     },
     {
       "label": "community_topic_group_label",
       "variables": [
-        { "identifier": "show_follow_topic", "type": "checkbox", "description": "follow_topic_description", "label": "follow_topic_label", "value": true }
+        {
+          "identifier": "show_follow_topic",
+          "type": "checkbox",
+          "description": "follow_topic_description",
+          "label": "follow_topic_label",
+          "value": true
+        }
       ]
     },
     {
@@ -184,7 +368,13 @@
     {
       "label": "request_list_group_label",
       "variables": [
-        { "identifier": "request_list_beta", "type": "checkbox", "description": "request_list_beta_description", "label": "request_list_beta_label", "value": false }
+        {
+          "identifier": "request_list_beta",
+          "type": "checkbox",
+          "description": "request_list_beta_description",
+          "label": "request_list_beta_label",
+          "value": false
+        }
       ]
     }
   ]
