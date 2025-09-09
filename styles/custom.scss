@@ -35,3 +35,21 @@
 [data-field-name="request[description]"] {
   display: none !important;
 }
+
+.request-type-label {
+  @extend .status-label;
+  background-color: #1f73b7;
+  margin-left: 4px;
+}
+
+.request-type-new-user-request {
+  background-color: #1f73b7;
+}
+
+.request-type-user-deactivation-request {
+  background-color: #c72a1c;
+}
+
+.request-type-request-for-new-hardware {
+  background-color: #038153;
+}

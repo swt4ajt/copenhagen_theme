@@ -14,6 +14,7 @@ import "./dynamicCategoriesNav";
 import { renderAnnouncements } from './announcements';
 import { renderIntroductions } from './introductions';
 import { renderLatestArticles } from './latestArticles';
+import "./requestTypes";
 
 // Initialize announcements, introductions, latest articles and holidays banner
 function initHomepageSections() {
