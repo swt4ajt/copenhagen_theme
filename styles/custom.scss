@@ -29,3 +29,9 @@
   transform: scale(1.05);
   background-color: #f0f0f0;
 }
+
+/* Hide subject and description fields on the new request form */
+[data-field-name="request[subject]"],
+[data-field-name="request[description]"] {
+  display: none !important;
+}
