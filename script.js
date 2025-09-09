@@ -461,36 +461,37 @@
       }
     }
 
-    // --- Zendesk new-request-form: Robust prefill/hide for form 4959432829215 ---
+    // --- Zendesk new-request-form: Robust prefill/hide for forms 4959432829215 and 4959424709919 ---
     function robustPrefillAndHideZendeskFields() {
       const form = document.querySelector('form[action="/hc/en-gb/requests"]');
       if (!form) return;
       const formIdInput = form.querySelector('input[name="request[ticket_form_id]"]');
-      if (!formIdInput || formIdInput.value !== '4959432829215') return;
-
-      const firstNameInput = form.querySelector('input[name^="request[custom_fields][4959434786335]"]');
-      const lastNameInput = form.querySelector('input[name^="request[custom_fields][4959434835359]"]');
-      const subjectInput = form.querySelector('input[name="request[subject]"]');
-      const descriptionInput = form.querySelector('textarea[name="request[description]"]');
-
-      // Only proceed if all fields are present
+      if (!formIdInput) return;
+      const formId = formIdInput.value;
+      let firstNameInput, lastNameInput, subjectInput, descriptionInput;
+      if (formId === '4959432829215') {
+        firstNameInput = form.querySelector('input[name^="request[custom_fields][4959434786335]"]');
+        lastNameInput = form.querySelector('input[name^="request[custom_fields][4959434835359]"]');
+      } else if (formId === '4959424709919') {
+        firstNameInput = form.querySelector('input[name^="request[custom_fields][4959424710327]"]');
+        lastNameInput = form.querySelector('input[name^="request[custom_fields][4959424710337]"]');
+      } else {
+        return;
+      }
+      subjectInput = form.querySelector('input[name="request[subject]"]');
+      descriptionInput = form.querySelector('textarea[name="request[description]"]');
       if (!firstNameInput || !lastNameInput || !subjectInput || !descriptionInput) return;
-
-      // Prefill subject and description
-      subjectInput.value = `${firstNameInput.value} ${lastNameInput.value}`.trim();
-      descriptionInput.value = `Submitted by: ${firstNameInput.value} ${lastNameInput.value}`.trim();
-
-      // Hide subject and description fields
+      const fullName = `${firstNameInput.value} ${lastNameInput.value}`.trim();
+      subjectInput.value = fullName;
+      descriptionInput.value = `Submitted by: ${fullName}`;
       subjectInput.closest('.form-field, .form-group, .form-control, label')?.style.setProperty('display', 'none', 'important');
       descriptionInput.closest('.form-field, .form-group, .form-control, label')?.style.setProperty('display', 'none', 'important');
-
-      // Ensure values are set before submit
       form.addEventListener('submit', function(e) {
-        subjectInput.value = `${firstNameInput.value} ${lastNameInput.value}`.trim();
-        descriptionInput.value = `Submitted by: ${firstNameInput.value} ${lastNameInput.value}`.trim();
+        const fullName = `${firstNameInput.value} ${lastNameInput.value}`.trim();
+        subjectInput.value = fullName;
+        descriptionInput.value = `Submitted by: ${fullName}`;
       }, true);
     }
-
     // MutationObserver to watch for form and fields
     const zendeskFormObserver = new MutationObserver(() => {
       robustPrefillAndHideZendeskFields();
