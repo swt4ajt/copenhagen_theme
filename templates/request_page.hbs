@@ -221,28 +221,28 @@
                     <dt>{{t 'id'}}</dt>
                     <dd>#{{request.id}}</dd>
 
-                    {{#if request.ticket_form_id}}
+                    {{#if request.ticket_form}}
                         <dt>Request type</dt>
                         <dd>
-                            {{#is request.ticket_form_id 4959432829215}}
+                            {{#is request.ticket_form.name "New Hire Onboarding"}}
                                 <span class="status-label request-type-label" data-request-type="New Hire Onboarding">New Hire Onboarding</span>
                             {{/is}}
-                            {{#is request.ticket_form_id 4959424709919}}
+                            {{#is request.ticket_form.name "Offboard Employee"}}
                                 <span class="status-label request-type-label" data-request-type="Offboard Employee">Offboard Employee</span>
                             {{/is}}
-                            {{#is request.ticket_form_id 4959443538975}}
+                            {{#is request.ticket_form.name "Request for new Hardware"}}
                                 <span class="status-label request-type-label" data-request-type="Request for new Hardware">Request for new Hardware</span>
                             {{/is}}
-                            {{#is request.ticket_form_id 4959420488607}}
+                            {{#is request.ticket_form.name "Software Requests"}}
                                 <span class="status-label request-type-label" data-request-type="Software Requests">Software Requests</span>
                             {{/is}}
-                            {{#is request.ticket_form_id 4959424971167}}
+                            {{#is request.ticket_form.name "New Google Group"}}
                                 <span class="status-label request-type-label" data-request-type="New Google Group">New Google Group</span>
                             {{/is}}
-                            {{#is request.ticket_form_id 4964521982623}}
+                            {{#is request.ticket_form.name "Sales Ops"}}
                                 <span class="status-label request-type-label" data-request-type="Sales Ops">Sales Ops</span>
                             {{/is}}
-                            {{#is request.ticket_form_id 4989134508191}}
+                            {{#is request.ticket_form.name "General IT Request"}}
                                 <span class="status-label request-type-label" data-request-type="General IT Request">General IT Request</span>
                             {{/is}}
                         </dd>
