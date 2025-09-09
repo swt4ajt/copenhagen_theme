@@ -4,212 +4,261 @@ import { saveFocus, returnFocus } from "./focus";
 // Forms
 
 window.addEventListener("DOMContentLoaded", () => {
-  // In some cases we should preserve focus after page reload
-  returnFocus();
-
-  // show form controls when the textarea receives focus or back button is used and value exists
-  const commentContainerTextarea = document.querySelector(
-    ".comment-container textarea"
-  );
-  const commentContainerFormControls = document.querySelector(
-    ".comment-form-controls, .comment-ccs"
-  );
-
-  if (commentContainerTextarea) {
-    commentContainerTextarea.addEventListener(
-      "focus",
-      function focusCommentContainerTextarea() {
+  try {
+    // In some cases we should preserve focus after page reload
+    returnFocus();
+    // show form controls when the textarea receives focus or back button is used and value exists
+    const commentContainerTextarea = document.querySelector(
+      ".comment-container textarea"
+    );
+    const commentContainerFormControls = document.querySelector(
+      ".comment-form-controls, .comment-ccs"
+    );
+    if (commentContainerTextarea && commentContainerFormControls) {
+      commentContainerTextarea.addEventListener(
+        "focus",
+        function focusCommentContainerTextarea() {
+          commentContainerFormControls.style.display = "block";
+          commentContainerTextarea.removeEventListener(
+            "focus",
+            focusCommentContainerTextarea
+          );
+        }
+      );
+      if (commentContainerTextarea.value !== "") {
         commentContainerFormControls.style.display = "block";
-        commentContainerTextarea.removeEventListener(
-          "focus",
-          focusCommentContainerTextarea
-        );
       }
+    }
+    // Expand Request comment form when Add to conversation is clicked
+    const showRequestCommentContainerTrigger = document.querySelector(
+      ".request-container .comment-container .comment-show-container"
+    );
+    const requestCommentFields = document.querySelectorAll(
+      ".request-container .comment-container .comment-fields"
+    );
+    const requestCommentSubmit = document.querySelector(
+      ".request-container .comment-container .request-submit-comment"
+    );
+    if (showRequestCommentContainerTrigger && requestCommentFields && requestCommentSubmit) {
+      showRequestCommentContainerTrigger.addEventListener("click", () => {
+        showRequestCommentContainerTrigger.style.display = "none";
+        Array.prototype.forEach.call(requestCommentFields, (element) => {
+          element.style.display = "block";
+        });
+        requestCommentSubmit.style.display = "inline-block";
+        if (commentContainerTextarea) {
+          commentContainerTextarea.focus();
+        }
+      });
+    }
+    // Mark as solved button
+    const requestMarkAsSolvedButton = document.querySelector(
+      ".request-container .mark-as-solved:not([data-disabled])"
+    );
+    const requestMarkAsSolvedCheckbox = document.querySelector(
+      ".request-container .comment-container input[type=checkbox]"
+    );
+    const requestCommentSubmitButton = document.querySelector(
+      ".request-container .comment-container input[type=submit]"
     );
 
-    if (commentContainerTextarea.value !== "") {
-      commentContainerFormControls.style.display = "block";
-    }
-  }
-
-  // Expand Request comment form when Add to conversation is clicked
-  const showRequestCommentContainerTrigger = document.querySelector(
-    ".request-container .comment-container .comment-show-container"
-  );
-  const requestCommentFields = document.querySelectorAll(
-    ".request-container .comment-container .comment-fields"
-  );
-  const requestCommentSubmit = document.querySelector(
-    ".request-container .comment-container .request-submit-comment"
-  );
-
-  if (showRequestCommentContainerTrigger) {
-    showRequestCommentContainerTrigger.addEventListener("click", () => {
-      showRequestCommentContainerTrigger.style.display = "none";
-      Array.prototype.forEach.call(requestCommentFields, (element) => {
-        element.style.display = "block";
+    if (requestMarkAsSolvedButton) {
+      requestMarkAsSolvedButton.addEventListener("click", () => {
+        requestMarkAsSolvedCheckbox.setAttribute("checked", true);
+        requestCommentSubmitButton.disabled = true;
+        requestMarkAsSolvedButton.setAttribute("data-disabled", true);
+        requestMarkAsSolvedButton.form.submit();
       });
-      requestCommentSubmit.style.display = "inline-block";
+    }
 
-      if (commentContainerTextarea) {
-        commentContainerTextarea.focus();
-      }
-    });
-  }
+    // Change Mark as solved text according to whether comment is filled
+    const requestCommentTextarea = document.querySelector(
+      ".request-container .comment-container textarea"
+    );
 
-  // Mark as solved button
-  const requestMarkAsSolvedButton = document.querySelector(
-    ".request-container .mark-as-solved:not([data-disabled])"
-  );
-  const requestMarkAsSolvedCheckbox = document.querySelector(
-    ".request-container .comment-container input[type=checkbox]"
-  );
-  const requestCommentSubmitButton = document.querySelector(
-    ".request-container .comment-container input[type=submit]"
-  );
+    const usesWysiwyg =
+      requestCommentTextarea &&
+      requestCommentTextarea.dataset.helper === "wysiwyg";
 
-  if (requestMarkAsSolvedButton) {
-    requestMarkAsSolvedButton.addEventListener("click", () => {
-      requestMarkAsSolvedCheckbox.setAttribute("checked", true);
-      requestCommentSubmitButton.disabled = true;
-      requestMarkAsSolvedButton.setAttribute("data-disabled", true);
-      requestMarkAsSolvedButton.form.submit();
-    });
-  }
+    function isEmptyPlaintext(s) {
+      return s.trim() === "";
+    }
 
-  // Change Mark as solved text according to whether comment is filled
-  const requestCommentTextarea = document.querySelector(
-    ".request-container .comment-container textarea"
-  );
+    function isEmptyHtml(xml) {
+      const doc = new DOMParser().parseFromString(`<_>${xml}</_>`, "text/xml");
+      const img = doc.querySelector("img");
+      return img === null && isEmptyPlaintext(doc.children[0].textContent);
+    }
 
-  const usesWysiwyg =
-    requestCommentTextarea &&
-    requestCommentTextarea.dataset.helper === "wysiwyg";
+    const isEmpty = usesWysiwyg ? isEmptyHtml : isEmptyPlaintext;
 
-  function isEmptyPlaintext(s) {
-    return s.trim() === "";
-  }
-
-  function isEmptyHtml(xml) {
-    const doc = new DOMParser().parseFromString(`<_>${xml}</_>`, "text/xml");
-    const img = doc.querySelector("img");
-    return img === null && isEmptyPlaintext(doc.children[0].textContent);
-  }
-
-  const isEmpty = usesWysiwyg ? isEmptyHtml : isEmptyPlaintext;
-
-  if (requestCommentTextarea) {
-    requestCommentTextarea.addEventListener("input", () => {
-      if (isEmpty(requestCommentTextarea.value)) {
-        if (requestMarkAsSolvedButton) {
-          requestMarkAsSolvedButton.innerText =
-            requestMarkAsSolvedButton.getAttribute("data-solve-translation");
+    if (requestCommentTextarea) {
+      requestCommentTextarea.addEventListener("input", () => {
+        if (isEmpty(requestCommentTextarea.value)) {
+          if (requestMarkAsSolvedButton) {
+            requestMarkAsSolvedButton.innerText =
+              requestMarkAsSolvedButton.getAttribute("data-solve-translation");
+          }
+        } else {
+          if (requestMarkAsSolvedButton) {
+            requestMarkAsSolvedButton.innerText =
+              requestMarkAsSolvedButton.getAttribute(
+                "data-solve-and-submit-translation"
+              );
+          }
         }
-      } else {
-        if (requestMarkAsSolvedButton) {
-          requestMarkAsSolvedButton.innerText =
-            requestMarkAsSolvedButton.getAttribute(
-              "data-solve-and-submit-translation"
-            );
-        }
-      }
-    });
-  }
+      });
+    }
 
-  const selects = document.querySelectorAll(
-    "#request-status-select, #request-organization-select"
-  );
+    const selects = document.querySelectorAll(
+      "#request-status-select, #request-organization-select"
+    );
 
-  selects.forEach((element) => {
-    element.addEventListener("change", (event) => {
-      event.stopPropagation();
-      saveFocus();
-      element.form.submit();
-    });
-  });
-
-  // Submit requests filter form on search in the request list page
-  const quickSearch = document.querySelector("#quick-search");
-  if (quickSearch) {
-    quickSearch.addEventListener("keyup", (event) => {
-      if (event.keyCode === ENTER) {
+    selects.forEach((element) => {
+      element.addEventListener("change", (event) => {
         event.stopPropagation();
         saveFocus();
-        quickSearch.form.submit();
-      }
-    });
-  }
-
-  // Submit organization form in the request page
-  const requestOrganisationSelect = document.querySelector(
-    "#request-organization select"
-  );
-
-  if (requestOrganisationSelect) {
-    requestOrganisationSelect.addEventListener("change", () => {
-      requestOrganisationSelect.form.submit();
+        element.form.submit();
+      });
     });
 
-    requestOrganisationSelect.addEventListener("click", (e) => {
-      // Prevents Ticket details collapsible-sidebar to close on mobile
-      e.stopPropagation();
-    });
-  }
+    // Submit requests filter form on search in the request list page
+    const quickSearch = document.querySelector("#quick-search");
+    if (quickSearch) {
+      quickSearch.addEventListener("keyup", (event) => {
+        if (event.keyCode === ENTER) {
+          event.stopPropagation();
+          saveFocus();
+          quickSearch.form.submit();
+        }
+      });
+    }
 
-  // If there are any error notifications below an input field, focus that field
-  const notificationElm = document.querySelector(".notification-error");
-  if (
-    notificationElm &&
-    notificationElm.previousElementSibling &&
-    typeof notificationElm.previousElementSibling.focus === "function"
-  ) {
-    notificationElm.previousElementSibling.focus();
-  }
-
-  // Prefill and hide subject/description for specific ticket forms
-  const formId = document
-    .querySelector("form[data-ticket-form-id]")
-    ?.getAttribute("data-ticket-form-id");
-
-  const subjectMap = {
-    4959432829215: "New User Request",
-    4959424709919: "User Deactivation Request",
-  };
-
-  const descriptionMap = {
-    4959432829215:
-      "New user request, please review the information submitted in the form and then action accordingly",
-    4959424709919:
-      "User deactivation request, please review the information submitted in the form and then action accordingly",
-  };
-
-  if (formId && subjectMap[formId]) {
-    const subjectInput = document.querySelector('[name="request_subject"]');
-    const descriptionInput = document.querySelector(
-      '[name="request_description"]'
+    // Submit organization form in the request page
+    const requestOrganisationSelect = document.querySelector(
+      "#request-organization select"
     );
 
-    // Hide subject and description fields
-    if (subjectInput)
-      subjectInput
-        .closest(".form-field, .form-group, .form-control, label")
-        ?.style.setProperty("display", "none", "important");
-    if (descriptionInput)
-      descriptionInput
-        .closest(".form-field, .form-group, .form-control, label")
-        ?.style.setProperty("display", "none", "important");
+    if (requestOrganisationSelect) {
+      requestOrganisationSelect.addEventListener("change", () => {
+        requestOrganisationSelect.form.submit();
+      });
 
-    // On form submit, prefill subject and description
-    const requestForm = document.querySelector("form[data-ticket-form-id]");
-    if (requestForm) {
-      requestForm.addEventListener(
-        "submit",
-        function () {
-          if (subjectInput) subjectInput.value = subjectMap[formId];
-          if (descriptionInput) descriptionInput.value = descriptionMap[formId];
-        },
-        true
-      );
+      requestOrganisationSelect.addEventListener("click", (e) => {
+        // Prevents Ticket details collapsible-sidebar to close on mobile
+        e.stopPropagation();
+      });
     }
+
+    // If there are any error notifications below an input field, focus that field
+    const notificationElm = document.querySelector(".notification-error");
+    if (
+      notificationElm &&
+      notificationElm.previousElementSibling &&
+      typeof notificationElm.previousElementSibling.focus === "function"
+    ) {
+      notificationElm.previousElementSibling.focus();
+    }
+
+    // Prefill and hide subject/description for specific ticket forms
+    const formId = document
+      .querySelector("form[data-ticket-form-id]")
+      ?.getAttribute("data-ticket-form-id");
+
+    const subjectMap = {
+      4959432829215: "New User Request",
+      4959424709919: "User Deactivation Request",
+    };
+
+    const descriptionMap = {
+      4959432829215:
+        "New user request, please review the information submitted in the form and then action accordingly",
+      4959424709919:
+        "User deactivation request, please review the information submitted in the form and then action accordingly",
+    };
+
+    if (formId && subjectMap[formId]) {
+      const subjectInput = document.querySelector('[name="request_subject"]');
+      const descriptionInput = document.querySelector(
+        '[name="request_description"]'
+      );
+
+      // Hide subject and description fields
+      if (subjectInput)
+        subjectInput
+          .closest(".form-field, .form-group, .form-control, label")
+          ?.style.setProperty("display", "none", "important");
+      if (descriptionInput)
+        descriptionInput
+          .closest(".form-field, .form-group, .form-control, label")
+          ?.style.setProperty("display", "none", "important");
+
+      // On form submit, prefill subject and description
+      const requestForm = document.querySelector("form[data-ticket-form-id]");
+      if (requestForm) {
+        requestForm.addEventListener(
+          "submit",
+          function () {
+            if (subjectInput) subjectInput.value = subjectMap[formId];
+            if (descriptionInput) descriptionInput.value = descriptionMap[formId];
+          },
+          true
+        );
+      }
+    }
+  } catch (err) {
+    console.error("Forms init error:", err);
   }
+  // MutationObserver for async form rendering
+  const formObserver = new MutationObserver(() => {
+    try {
+      const showRequestCommentContainerTrigger = document.querySelector(
+        ".request-container .comment-container .comment-show-container"
+      );
+      const requestCommentFields = document.querySelectorAll(
+        ".request-container .comment-container .comment-fields"
+      );
+      const requestCommentSubmit = document.querySelector(
+        ".request-container .comment-container .request-submit-comment"
+      );
+      const commentContainerTextarea = document.querySelector(
+        ".comment-container textarea"
+      );
+      const commentContainerFormControls = document.querySelector(
+        ".comment-form-controls, .comment-ccs"
+      );
+      if (showRequestCommentContainerTrigger && requestCommentFields && requestCommentSubmit && !showRequestCommentContainerTrigger.hasAttribute("data-form-init")) {
+        showRequestCommentContainerTrigger.setAttribute("data-form-init", "true");
+        showRequestCommentContainerTrigger.addEventListener("click", () => {
+          showRequestCommentContainerTrigger.style.display = "none";
+          Array.prototype.forEach.call(requestCommentFields, (element) => {
+            element.style.display = "block";
+          });
+          requestCommentSubmit.style.display = "inline-block";
+          if (commentContainerTextarea) {
+            commentContainerTextarea.focus();
+          }
+        });
+      }
+      if (commentContainerTextarea && commentContainerFormControls && !commentContainerTextarea.hasAttribute("data-form-init")) {
+        commentContainerTextarea.setAttribute("data-form-init", "true");
+        commentContainerTextarea.addEventListener(
+          "focus",
+          function focusCommentContainerTextarea() {
+            commentContainerFormControls.style.display = "block";
+            commentContainerTextarea.removeEventListener(
+              "focus",
+              focusCommentContainerTextarea
+            );
+          }
+        );
+        if (commentContainerTextarea.value !== "") {
+          commentContainerFormControls.style.display = "block";
+        }
+      }
+    } catch (err) {
+      console.error("Forms observer error:", err);
+    }
+  });
+  formObserver.observe(document.body, { childList: true, subtree: true });
 });
