@@ -111,9 +111,14 @@
                       {{excerpt description characters=50}}
                     {{/if}}
                   </a>
-                  {{#if fields_4992033637535}}
-                    <span class="status-label request-type-label" data-request-type="{{fields_4992033637535}}">{{fields_4992033637535}}</span>
-                  {{/if}}
+                  {{!-- TYPE BADGE next to subject --}}
+                  {{#each custom_fields}}
+                    {{#is id 4992033637535}}
+                      {{#if value}}
+                        <span class="badge badge--type" data-type="{{value}}">{{value}}</span>
+                      {{/if}}
+                    {{/is}}
+                  {{/each}}
 
                   <!-- Visible on mobile -->
                   <div class="requests-table-meta">
@@ -122,9 +127,13 @@
                     <span class="status-label status-label-request status-label-{{status}}" title="{{status_description}}">
                       {{status_name}}
                     </span>
-                    {{#if fields_4992033637535}}
-                      <span class="status-label request-type-label" data-request-type="{{fields_4992033637535}}">{{fields_4992033637535}}</span>
-                    {{/if}}
+                    {{#each custom_fields}}
+                      {{#is id 4992033637535}}
+                        {{#if value}}
+                          <span class="badge badge--type" data-type="{{value}}">{{value}}</span>
+                        {{/if}}
+                      {{/is}}
+                    {{/each}}
                   </div>
                 </td>
                 <td>#{{id}}</td>

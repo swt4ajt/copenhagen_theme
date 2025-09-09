@@ -3,9 +3,14 @@
 
     <h1 class="request-title">
         {{request.subject}}
-        {{#if request.fields_4992033637535}}
-          <span class="status-label request-type-label" data-request-type="{{request.fields_4992033637535}}">{{request.fields_4992033637535}}</span>
-        {{/if}}
+        {{!-- TYPE BADGE (Offboard / New Hire / etc.) --}}
+        {{#each request.custom_fields}}
+          {{#is id 4992033637535}}
+            {{#if value}}
+              <span class="badge badge--type" data-type="{{value}}">{{value}}</span>
+            {{/if}}
+          {{/is}}
+        {{/each}}
     </h1>
 
     <div id="main-content" class="request-container">
@@ -203,9 +208,13 @@
 
                     <dt>Request type</dt>
                     <dd>
-                      {{#if request.fields_4992033637535}}
-                        <span class="status-label request-type-label" data-request-type="{{request.fields_4992033637535}}">{{request.fields_4992033637535}}</span>
-                      {{/if}}
+                      {{#each request.custom_fields}}
+                        {{#is id 4992033637535}}
+                          {{#if value}}
+                            <span class="badge badge--type" data-type="{{value}}">{{value}}</span>
+                          {{/if}}
+                        {{/is}}
+                      {{/each}}
                     </dd>
 
                     {{#form 'organization' id='request-organization' class='hbs-form'}}
