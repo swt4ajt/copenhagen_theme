@@ -5572,6 +5572,16 @@ zd-summary-block {
 }
 
 #request-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.request-form-section-title {
+  margin: 0 0 0.5rem;
+}
+
+.request-form-section-forms {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;

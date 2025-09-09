@@ -29,6 +29,7 @@
   const hasFormId = new URLSearchParams(window.location.search).has("ticket_form_id");
 
   const settings = {{json settings}};
+  listContainer.dataset.settings = JSON.stringify(settings);
 
   const props = {
     requestForm: {{json new_request_form}},
