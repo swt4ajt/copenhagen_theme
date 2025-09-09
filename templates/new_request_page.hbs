@@ -16,16 +16,20 @@
     </h1>
 
     <div id="main-content" class="form">
-        <div id="new-request-form"></div>
+        <div id="request-form-container" hidden></div>
+        <div id="new-request-form" hidden></div>
     </div>
 </div>
 
 <script type="module">
   import { renderNewRequestForm } from "new-request-form";
 
-  const container = document.getElementById("new-request-form");
+  const formContainer = document.getElementById("new-request-form");
+  const listContainer = document.getElementById("request-form-container");
+  const hasFormId = new URLSearchParams(window.location.search).has("ticket_form_id");
 
   const settings = {{json settings}};
+  listContainer.dataset.settings = JSON.stringify(settings);
 
   const props = {
     requestForm: {{json new_request_form}},
@@ -50,5 +54,12 @@
     },
   };
 
-  renderNewRequestForm(settings, props, container);
+  if (hasFormId) {
+    listContainer.remove();
+    formContainer.hidden = false;
+    renderNewRequestForm(settings, props, formContainer);
+  } else {
+    formContainer.remove();
+    listContainer.hidden = false;
+  }
 </script>
