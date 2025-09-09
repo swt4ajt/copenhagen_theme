@@ -1,7 +1,12 @@
 <div class="container">
     <div class="request-breadcrumbs">{{breadcrumbs}}</div>
 
-    <h1 class="request-title">{{request.subject}}</h1>
+    <h1 class="request-title">
+        {{request.subject}}
+        {{#if request.ticket_form}}
+            <span class="status-label request-type-label" data-request-type="{{request.ticket_form.name}}">{{request.ticket_form.name}}</span>
+        {{/if}}
+    </h1>
 
     <div id="main-content" class="request-container">
         <section class="request-main">
@@ -195,6 +200,13 @@
 
                     <dt>{{t 'id'}}</dt>
                     <dd>#{{request.id}}</dd>
+
+                    {{#if request.ticket_form}}
+                        <dt>Request type</dt>
+                        <dd>
+                            <span class="status-label request-type-label" data-request-type="{{request.ticket_form.name}}">{{request.ticket_form.name}}</span>
+                        </dd>
+                    {{/if}}
 
                     {{#form 'organization' id='request-organization' class='hbs-form'}}
                         <dt>{{t 'organization'}}</dt>

@@ -60,6 +60,13 @@
         {{label 'status' for='request-status-select' class='request-filter request-filter-label'}}
         {{select 'status' id='request-status-select' class='request-filter'}}
       </div>
+
+      <div class="request-table-filter">
+        <label for="request-type-filter" class="request-filter request-filter-label">Type</label>
+        <select id="request-type-filter" class="request-filter">
+          <option value="">All Types</option>
+        </select>
+      </div>
     {{/form}}
 
     {{#if query}}
@@ -95,7 +102,7 @@
 
           <tbody>
             {{#each requests}}
-              <tr {{#is status 'closed'}} class="request-closed" {{/is}}>
+              <tr {{#is status 'closed'}} class="request-closed" {{/is}} data-request-type="{{ticket_form.name}}">
                 <td class="request-info requests-table-info">
                   <a href="{{url}}" class="striped-list-title" title="{{subject}}">
                     {{#if subject}}
@@ -104,6 +111,9 @@
                       {{excerpt description characters=50}}
                     {{/if}}
                   </a>
+                  {{#if ticket_form}}
+                    <span class="status-label request-type-label" data-request-type="{{ticket_form.name}}">{{ticket_form.name}}</span>
+                  {{/if}}
 
                   <!-- Visible on mobile -->
                   <div class="requests-table-meta">
@@ -112,6 +122,9 @@
                     <span class="status-label status-label-request status-label-{{status}}" title="{{status_description}}">
                       {{status_name}}
                     </span>
+                    {{#if ticket_form}}
+                      <span class="status-label request-type-label" data-request-type="{{ticket_form.name}}">{{ticket_form.name}}</span>
+                    {{/if}}
                   </div>
                 </td>
                 <td>#{{id}}</td>
