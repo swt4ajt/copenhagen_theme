@@ -228,3 +228,24 @@
 }
 
 .no-activities { color: $secondary-text-color; }
+
+// Request Type Badges
+.badge.badge--type {
+  display: inline-block;
+  margin-left: .5rem;
+  padding: .125rem .5rem;
+  font-size: 12px;
+  line-height: 1.2;
+  border-radius: 999px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.badge.badge--type[data-type="offboard"]          { background:#ffeaea; color:#8a1f1f; border-color:#ffd1d1; }
+.badge.badge--type[data-type="new-hire"]          { background:#fff4e5; color:#8a4b0a; border-color:#ffe2bd; }
+.badge.badge--type[data-type="sales_ops"]         { background:#eef2ff; color:#1e3a8a; border-color:#dbe4ff; }
+.badge.badge--type[data-type="general_it"]        { background:#eaf8ef; color:#216e3a; border-color:#c6e8d1; }
+.badge.badge--type[data-type="hardware_request"]  { background:#e7f3ff; color:#0b5cab; border-color:#b3d6ff; }
+.badge.badge--type[data-type="software_request"]  { background:#f3e8ff; color:#6b21a8; border-color:#e6d5ff; }
+.badge.badge--type[data-type="google_group"]      { background:#f5f5f5; color:#374151; border-color:#e5e7eb; }
