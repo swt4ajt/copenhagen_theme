@@ -287,7 +287,11 @@
       const requestCommentSubmit = document.querySelector(
         ".request-container .comment-container .request-submit-comment"
       );
-      if (showRequestCommentContainerTrigger && requestCommentFields && requestCommentSubmit) {
+      if (
+        showRequestCommentContainerTrigger &&
+        requestCommentFields &&
+        requestCommentSubmit
+      ) {
         showRequestCommentContainerTrigger.addEventListener("click", () => {
           showRequestCommentContainerTrigger.style.display = "none";
           Array.prototype.forEach.call(requestCommentFields, (element) => {
@@ -328,15 +332,13 @@
         requestCommentTextarea &&
         requestCommentTextarea.dataset.helper === "wysiwyg";
 
-      function isEmptyPlaintext(s) {
-        return s.trim() === "";
-      }
+      const isEmptyPlaintext = (s) => s.trim() === "";
 
-      function isEmptyHtml(xml) {
+      const isEmptyHtml = (xml) => {
         const doc = new DOMParser().parseFromString(`<_>${xml}</_>`, "text/xml");
         const img = doc.querySelector("img");
         return img === null && isEmptyPlaintext(doc.children[0].textContent);
-      }
+      };
 
       const isEmpty = usesWysiwyg ? isEmptyHtml : isEmptyPlaintext;
 
@@ -431,27 +433,20 @@
           '[name="request_description"]'
         );
 
-        // Hide subject and description fields
-        if (subjectInput)
+        // Prefill and hide subject field
+        if (subjectInput) {
+          subjectInput.value = subjectMap[formId];
           subjectInput
             .closest(".form-field, .form-group, .form-control, label")
             ?.style.setProperty("display", "none", "important");
-        if (descriptionInput)
+        }
+
+        // Prefill and hide description field
+        if (descriptionInput) {
+          descriptionInput.value = descriptionMap[formId];
           descriptionInput
             .closest(".form-field, .form-group, .form-control, label")
             ?.style.setProperty("display", "none", "important");
-
-        // On form submit, prefill subject and description
-        const requestForm = document.querySelector("form[data-ticket-form-id]");
-        if (requestForm) {
-          requestForm.addEventListener(
-            "submit",
-            function () {
-              if (subjectInput) subjectInput.value = subjectMap[formId];
-              if (descriptionInput) descriptionInput.value = descriptionMap[formId];
-            },
-            true
-          );
         }
       }
     } catch (err) {
@@ -475,8 +470,16 @@
         const commentContainerFormControls = document.querySelector(
           ".comment-form-controls, .comment-ccs"
         );
-        if (showRequestCommentContainerTrigger && requestCommentFields && requestCommentSubmit && !showRequestCommentContainerTrigger.hasAttribute("data-form-init")) {
-          showRequestCommentContainerTrigger.setAttribute("data-form-init", "true");
+        if (
+          showRequestCommentContainerTrigger &&
+          requestCommentFields &&
+          requestCommentSubmit &&
+          !showRequestCommentContainerTrigger.hasAttribute("data-form-init")
+        ) {
+          showRequestCommentContainerTrigger.setAttribute(
+            "data-form-init",
+            "true"
+          );
           showRequestCommentContainerTrigger.addEventListener("click", () => {
             showRequestCommentContainerTrigger.style.display = "none";
             Array.prototype.forEach.call(requestCommentFields, (element) => {
@@ -488,7 +491,11 @@
             }
           });
         }
-        if (commentContainerTextarea && commentContainerFormControls && !commentContainerTextarea.hasAttribute("data-form-init")) {
+        if (
+          commentContainerTextarea &&
+          commentContainerFormControls &&
+          !commentContainerTextarea.hasAttribute("data-form-init")
+        ) {
           commentContainerTextarea.setAttribute("data-form-init", "true");
           commentContainerTextarea.addEventListener(
             "focus",
