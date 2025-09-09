@@ -41,7 +41,7 @@ export function TextArea({
   brandId,
   onChange,
 }: TextAreaProps): JSX.Element {
-  const { label, error, value, name, required, description } = field;
+  const { label, error, value, name, required, description, type } = field;
   const ref = useWysiwyg({
     hasWysiwyg,
     baseLocale,
@@ -51,7 +51,7 @@ export function TextArea({
   });
 
   return (
-    <StyledField>
+    <StyledField data-field-name={name} data-field-type={type}>
       <Label>
         {label}
         {required && <Span aria-hidden="true">*</Span>}

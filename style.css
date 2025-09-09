@@ -5617,3 +5617,41 @@ body.dark-mode .introduction-item {
 body.dark-mode .introduction-item p {
   color: #000;
 }
+
+.custom-navigation {
+  margin: 20px 0;
+}
+
+.custom-nav-list {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.custom-nav-item {
+  flex: 1;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.custom-nav-link {
+  display: block;
+  padding: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.custom-nav-item:hover {
+  transform: scale(1.05);
+  background-color: #f0f0f0;
+}
+
+/* Hide subject and description fields on the new request form */
+[data-field-name="request[subject]"],
+[data-field-name="request[description]"] {
+  display: none !important;
+}

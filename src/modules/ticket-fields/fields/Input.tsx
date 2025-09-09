@@ -26,7 +26,7 @@ export function Input({ field, onChange }: InputProps): JSX.Element {
     type === "anonymous_requester_email" ? "email" : undefined;
 
   return (
-    <GardenField>
+    <GardenField data-field-name={name} data-field-type={type}>
       <Label>
         {label}
         {required && <Span aria-hidden="true">*</Span>}
