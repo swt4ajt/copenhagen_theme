@@ -460,6 +460,41 @@
         );
       }
     }
+
+    // --- Zendesk new-request-form: Prefill and hide subject/description for form 4959432829215 ---
+    function prefillAndHideZendeskFields() {
+      // Only run for the onboarding form
+      const form = document.querySelector('form[action="/hc/en-gb/requests"]');
+      if (!form) return;
+      const formIdInput = form.querySelector('input[name="request[ticket_form_id]"]');
+      if (!formIdInput || formIdInput.value !== '4959432829215') return;
+
+      // Find First Name and Last Name fields
+      const firstNameInput = form.querySelector('input[name^="request[custom_fields][4959434786335]"]');
+      const lastNameInput = form.querySelector('input[name^="request[custom_fields][4959434835359]"]');
+      const subjectInput = form.querySelector('input[name="request[subject]"]');
+      const descriptionInput = form.querySelector('textarea[name="request[description]"]');
+
+      // Hide subject and description fields
+      if (subjectInput) subjectInput.closest('.form-field, .form-group, .form-control, label')?.style.setProperty('display', 'none', 'important');
+      if (descriptionInput) descriptionInput.closest('.form-field, .form-group, .form-control, label')?.style.setProperty('display', 'none', 'important');
+
+      // On form submit, prefill subject and description
+      form.addEventListener('submit', function(e) {
+        if (firstNameInput && lastNameInput && subjectInput) {
+          subjectInput.value = `${firstNameInput.value} ${lastNameInput.value}`.trim();
+        }
+        if (descriptionInput) {
+          descriptionInput.value = `Submitted by: ${firstNameInput?.value || ''} ${lastNameInput?.value || ''}`.trim();
+        }
+      }, true);
+    }
+
+    // Wait for Zendesk form to render
+    const observer = new MutationObserver(() => {
+      prefillAndHideZendeskFields();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
   });
 
   // Carousel module: fetches and renders tiles based on theme setting
