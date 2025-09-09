@@ -165,4 +165,30 @@ window.addEventListener("DOMContentLoaded", () => {
   ) {
     notificationElm.previousElementSibling.focus();
   }
+
+  // Prefill and hide subject/description for specific ticket form
+  const formId = document.querySelector('form[data-ticket-form-id]')?.getAttribute('data-ticket-form-id');
+  if (formId === '4989134508191') {
+    const firstNameInput = document.querySelector('[name="request_custom_fields_first_name"]');
+    const lastNameInput = document.querySelector('[name="request_custom_fields_last_name"]');
+    const subjectInput = document.querySelector('[name="request_subject"]');
+    const descriptionInput = document.querySelector('[name="request_description"]');
+
+    // Hide subject and description fields
+    if (subjectInput) subjectInput.closest('.form-field, .form-group, .form-control, label')?.style.setProperty('display', 'none', 'important');
+    if (descriptionInput) descriptionInput.closest('.form-field, .form-group, .form-control, label')?.style.setProperty('display', 'none', 'important');
+
+    // On form submit, prefill subject and description
+    const requestForm = document.querySelector('form[data-ticket-form-id]');
+    if (requestForm) {
+      requestForm.addEventListener('submit', function(e) {
+        if (firstNameInput && lastNameInput && subjectInput) {
+          subjectInput.value = `${firstNameInput.value} ${lastNameInput.value}`.trim();
+        }
+        if (descriptionInput) {
+          descriptionInput.value = `Submitted by: ${firstNameInput?.value || ''} ${lastNameInput?.value || ''}`.trim();
+        }
+      }, true);
+    }
+  }
 });
