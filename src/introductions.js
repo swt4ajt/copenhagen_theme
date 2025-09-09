@@ -1,7 +1,7 @@
 // src/introductions.js
 // Renders a grid of introductions with images and excerpts.
 
-export async function renderIntroductionsGrid() {
+export async function renderIntroductions() {
   const container = document.getElementById('introductions-grid');
   if (!container) return;
 
@@ -86,10 +86,4 @@ export async function renderIntroductionsGrid() {
   } else {
     document.body.classList.remove('section-page');
   }
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', renderIntroductionsGrid);
-} else {
-  renderIntroductionsGrid();
 }

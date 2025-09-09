@@ -33,9 +33,3 @@ export async function renderLatestArticles() {
     list.appendChild(li);
   });
 }
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", renderLatestArticles);
-} else {
-  renderLatestArticles();
-}

@@ -50,9 +50,3 @@ export async function renderAnnouncements() {
     items[current].classList.add('active');
   }, 5000);
 }
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', renderAnnouncements);
-} else {
-  renderAnnouncements();
-}
