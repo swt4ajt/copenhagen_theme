@@ -8,83 +8,17 @@
     {
       "label": "colors_group_label",
       "variables": [
-        {
-          "identifier": "brand_color",
-          "type": "color",
-          "description": "brand_color_description",
-          "label": "brand_color_label",
-          "default": "#17494D"
-        },
-        {
-          "identifier": "brand_text_color",
-          "type": "color",
-          "description": "brand_text_color_description",
-          "label": "brand_text_color_label",
-          "default": "#FFFFFF"
-        },
-        {
-          "identifier": "text_color",
-          "type": "color",
-          "description": "text_color_description",
-          "label": "text_color_label",
-          "default": "#2F3941"
-        },
-        {
-          "identifier": "link_color",
-          "type": "color",
-          "description": "link_color_description",
-          "label": "link_color_label",
-          "default": "#1F73B7"
-        },
-        {
-          "identifier": "hover_link_color",
-          "type": "color",
-          "description": "hover_link_color_description",
-          "label": "hover_link_color_label",
-          "default": "#0F3554"
-        },
-        {
-          "identifier": "visited_link_color",
-          "type": "color",
-          "description": "visited_link_color_description",
-          "label": "visited_link_color_label",
-          "default": "#9358B0"
-        },
-        {
-          "identifier": "background_color",
-          "type": "color",
-          "description": "background_color_description",
-          "label": "background_color_label",
-          "default": "#FFFFFF"
-        },
-        {
-          "identifier": "dark_background_color",
-          "type": "color",
-          "description": "dark_background_color_description",
-          "label": "dark_background_color_label",
-          "default": "#2F3941"
-        },
-        {
-          "identifier": "dark_text_color",
-          "type": "color",
-          "description": "dark_text_color_description",
-          "label": "dark_text_color_label",
-          "default": "#FFFFFF"
-        },
-        {
-          "identifier": "department_list_bg_color",
-          "type": "color",
-          "description": "Background color for the department list on the homepage right rail.",
-          "label": "Department List Background Color",
-          "default": "#E6F1F2"
-        },
-        {
-          "identifier": "department_list_text_color",
-          "type": "color",
-          "description": "Text color for the department list on the homepage right rail.",
-          "label": "Department List Text Color",
-          "default": "#17494D"
-        }
+        { "identifier": "brand_color", "type": "color", "description": "brand_color_description", "label": "brand_color_label", "value": "#17494D" },
+        { "identifier": "brand_text_color", "type": "color", "description": "brand_text_color_description", "label": "brand_text_color_label", "value": "#FFFFFF" },
+        { "identifier": "text_color", "type": "color", "description": "text_color_description", "label": "text_color_label", "value": "#2F3941" },
+        { "identifier": "link_color", "type": "color", "description": "link_color_description", "label": "link_color_label", "value": "#1F73B7" },
+        { "identifier": "hover_link_color", "type": "color", "description": "hover_link_color_description", "label": "hover_link_color_label", "value": "#0F3554" },
+        { "identifier": "visited_link_color", "type": "color", "description": "visited_link_color_description", "label": "visited_link_color_label", "value": "#9358B0" },
+        { "identifier": "background_color", "type": "color", "description": "background_color_description", "label": "background_color_label", "value": "#FFFFFF" },
+        { "identifier": "dark_background_color", "type": "color", "description": "dark_background_color_description", "label": "dark_background_color_label", "value": "#2F3941" },
+        { "identifier": "dark_text_color", "type": "color", "description": "dark_text_color_description", "label": "dark_text_color_label", "value": "#FFFFFF" },
+        { "identifier": "department_list_bg_color", "type": "color", "description": "Background color for the department list on the homepage right rail.", "label": "Department List Background Color", "value": "#E6F1F2" },
+        { "identifier": "department_list_text_color", "type": "color", "description": "Text color for the department list on the homepage right rail.", "label": "Department List Text Color", "value": "#17494D" }
       ]
     },
     {
@@ -92,7 +26,7 @@
       "variables": [
         {
           "identifier": "heading_font",
-          "type": "select",
+          "type": "list",
           "description": "heading_font_description",
           "label": "heading_font_label",
           "options": [
@@ -113,11 +47,11 @@
             { "label": "Lucida Grande", "value": "'Lucida Grande', 'Lucida Sans', 'Lucida Sans Unicode', sans-serif" },
             { "label": "Trebuchet MS", "value": "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif" }
           ],
-          "default": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+          "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
         },
         {
           "identifier": "text_font",
-          "type": "select",
+          "type": "list",
           "description": "text_font_description",
           "label": "text_font_label",
           "options": [
@@ -138,243 +72,119 @@
             { "label": "Lucida Grande", "value": "'Lucida Grande', 'Lucida Sans', 'Lucida Sans Unicode', sans-serif" },
             { "label": "Trebuchet MS", "value": "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif" }
           ],
-          "default": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+          "value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
         }
       ]
     },
     {
       "label": "brand_group_label",
       "variables": [
-        {
-          "identifier": "logo",
-          "type": "image",
-          "description": "logo_description",
-          "label": "logo_label"
-        },
-        {
-          "identifier": "show_brand_name",
-          "type": "checkbox",
-          "description": "show_brand_name_description",
-          "label": "show_brand_name_label",
-          "default": true
-        },
-        {
-          "identifier": "favicon",
-          "type": "image",
-          "description": "favicon_description",
-          "label": "favicon_label"
-        }
+        { "identifier": "logo", "type": "file", "description": "logo_description", "label": "logo_label" },
+        { "identifier": "show_brand_name", "type": "checkbox", "description": "show_brand_name_description", "label": "show_brand_name_label", "value": true },
+        { "identifier": "favicon", "type": "file", "description": "favicon_description", "label": "favicon_label" }
       ]
     },
     {
       "label": "search_group_label",
       "variables": [
-        {
-          "identifier": "instant_search",
-          "type": "checkbox",
-          "description": "instant_search_description",
-          "label": "instant_search_label",
-          "default": true
-        },
-        {
-          "identifier": "scoped_kb_search",
-          "type": "checkbox",
-          "description": "scoped_knowledge_base_search_description",
-          "label": "scoped_knowledge_base_search_label_v2",
-          "default": true
-        },
-        {
-          "identifier": "scoped_community_search",
-          "type": "checkbox",
-          "description": "scoped_community_search_description",
-          "label": "scoped_community_search_label",
-          "default": true
-        }
+        { "identifier": "instant_search", "type": "checkbox", "description": "instant_search_description", "label": "instant_search_label", "value": true },
+        { "identifier": "scoped_kb_search", "type": "checkbox", "description": "scoped_knowledge_base_search_description", "label": "scoped_knowledge_base_search_label_v2", "value": true },
+        { "identifier": "scoped_community_search", "type": "checkbox", "description": "scoped_community_search_description", "label": "scoped_community_search_label", "value": true }
       ]
     },
     {
       "label": "home_page_group_label",
       "variables": [
-        {
-          "identifier": "show_recent_activity",
-          "type": "checkbox",
-          "description": "recent_activity_description",
-          "label": "recent_activity_label",
-          "default": true
-        },
-        {
-          "identifier": "departments",
-          "type": "text",
-          "description": "departments_description",
-          "label": "departments_label",
-          "default": "Support, Sales, Billing"
-        }
+        { "identifier": "show_recent_activity", "type": "checkbox", "description": "recent_activity_description", "label": "recent_activity_label", "value": true },
+        { "identifier": "departments", "type": "text", "description": "departments_description", "label": "departments_label", "value": "Support, Sales, Billing" }
       ]
     },
     {
       "label": "carousel_group_label",
       "variables": [
-        {
-          "identifier": "carousel_tile_count",
-          "type": "text",
-          "label": "Carousel tile count",
-          "description": "Number of tiles to display in the homepage carousel.",
-          "default": "6"
-        }
+        { "identifier": "carousel_tile_count", "type": "text", "label": "Carousel tile count", "description": "Number of tiles to display in the homepage carousel.", "value": "6" }
       ]
     },
     {
       "label": "article_page_group_label",
       "variables": [
-        {
-          "identifier": "show_articles_in_section",
-          "type": "checkbox",
-          "description": "articles_in_section_description",
-          "label": "articles_in_section_label",
-          "default": true
-        },
-        {
-          "identifier": "show_article_author",
-          "type": "checkbox",
-          "description": "article_author_description",
-          "label": "article_author_label",
-          "default": true
-        },
-        {
-          "identifier": "show_article_comments",
-          "type": "checkbox",
-          "description": "article_comments_description",
-          "label": "article_comments_label",
-          "default": true
-        },
-        {
-          "identifier": "show_follow_article",
-          "type": "checkbox",
-          "description": "follow_article_description",
-          "label": "follow_article_label",
-          "default": true
-        },
-        {
-          "identifier": "show_recently_viewed_articles",
-          "type": "checkbox",
-          "description": "recently_viewed_articles_description",
-          "label": "recently_viewed_articles_label",
-          "default": true
-        },
-        {
-          "identifier": "show_related_articles",
-          "type": "checkbox",
-          "description": "related_articles_description",
-          "label": "related_articles_label",
-          "default": true
-        },
-        {
-          "identifier": "show_article_sharing",
-          "type": "checkbox",
-          "description": "article_sharing_description",
-          "label": "article_sharing_label",
-          "default": true
-        }
+        { "identifier": "show_articles_in_section", "type": "checkbox", "description": "articles_in_section_description", "label": "articles_in_section_label", "value": true },
+        { "identifier": "show_article_author", "type": "checkbox", "description": "article_author_description", "label": "article_author_label", "value": true },
+        { "identifier": "show_article_comments", "type": "checkbox", "description": "article_comments_description", "label": "article_comments_label", "value": true },
+        { "identifier": "show_follow_article", "type": "checkbox", "description": "follow_article_description", "label": "follow_article_label", "value": true },
+        { "identifier": "show_recently_viewed_articles", "type": "checkbox", "description": "recently_viewed_articles_description", "label": "recently_viewed_articles_label", "value": true },
+        { "identifier": "show_related_articles", "type": "checkbox", "description": "related_articles_description", "label": "related_articles_label", "value": true },
+        { "identifier": "show_article_sharing", "type": "checkbox", "description": "article_sharing_description", "label": "article_sharing_label", "value": true }
       ]
     },
     {
       "label": "section_page_group_label",
       "variables": [
-        {
-          "identifier": "show_follow_section",
-          "type": "checkbox",
-          "description": "follow_section_description",
-          "label": "follow_section_label",
-          "default": true
-        }
+        { "identifier": "show_follow_section", "type": "checkbox", "description": "follow_section_description", "label": "follow_section_label", "value": true }
       ]
     },
     {
       "label": "community_post_group_label",
       "variables": [
-        {
-          "identifier": "show_follow_post",
-          "type": "checkbox",
-          "description": "follow_post_description",
-          "label": "follow_post_label",
-          "default": true
-        },
-        {
-          "identifier": "show_post_sharing",
-          "type": "checkbox",
-          "description": "post_sharing_description",
-          "label": "post_sharing_label",
-          "default": true
-        }
+        { "identifier": "show_follow_post", "type": "checkbox", "description": "follow_post_description", "label": "follow_post_label", "value": true },
+        { "identifier": "show_post_sharing", "type": "checkbox", "description": "post_sharing_description", "label": "post_sharing_label", "value": true }
       ]
     },
     {
       "label": "community_topic_group_label",
       "variables": [
-        {
-          "identifier": "show_follow_topic",
-          "type": "checkbox",
-          "description": "follow_topic_description",
-          "label": "follow_topic_label",
-          "default": true
-        }
+        { "identifier": "show_follow_topic", "type": "checkbox", "description": "follow_topic_description", "label": "follow_topic_label", "value": true }
       ]
     },
     {
       "label": "Request form tiles",
       "variables": [
-        { "identifier": "request_form_1_id", "type": "text", "label": "Request form 1 ID", "default": "" },
-        { "identifier": "request_form_1_name", "type": "text", "label": "Request form 1 name", "default": "" },
-        { "identifier": "request_form_1_description", "type": "text", "label": "Request form 1 description", "default": "" },
-        { "identifier": "request_form_1_section", "type": "text", "label": "Request form 1 section", "default": "" },
-        { "identifier": "request_form_2_id", "type": "text", "label": "Request form 2 ID", "default": "" },
-        { "identifier": "request_form_2_name", "type": "text", "label": "Request form 2 name", "default": "" },
-        { "identifier": "request_form_2_description", "type": "text", "label": "Request form 2 description", "default": "" },
-        { "identifier": "request_form_2_section", "type": "text", "label": "Request form 2 section", "default": "" },
-        { "identifier": "request_form_3_id", "type": "text", "label": "Request form 3 ID", "default": "" },
-        { "identifier": "request_form_3_name", "type": "text", "label": "Request form 3 name", "default": "" },
-        { "identifier": "request_form_3_description", "type": "text", "label": "Request form 3 description", "default": "" },
-        { "identifier": "request_form_3_section", "type": "text", "label": "Request form 3 section", "default": "" },
-        { "identifier": "request_form_4_id", "type": "text", "label": "Request form 4 ID", "default": "" },
-        { "identifier": "request_form_4_name", "type": "text", "label": "Request form 4 name", "default": "" },
-        { "identifier": "request_form_4_description", "type": "text", "label": "Request form 4 description", "default": "" },
-        { "identifier": "request_form_4_section", "type": "text", "label": "Request form 4 section", "default": "" },
-        { "identifier": "request_form_5_id", "type": "text", "label": "Request form 5 ID", "default": "" },
-        { "identifier": "request_form_5_name", "type": "text", "label": "Request form 5 name", "default": "" },
-        { "identifier": "request_form_5_description", "type": "text", "label": "Request form 5 description", "default": "" },
-        { "identifier": "request_form_5_section", "type": "text", "label": "Request form 5 section", "default": "" },
-        { "identifier": "request_form_6_id", "type": "text", "label": "Request form 6 ID", "default": "" },
-        { "identifier": "request_form_6_name", "type": "text", "label": "Request form 6 name", "default": "" },
-        { "identifier": "request_form_6_description", "type": "text", "label": "Request form 6 description", "default": "" },
-        { "identifier": "request_form_6_section", "type": "text", "label": "Request form 6 section", "default": "" },
-        { "identifier": "request_form_7_id", "type": "text", "label": "Request form 7 ID", "default": "" },
-        { "identifier": "request_form_7_name", "type": "text", "label": "Request form 7 name", "default": "" },
-        { "identifier": "request_form_7_description", "type": "text", "label": "Request form 7 description", "default": "" },
-        { "identifier": "request_form_7_section", "type": "text", "label": "Request form 7 section", "default": "" },
-        { "identifier": "request_form_8_id", "type": "text", "label": "Request form 8 ID", "default": "" },
-        { "identifier": "request_form_8_name", "type": "text", "label": "Request form 8 name", "default": "" },
-        { "identifier": "request_form_8_description", "type": "text", "label": "Request form 8 description", "default": "" },
-        { "identifier": "request_form_8_section", "type": "text", "label": "Request form 8 section", "default": "" },
-        { "identifier": "request_form_9_id", "type": "text", "label": "Request form 9 ID", "default": "" },
-        { "identifier": "request_form_9_name", "type": "text", "label": "Request form 9 name", "default": "" },
-        { "identifier": "request_form_9_description", "type": "text", "label": "Request form 9 description", "default": "" },
-        { "identifier": "request_form_9_section", "type": "text", "label": "Request form 9 section", "default": "" },
-        { "identifier": "request_form_10_id", "type": "text", "label": "Request form 10 ID", "default": "" },
-        { "identifier": "request_form_10_name", "type": "text", "label": "Request form 10 name", "default": "" },
-        { "identifier": "request_form_10_description", "type": "text", "label": "Request form 10 description", "default": "" },
-        { "identifier": "request_form_10_section", "type": "text", "label": "Request form 10 section", "default": "" }
+        { "identifier": "request_form_1_id", "type": "text", "label": "Request form 1 ID", "value": "" },
+        { "identifier": "request_form_1_name", "type": "text", "label": "Request form 1 name", "value": "" },
+        { "identifier": "request_form_1_description", "type": "text", "label": "Request form 1 description", "value": "" },
+        { "identifier": "request_form_1_section", "type": "text", "label": "Request form 1 section", "value": "" },
+        { "identifier": "request_form_2_id", "type": "text", "label": "Request form 2 ID", "value": "" },
+        { "identifier": "request_form_2_name", "type": "text", "label": "Request form 2 name", "value": "" },
+        { "identifier": "request_form_2_description", "type": "text", "label": "Request form 2 description", "value": "" },
+        { "identifier": "request_form_2_section", "type": "text", "label": "Request form 2 section", "value": "" },
+        { "identifier": "request_form_3_id", "type": "text", "label": "Request form 3 ID", "value": "" },
+        { "identifier": "request_form_3_name", "type": "text", "label": "Request form 3 name", "value": "" },
+        { "identifier": "request_form_3_description", "type": "text", "label": "Request form 3 description", "value": "" },
+        { "identifier": "request_form_3_section", "type": "text", "label": "Request form 3 section", "value": "" },
+        { "identifier": "request_form_4_id", "type": "text", "label": "Request form 4 ID", "value": "" },
+        { "identifier": "request_form_4_name", "type": "text", "label": "Request form 4 name", "value": "" },
+        { "identifier": "request_form_4_description", "type": "text", "label": "Request form 4 description", "value": "" },
+        { "identifier": "request_form_4_section", "type": "text", "label": "Request form 4 section", "value": "" },
+        { "identifier": "request_form_5_id", "type": "text", "label": "Request form 5 ID", "value": "" },
+        { "identifier": "request_form_5_name", "type": "text", "label": "Request form 5 name", "value": "" },
+        { "identifier": "request_form_5_description", "type": "text", "label": "Request form 5 description", "value": "" },
+        { "identifier": "request_form_5_section", "type": "text", "label": "Request form 5 section", "value": "" },
+        { "identifier": "request_form_6_id", "type": "text", "label": "Request form 6 ID", "value": "" },
+        { "identifier": "request_form_6_name", "type": "text", "label": "Request form 6 name", "value": "" },
+        { "identifier": "request_form_6_description", "type": "text", "label": "Request form 6 description", "value": "" },
+        { "identifier": "request_form_6_section", "type": "text", "label": "Request form 6 section", "value": "" },
+        { "identifier": "request_form_7_id", "type": "text", "label": "Request form 7 ID", "value": "" },
+        { "identifier": "request_form_7_name", "type": "text", "label": "Request form 7 name", "value": "" },
+        { "identifier": "request_form_7_description", "type": "text", "label": "Request form 7 description", "value": "" },
+        { "identifier": "request_form_7_section", "type": "text", "label": "Request form 7 section", "value": "" },
+        { "identifier": "request_form_8_id", "type": "text", "label": "Request form 8 ID", "value": "" },
+        { "identifier": "request_form_8_name", "type": "text", "label": "Request form 8 name", "value": "" },
+        { "identifier": "request_form_8_description", "type": "text", "label": "Request form 8 description", "value": "" },
+        { "identifier": "request_form_8_section", "type": "text", "label": "Request form 8 section", "value": "" },
+        { "identifier": "request_form_9_id", "type": "text", "label": "Request form 9 ID", "value": "" },
+        { "identifier": "request_form_9_name", "type": "text", "label": "Request form 9 name", "value": "" },
+        { "identifier": "request_form_9_description", "type": "text", "label": "Request form 9 description", "value": "" },
+        { "identifier": "request_form_9_section", "type": "text", "label": "Request form 9 section", "value": "" },
+        { "identifier": "request_form_10_id", "type": "text", "label": "Request form 10 ID", "value": "" },
+        { "identifier": "request_form_10_name", "type": "text", "label": "Request form 10 name", "value": "" },
+        { "identifier": "request_form_10_description", "type": "text", "label": "Request form 10 description", "value": "" },
+        { "identifier": "request_form_10_section", "type": "text", "label": "Request form 10 section", "value": "" }
       ]
     },
     {
       "label": "request_list_group_label",
       "variables": [
-        {
-          "identifier": "request_list_beta",
-          "type": "checkbox",
-          "description": "request_list_beta_description",
-          "label": "request_list_beta_label",
-          "default": false
-        }
+        { "identifier": "request_list_beta", "type": "checkbox", "description": "request_list_beta_description", "label": "request_list_beta_label", "value": false }
       ]
     }
   ]
