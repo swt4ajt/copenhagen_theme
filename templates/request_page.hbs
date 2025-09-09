@@ -3,35 +3,35 @@
 
     <h1 class="request-title">
         {{request.subject}}
-        {{#if request.ticket_form_id}}
-            {{#is request.ticket_form_id settings.request_form_1_id}}
+        {{#if request.ticket_form.id}}
+            {{#is request.ticket_form.id settings.request_form_1_id}}
                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_1_name}}">{{settings.request_form_1_name}}</span>
             {{/is}}
-            {{#is request.ticket_form_id settings.request_form_2_id}}
+            {{#is request.ticket_form.id settings.request_form_2_id}}
                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_2_name}}">{{settings.request_form_2_name}}</span>
             {{/is}}
-            {{#is request.ticket_form_id settings.request_form_3_id}}
+            {{#is request.ticket_form.id settings.request_form_3_id}}
                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_3_name}}">{{settings.request_form_3_name}}</span>
             {{/is}}
-            {{#is request.ticket_form_id settings.request_form_4_id}}
+            {{#is request.ticket_form.id settings.request_form_4_id}}
                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_4_name}}">{{settings.request_form_4_name}}</span>
             {{/is}}
-            {{#is request.ticket_form_id settings.request_form_5_id}}
+            {{#is request.ticket_form.id settings.request_form_5_id}}
                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_5_name}}">{{settings.request_form_5_name}}</span>
             {{/is}}
-            {{#is request.ticket_form_id settings.request_form_6_id}}
+            {{#is request.ticket_form.id settings.request_form_6_id}}
                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_6_name}}">{{settings.request_form_6_name}}</span>
             {{/is}}
-            {{#is request.ticket_form_id settings.request_form_7_id}}
+            {{#is request.ticket_form.id settings.request_form_7_id}}
                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_7_name}}">{{settings.request_form_7_name}}</span>
             {{/is}}
-            {{#is request.ticket_form_id settings.request_form_8_id}}
+            {{#is request.ticket_form.id settings.request_form_8_id}}
                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_8_name}}">{{settings.request_form_8_name}}</span>
             {{/is}}
-            {{#is request.ticket_form_id settings.request_form_9_id}}
+            {{#is request.ticket_form.id settings.request_form_9_id}}
                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_9_name}}">{{settings.request_form_9_name}}</span>
             {{/is}}
-            {{#is request.ticket_form_id settings.request_form_10_id}}
+            {{#is request.ticket_form.id settings.request_form_10_id}}
                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_10_name}}">{{settings.request_form_10_name}}</span>
             {{/is}}
         {{/if}}
@@ -230,37 +230,37 @@
                     <dt>{{t 'id'}}</dt>
                     <dd>#{{request.id}}</dd>
 
-                    {{#if request.ticket_form_id}}
+                    {{#if request.ticket_form.id}}
                         <dt>Request type</dt>
                         <dd>
-                            {{#is request.ticket_form_id settings.request_form_1_id}}
+                            {{#is request.ticket_form.id settings.request_form_1_id}}
                                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_1_name}}">{{settings.request_form_1_name}}</span>
                             {{/is}}
-                            {{#is request.ticket_form_id settings.request_form_2_id}}
+                            {{#is request.ticket_form.id settings.request_form_2_id}}
                                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_2_name}}">{{settings.request_form_2_name}}</span>
                             {{/is}}
-                            {{#is request.ticket_form_id settings.request_form_3_id}}
+                            {{#is request.ticket_form.id settings.request_form_3_id}}
                                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_3_name}}">{{settings.request_form_3_name}}</span>
                             {{/is}}
-                            {{#is request.ticket_form_id settings.request_form_4_id}}
+                            {{#is request.ticket_form.id settings.request_form_4_id}}
                                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_4_name}}">{{settings.request_form_4_name}}</span>
                             {{/is}}
-                            {{#is request.ticket_form_id settings.request_form_5_id}}
+                            {{#is request.ticket_form.id settings.request_form_5_id}}
                                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_5_name}}">{{settings.request_form_5_name}}</span>
                             {{/is}}
-                            {{#is request.ticket_form_id settings.request_form_6_id}}
+                            {{#is request.ticket_form.id settings.request_form_6_id}}
                                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_6_name}}">{{settings.request_form_6_name}}</span>
                             {{/is}}
-                            {{#is request.ticket_form_id settings.request_form_7_id}}
+                            {{#is request.ticket_form.id settings.request_form_7_id}}
                                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_7_name}}">{{settings.request_form_7_name}}</span>
                             {{/is}}
-                            {{#is request.ticket_form_id settings.request_form_8_id}}
+                            {{#is request.ticket_form.id settings.request_form_8_id}}
                                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_8_name}}">{{settings.request_form_8_name}}</span>
                             {{/is}}
-                            {{#is request.ticket_form_id settings.request_form_9_id}}
+                            {{#is request.ticket_form.id settings.request_form_9_id}}
                                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_9_name}}">{{settings.request_form_9_name}}</span>
                             {{/is}}
-                            {{#is request.ticket_form_id settings.request_form_10_id}}
+                            {{#is request.ticket_form.id settings.request_form_10_id}}
                                 <span class="status-label request-type-label" data-request-type="{{settings.request_form_10_name}}">{{settings.request_form_10_name}}</span>
                             {{/is}}
                         </dd>
