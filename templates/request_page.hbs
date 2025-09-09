@@ -3,29 +3,11 @@
 
     <h1 class="request-title">
         {{request.subject}}
-        {{#if request.ticket_form_id}}
-            {{#is request.ticket_form_id 4959432829215}}
-                <span class="status-label request-type-label" data-request-type="New Hire Onboarding">New Hire Onboarding</span>
-            {{/is}}
-            {{#is request.ticket_form_id 4959424709919}}
-                <span class="status-label request-type-label" data-request-type="Offboard Employee">Offboard Employee</span>
-            {{/is}}
-            {{#is request.ticket_form_id 4959443538975}}
-                <span class="status-label request-type-label" data-request-type="Request for new Hardware">Request for new Hardware</span>
-            {{/is}}
-            {{#is request.ticket_form_id 4959420488607}}
-                <span class="status-label request-type-label" data-request-type="Software Requests">Software Requests</span>
-            {{/is}}
-            {{#is request.ticket_form_id 4959424971167}}
-                <span class="status-label request-type-label" data-request-type="New Google Group">New Google Group</span>
-            {{/is}}
-            {{#is request.ticket_form_id 4964521982623}}
-                <span class="status-label request-type-label" data-request-type="Sales Ops">Sales Ops</span>
-            {{/is}}
-            {{#is request.ticket_form_id 4989134508191}}
-                <span class="status-label request-type-label" data-request-type="General IT Request">General IT Request</span>
-            {{/is}}
-        {{/if}}
+        {{#each request.custom_fields}}
+          {{#if (eq id 4992033637535)}}
+            <span class="status-label request-type-label" data-request-type="{{value}}">{{value}}</span>
+          {{/if}}
+        {{/each}}
     </h1>
 
     <div id="main-content" class="request-container">
@@ -221,32 +203,14 @@
                     <dt>{{t 'id'}}</dt>
                     <dd>#{{request.id}}</dd>
 
-                    {{#if request.ticket_form}}
-                        <dt>Request type</dt>
-                        <dd>
-                            {{#is request.ticket_form.name "New Hire Onboarding"}}
-                                <span class="status-label request-type-label" data-request-type="New Hire Onboarding">New Hire Onboarding</span>
-                            {{/is}}
-                            {{#is request.ticket_form.name "Offboard Employee"}}
-                                <span class="status-label request-type-label" data-request-type="Offboard Employee">Offboard Employee</span>
-                            {{/is}}
-                            {{#is request.ticket_form.name "Request for new Hardware"}}
-                                <span class="status-label request-type-label" data-request-type="Request for new Hardware">Request for new Hardware</span>
-                            {{/is}}
-                            {{#is request.ticket_form.name "Software Requests"}}
-                                <span class="status-label request-type-label" data-request-type="Software Requests">Software Requests</span>
-                            {{/is}}
-                            {{#is request.ticket_form.name "New Google Group"}}
-                                <span class="status-label request-type-label" data-request-type="New Google Group">New Google Group</span>
-                            {{/is}}
-                            {{#is request.ticket_form.name "Sales Ops"}}
-                                <span class="status-label request-type-label" data-request-type="Sales Ops">Sales Ops</span>
-                            {{/is}}
-                            {{#is request.ticket_form.name "General IT Request"}}
-                                <span class="status-label request-type-label" data-request-type="General IT Request">General IT Request</span>
-                            {{/is}}
-                        </dd>
-                    {{/if}}
+                    <dt>Request type</dt>
+                    <dd>
+                    {{#each custom_fields}}
+                      {{#if (eq id 4992033637535)}}
+                        <span class="status-label request-type-label" data-request-type="{{value}}">{{value}}</span>
+                      {{/if}}
+                    {{/each}}
+                    </dd>
 
                     {{#form 'organization' id='request-organization' class='hbs-form'}}
                         <dt>{{t 'organization'}}</dt>

@@ -102,14 +102,7 @@
 
           <tbody>
             {{#each requests}}
-              <tr
-                {{#if (contains tags 'new-hire')}} data-request-type="New Hire Onboarding"{{/if}}
-                {{#if (contains tags 'offboard')}} data-request-type="Offboard Employee"{{/if}}
-                {{#if (contains tags 'hardware_request')}} data-request-type="Request for new Hardware"{{/if}}
-                {{#if (contains tags 'software_request')}} data-request-type="Software Requests"{{/if}}
-                {{#if (contains tags 'google_group')}} data-request-type="New Google Group"{{/if}}
-                {{#if (contains tags 'sales_ops')}} data-request-type="Sales Ops"{{/if}}
-                {{#if (contains tags 'general_it')}} data-request-type="General IT Request"{{/if}}>
+              <tr>
                 <td class="request-info requests-table-info">
                   <a href="{{url}}" class="striped-list-title" title="{{subject}}">
                     {{#if subject}}
@@ -118,27 +111,11 @@
                       {{excerpt description characters=50}}
                     {{/if}}
                   </a>
-                  {{#if (contains tags 'new-hire')}}
-                    <span class="status-label request-type-label" data-request-type="New Hire Onboarding">New Hire Onboarding</span>
-                  {{/if}}
-                  {{#if (contains tags 'offboard')}}
-                    <span class="status-label request-type-label" data-request-type="Offboard Employee">Offboard Employee</span>
-                  {{/if}}
-                  {{#if (contains tags 'hardware_request')}}
-                    <span class="status-label request-type-label" data-request-type="Request for new Hardware">Request for new Hardware</span>
-                  {{/if}}
-                  {{#if (contains tags 'software_request')}}
-                    <span class="status-label request-type-label" data-request-type="Software Requests">Software Requests</span>
-                  {{/if}}
-                  {{#if (contains tags 'google_group')}}
-                    <span class="status-label request-type-label" data-request-type="New Google Group">New Google Group</span>
-                  {{/if}}
-                  {{#if (contains tags 'sales_ops')}}
-                    <span class="status-label request-type-label" data-request-type="Sales Ops">Sales Ops</span>
-                  {{/if}}
-                  {{#if (contains tags 'general_it')}}
-                    <span class="status-label request-type-label" data-request-type="General IT Request">General IT Request</span>
-                  {{/if}}
+                  {{#each custom_fields}}
+                    {{#if (eq id 4992033637535)}}
+                      <span class="status-label request-type-label" data-request-type="{{value}}">{{value}}</span>
+                    {{/if}}
+                  {{/each}}
 
                   <!-- Visible on mobile -->
                   <div class="requests-table-meta">
@@ -147,27 +124,11 @@
                     <span class="status-label status-label-request status-label-{{status}}" title="{{status_description}}">
                       {{status_name}}
                     </span>
-                    {{#if (contains tags 'new-hire')}}
-                      <span class="status-label request-type-label" data-request-type="New Hire Onboarding">New Hire Onboarding</span>
-                    {{/if}}
-                    {{#if (contains tags 'offboard')}}
-                      <span class="status-label request-type-label" data-request-type="Offboard Employee">Offboard Employee</span>
-                    {{/if}}
-                    {{#if (contains tags 'hardware_request')}}
-                      <span class="status-label request-type-label" data-request-type="Request for new Hardware">Request for new Hardware</span>
-                    {{/if}}
-                    {{#if (contains tags 'software_request')}}
-                      <span class="status-label request-type-label" data-request-type="Software Requests">Software Requests</span>
-                    {{/if}}
-                    {{#if (contains tags 'google_group')}}
-                      <span class="status-label request-type-label" data-request-type="New Google Group">New Google Group</span>
-                    {{/if}}
-                    {{#if (contains tags 'sales_ops')}}
-                      <span class="status-label request-type-label" data-request-type="Sales Ops">Sales Ops</span>
-                    {{/if}}
-                    {{#if (contains tags 'general_it')}}
-                      <span class="status-label request-type-label" data-request-type="General IT Request">General IT Request</span>
-                    {{/if}}
+                    {{#each custom_fields}}
+                      {{#if (eq id 4992033637535)}}
+                        <span class="status-label request-type-label" data-request-type="{{value}}">{{value}}</span>
+                      {{/if}}
+                    {{/each}}
                   </div>
                 </td>
                 <td>#{{id}}</td>
