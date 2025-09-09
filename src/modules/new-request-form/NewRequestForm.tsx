@@ -101,7 +101,33 @@ export function NewRequestForm({
     organizationField: organization_field,
     dueDateField: due_date_field,
   });
-  const [ticketFields, setTicketFields] = useState(prefilledTicketFields);
+  const formId = ticket_form_field.value as string;
+  const subjectMap: Record<string, string> = {
+    "4959432829215": "New User Request",
+    "4959424709919": "User Deactivation Request",
+  };
+  const descriptionMap: Record<string, string> = {
+    "4959432829215":
+      "New user request, please review the information submitted in the form and then action accordingly",
+    "4959424709919":
+      "User deactivation request, please review the information submitted in the form and then action accordingly",
+  };
+
+  let updatedTicketFields = prefilledTicketFields;
+  if (formId && subjectMap[formId]) {
+    updatedTicketFields = prefilledTicketFields.map((field) => {
+      if (field.type === "subject") {
+        return { ...field, value: subjectMap[formId] as string };
+      }
+
+      if (field.type === "description") {
+        return { ...field, value: descriptionMap[formId] as string };
+      }
+
+      return field;
+    });
+  }
+  const [ticketFields, setTicketFields] = useState(updatedTicketFields);
   const [organizationField, setOrganizationField] = useState(
     prefilledOrganizationField
   );
@@ -196,6 +222,16 @@ export function NewRequestForm({
         )}
         {visibleFields.map((field) => {
           if (field.type === "subject") {
+            if (subjectMap[formId]) {
+              return (
+                <input
+                  key={field.name}
+                  type="hidden"
+                  name={field.name}
+                  value={subjectMap[formId]}
+                />
+              );
+            }
             return (
               <Fragment key={field.name}>
                 <Input
@@ -209,6 +245,22 @@ export function NewRequestForm({
               </Fragment>
             );
           } else if (field.type === "description") {
+            if (subjectMap[formId]) {
+              return (
+                <Fragment key={field.name}>
+                  <input
+                    type="hidden"
+                    name={field.name}
+                    value={descriptionMap[formId]}
+                  />
+                  <input
+                    type="hidden"
+                    name={description_mimetype_field.name}
+                    value={wysiwyg ? "text/html" : "text/plain"}
+                  />
+                </Fragment>
+              );
+            }
             return (
               <Fragment key={field.name}>
                 <TextArea
