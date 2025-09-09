@@ -3,36 +3,27 @@
 
     <h1 class="request-title">
         {{request.subject}}
-        {{#if request.ticket_form.id}}
-            {{#is request.ticket_form.id settings.request_form_1_id}}
-                <span class="status-label request-type-label" data-request-type="{{settings.request_form_1_name}}">{{settings.request_form_1_name}}</span>
+        {{#if request.ticket_form_id}}
+            {{#is request.ticket_form_id 4959432829215}}
+                <span class="status-label request-type-label" data-request-type="New Hire Onboarding">New Hire Onboarding</span>
             {{/is}}
-            {{#is request.ticket_form.id settings.request_form_2_id}}
-                <span class="status-label request-type-label" data-request-type="{{settings.request_form_2_name}}">{{settings.request_form_2_name}}</span>
+            {{#is request.ticket_form_id 4959424709919}}
+                <span class="status-label request-type-label" data-request-type="Offboard Employee">Offboard Employee</span>
             {{/is}}
-            {{#is request.ticket_form.id settings.request_form_3_id}}
-                <span class="status-label request-type-label" data-request-type="{{settings.request_form_3_name}}">{{settings.request_form_3_name}}</span>
+            {{#is request.ticket_form_id 4959443538975}}
+                <span class="status-label request-type-label" data-request-type="Request for new Hardware">Request for new Hardware</span>
             {{/is}}
-            {{#is request.ticket_form.id settings.request_form_4_id}}
-                <span class="status-label request-type-label" data-request-type="{{settings.request_form_4_name}}">{{settings.request_form_4_name}}</span>
+            {{#is request.ticket_form_id 4959420488607}}
+                <span class="status-label request-type-label" data-request-type="Software Requests">Software Requests</span>
             {{/is}}
-            {{#is request.ticket_form.id settings.request_form_5_id}}
-                <span class="status-label request-type-label" data-request-type="{{settings.request_form_5_name}}">{{settings.request_form_5_name}}</span>
+            {{#is request.ticket_form_id 4959424971167}}
+                <span class="status-label request-type-label" data-request-type="New Google Group">New Google Group</span>
             {{/is}}
-            {{#is request.ticket_form.id settings.request_form_6_id}}
-                <span class="status-label request-type-label" data-request-type="{{settings.request_form_6_name}}">{{settings.request_form_6_name}}</span>
+            {{#is request.ticket_form_id 4964521982623}}
+                <span class="status-label request-type-label" data-request-type="Sales Ops">Sales Ops</span>
             {{/is}}
-            {{#is request.ticket_form.id settings.request_form_7_id}}
-                <span class="status-label request-type-label" data-request-type="{{settings.request_form_7_name}}">{{settings.request_form_7_name}}</span>
-            {{/is}}
-            {{#is request.ticket_form.id settings.request_form_8_id}}
-                <span class="status-label request-type-label" data-request-type="{{settings.request_form_8_name}}">{{settings.request_form_8_name}}</span>
-            {{/is}}
-            {{#is request.ticket_form.id settings.request_form_9_id}}
-                <span class="status-label request-type-label" data-request-type="{{settings.request_form_9_name}}">{{settings.request_form_9_name}}</span>
-            {{/is}}
-            {{#is request.ticket_form.id settings.request_form_10_id}}
-                <span class="status-label request-type-label" data-request-type="{{settings.request_form_10_name}}">{{settings.request_form_10_name}}</span>
+            {{#is request.ticket_form_id 4989134508191}}
+                <span class="status-label request-type-label" data-request-type="General IT Request">General IT Request</span>
             {{/is}}
         {{/if}}
     </h1>
@@ -230,38 +221,29 @@
                     <dt>{{t 'id'}}</dt>
                     <dd>#{{request.id}}</dd>
 
-                    {{#if request.ticket_form.id}}
+                    {{#if request.ticket_form_id}}
                         <dt>Request type</dt>
                         <dd>
-                            {{#is request.ticket_form.id settings.request_form_1_id}}
-                                <span class="status-label request-type-label" data-request-type="{{settings.request_form_1_name}}">{{settings.request_form_1_name}}</span>
+                            {{#is request.ticket_form_id 4959432829215}}
+                                <span class="status-label request-type-label" data-request-type="New Hire Onboarding">New Hire Onboarding</span>
                             {{/is}}
-                            {{#is request.ticket_form.id settings.request_form_2_id}}
-                                <span class="status-label request-type-label" data-request-type="{{settings.request_form_2_name}}">{{settings.request_form_2_name}}</span>
+                            {{#is request.ticket_form_id 4959424709919}}
+                                <span class="status-label request-type-label" data-request-type="Offboard Employee">Offboard Employee</span>
                             {{/is}}
-                            {{#is request.ticket_form.id settings.request_form_3_id}}
-                                <span class="status-label request-type-label" data-request-type="{{settings.request_form_3_name}}">{{settings.request_form_3_name}}</span>
+                            {{#is request.ticket_form_id 4959443538975}}
+                                <span class="status-label request-type-label" data-request-type="Request for new Hardware">Request for new Hardware</span>
                             {{/is}}
-                            {{#is request.ticket_form.id settings.request_form_4_id}}
-                                <span class="status-label request-type-label" data-request-type="{{settings.request_form_4_name}}">{{settings.request_form_4_name}}</span>
+                            {{#is request.ticket_form_id 4959420488607}}
+                                <span class="status-label request-type-label" data-request-type="Software Requests">Software Requests</span>
                             {{/is}}
-                            {{#is request.ticket_form.id settings.request_form_5_id}}
-                                <span class="status-label request-type-label" data-request-type="{{settings.request_form_5_name}}">{{settings.request_form_5_name}}</span>
+                            {{#is request.ticket_form_id 4959424971167}}
+                                <span class="status-label request-type-label" data-request-type="New Google Group">New Google Group</span>
                             {{/is}}
-                            {{#is request.ticket_form.id settings.request_form_6_id}}
-                                <span class="status-label request-type-label" data-request-type="{{settings.request_form_6_name}}">{{settings.request_form_6_name}}</span>
+                            {{#is request.ticket_form_id 4964521982623}}
+                                <span class="status-label request-type-label" data-request-type="Sales Ops">Sales Ops</span>
                             {{/is}}
-                            {{#is request.ticket_form.id settings.request_form_7_id}}
-                                <span class="status-label request-type-label" data-request-type="{{settings.request_form_7_name}}">{{settings.request_form_7_name}}</span>
-                            {{/is}}
-                            {{#is request.ticket_form.id settings.request_form_8_id}}
-                                <span class="status-label request-type-label" data-request-type="{{settings.request_form_8_name}}">{{settings.request_form_8_name}}</span>
-                            {{/is}}
-                            {{#is request.ticket_form.id settings.request_form_9_id}}
-                                <span class="status-label request-type-label" data-request-type="{{settings.request_form_9_name}}">{{settings.request_form_9_name}}</span>
-                            {{/is}}
-                            {{#is request.ticket_form.id settings.request_form_10_id}}
-                                <span class="status-label request-type-label" data-request-type="{{settings.request_form_10_name}}">{{settings.request_form_10_name}}</span>
+                            {{#is request.ticket_form_id 4989134508191}}
+                                <span class="status-label request-type-label" data-request-type="General IT Request">General IT Request</span>
                             {{/is}}
                         </dd>
                     {{/if}}
