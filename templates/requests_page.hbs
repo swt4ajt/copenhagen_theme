@@ -102,14 +102,14 @@
 
           <tbody>
             {{#each requests}}
-              <tr {{#is status 'closed'}} class="request-closed" {{/is}}
-                {{#is ticket_form_id 4959432829215}} data-request-type="New Hire Onboarding"{{/is}}
-                {{#is ticket_form_id 4959424709919}} data-request-type="Offboard Employee"{{/is}}
-                {{#is ticket_form_id 4959443538975}} data-request-type="Request for new Hardware"{{/is}}
-                {{#is ticket_form_id 4959420488607}} data-request-type="Software Requests"{{/is}}
-                {{#is ticket_form_id 4959424971167}} data-request-type="New Google Group"{{/is}}
-                {{#is ticket_form_id 4964521982623}} data-request-type="Sales Ops"{{/is}}
-                {{#is ticket_form_id 4989134508191}} data-request-type="General IT Request"{{/is}}>
+              <tr
+                {{#if (contains tags 'new-hire')}} data-request-type="New Hire Onboarding"{{/if}}
+                {{#if (contains tags 'offboard')}} data-request-type="Offboard Employee"{{/if}}
+                {{#if (contains tags 'hardware_request')}} data-request-type="Request for new Hardware"{{/if}}
+                {{#if (contains tags 'software_request')}} data-request-type="Software Requests"{{/if}}
+                {{#if (contains tags 'google_group')}} data-request-type="New Google Group"{{/if}}
+                {{#if (contains tags 'sales_ops')}} data-request-type="Sales Ops"{{/if}}
+                {{#if (contains tags 'general_it')}} data-request-type="General IT Request"{{/if}}>
                 <td class="request-info requests-table-info">
                   <a href="{{url}}" class="striped-list-title" title="{{subject}}">
                     {{#if subject}}
@@ -118,27 +118,27 @@
                       {{excerpt description characters=50}}
                     {{/if}}
                   </a>
-                  {{#is ticket_form_id 4959432829215}}
+                  {{#if (contains tags 'new-hire')}}
                     <span class="status-label request-type-label" data-request-type="New Hire Onboarding">New Hire Onboarding</span>
-                  {{/is}}
-                  {{#is ticket_form_id 4959424709919}}
+                  {{/if}}
+                  {{#if (contains tags 'offboard')}}
                     <span class="status-label request-type-label" data-request-type="Offboard Employee">Offboard Employee</span>
-                  {{/is}}
-                  {{#is ticket_form_id 4959443538975}}
+                  {{/if}}
+                  {{#if (contains tags 'hardware_request')}}
                     <span class="status-label request-type-label" data-request-type="Request for new Hardware">Request for new Hardware</span>
-                  {{/is}}
-                  {{#is ticket_form_id 4959420488607}}
+                  {{/if}}
+                  {{#if (contains tags 'software_request')}}
                     <span class="status-label request-type-label" data-request-type="Software Requests">Software Requests</span>
-                  {{/is}}
-                  {{#is ticket_form_id 4959424971167}}
+                  {{/if}}
+                  {{#if (contains tags 'google_group')}}
                     <span class="status-label request-type-label" data-request-type="New Google Group">New Google Group</span>
-                  {{/is}}
-                  {{#is ticket_form_id 4964521982623}}
+                  {{/if}}
+                  {{#if (contains tags 'sales_ops')}}
                     <span class="status-label request-type-label" data-request-type="Sales Ops">Sales Ops</span>
-                  {{/is}}
-                  {{#is ticket_form_id 4989134508191}}
+                  {{/if}}
+                  {{#if (contains tags 'general_it')}}
                     <span class="status-label request-type-label" data-request-type="General IT Request">General IT Request</span>
-                  {{/is}}
+                  {{/if}}
 
                   <!-- Visible on mobile -->
                   <div class="requests-table-meta">
@@ -147,27 +147,27 @@
                     <span class="status-label status-label-request status-label-{{status}}" title="{{status_description}}">
                       {{status_name}}
                     </span>
-                    {{#is ticket_form_id 4959432829215}}
+                    {{#if (contains tags 'new-hire')}}
                       <span class="status-label request-type-label" data-request-type="New Hire Onboarding">New Hire Onboarding</span>
-                    {{/is}}
-                    {{#is ticket_form_id 4959424709919}}
+                    {{/if}}
+                    {{#if (contains tags 'offboard')}}
                       <span class="status-label request-type-label" data-request-type="Offboard Employee">Offboard Employee</span>
-                    {{/is}}
-                    {{#is ticket_form_id 4959443538975}}
+                    {{/if}}
+                    {{#if (contains tags 'hardware_request')}}
                       <span class="status-label request-type-label" data-request-type="Request for new Hardware">Request for new Hardware</span>
-                    {{/is}}
-                    {{#is ticket_form_id 4959420488607}}
+                    {{/if}}
+                    {{#if (contains tags 'software_request')}}
                       <span class="status-label request-type-label" data-request-type="Software Requests">Software Requests</span>
-                    {{/is}}
-                    {{#is ticket_form_id 4959424971167}}
+                    {{/if}}
+                    {{#if (contains tags 'google_group')}}
                       <span class="status-label request-type-label" data-request-type="New Google Group">New Google Group</span>
-                    {{/is}}
-                    {{#is ticket_form_id 4964521982623}}
+                    {{/if}}
+                    {{#if (contains tags 'sales_ops')}}
                       <span class="status-label request-type-label" data-request-type="Sales Ops">Sales Ops</span>
-                    {{/is}}
-                    {{#is ticket_form_id 4989134508191}}
+                    {{/if}}
+                    {{#if (contains tags 'general_it')}}
                       <span class="status-label request-type-label" data-request-type="General IT Request">General IT Request</span>
-                    {{/is}}
+                    {{/if}}
                   </div>
                 </td>
                 <td>#{{id}}</td>
