@@ -14,9 +14,15 @@ import "./dynamicCategoriesNav";
 import "./announcements";
 import "./introductions";
 import "./latestArticles";
+import { renderAnnouncements } from './announcements';
+import { renderIntroductions } from './introductions';
+import { renderLatestArticles } from './latestArticles';
 
 // Initialize holidays notification banner on category pages
 window.addEventListener("DOMContentLoaded", () => {
+  renderAnnouncements();
+  renderIntroductions();
+  renderLatestArticles();
   if (
     document.querySelector("#holidays-banner") &&
     document.querySelector(".pending-holidays-2025")
