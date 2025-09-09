@@ -1112,4 +1112,28 @@
     initHomepageSections();
   }
 
+  window.addEventListener("DOMContentLoaded", () => {
+    // Display request type from custom field 4992033637535 in requests table
+    const REQUEST_TYPE_FIELD_ID = "4992033637535";
+    document.querySelectorAll(".requests-table tbody tr").forEach(row => {
+      // Try to get the custom field value from a data attribute or child element
+      let requestType = row.getAttribute(`data-field-${REQUEST_TYPE_FIELD_ID}`) || row.dataset[`field${REQUEST_TYPE_FIELD_ID}`];
+      if (!requestType) {
+        // Try to find it in a child element
+        const fieldCell = row.querySelector(`[data-field-${REQUEST_TYPE_FIELD_ID}]`);
+        if (fieldCell) requestType = fieldCell.getAttribute(`data-field-${REQUEST_TYPE_FIELD_ID}`);
+      }
+      // If found, display it in a new cell or update an existing cell
+      if (requestType) {
+        let typeCell = row.querySelector(".request-type-cell");
+        if (!typeCell) {
+          typeCell = document.createElement("td");
+          typeCell.className = "request-type-cell";
+          row.appendChild(typeCell);
+        }
+        typeCell.textContent = requestType;
+      }
+    });
+  });
+
 })();
