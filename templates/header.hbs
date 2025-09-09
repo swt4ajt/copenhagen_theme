@@ -10,14 +10,17 @@
     {{/link}}
   </div>
 
-  <div id="dynamic-categories-nav"></div>
+  <div
+    id="dynamic-categories-nav"
+    data-submit-request-url="{{page_path 'new_request'}}"
+    data-submit-request-label="{{t 'submit_a_request'}}"
+  ></div>
 
   <div class="nav-wrapper-desktop">
     <nav class="user-nav" id="user-nav" aria-label="{{t 'user_navigation'}}">
       <ul class="user-nav-list">
         <li>{{link 'community'}}</li>
         <li>{{link 'service_catalog'}}</li>
-        <li>{{link 'new_request' class='submit-a-request'}} </li>
         <li>{{link 'request_list'}} </li>
         {{#unless signed_in}}
           <li>
@@ -90,7 +93,6 @@
           <li class="nav-divider"></li>
         {{/if}}
         <li class="item">{{link 'community'}}</li>
-        <li class="item">{{link 'new_request' class='submit-a-request'}}</li>
         <li class="item">{{link 'service_catalog'}}</li>
         <li class="item">{{link 'request_list'}}</li>
         <li class="nav-divider"></li>

@@ -21,7 +21,7 @@ async function fetchSections(categoryId) {
   return data.sections || [];
 }
 
-function createDropdown(categoriesWithSections) {
+function createDropdown(categoriesWithSections, submitRequest) {
   const nav = document.createElement("nav");
   nav.className = "categories-nav";
   nav.setAttribute("aria-label", "Main navigation");
@@ -55,6 +55,16 @@ function createDropdown(categoriesWithSections) {
     li.appendChild(menu);
     ul.appendChild(li);
   });
+  if (submitRequest && submitRequest.url) {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = submitRequest.url;
+    a.textContent = submitRequest.label || "Submit a request";
+    a.className = "submit-a-request";
+    li.appendChild(a);
+    ul.appendChild(li);
+  }
+
   nav.appendChild(ul);
   return nav;
 }
@@ -72,7 +82,11 @@ export async function renderDynamicCategoriesNav() {
     )
   ).filter((cat) => cat.sections.length > 0);
   container.innerHTML = "";
-  container.appendChild(createDropdown(categoriesWithSections));
+  const submitRequest = {
+    url: container.dataset.submitRequestUrl,
+    label: container.dataset.submitRequestLabel,
+  };
+  container.appendChild(createDropdown(categoriesWithSections, submitRequest));
 }
 
 // Optionally, auto-run on DOMContentLoaded
