@@ -102,7 +102,19 @@
 
           <tbody>
             {{#each requests}}
-              <tr {{#is status 'closed'}} class="request-closed" {{/is}} data-request-type="{{ticket_form.name}}">
+              <tr {{#is status 'closed'}} class="request-closed" {{/is}}
+                  {{#if ticket_form_id}}
+                    {{#is ticket_form_id settings.request_form_1_id}}data-request-type="{{settings.request_form_1_name}}"{{/is}}
+                    {{#is ticket_form_id settings.request_form_2_id}}data-request-type="{{settings.request_form_2_name}}"{{/is}}
+                    {{#is ticket_form_id settings.request_form_3_id}}data-request-type="{{settings.request_form_3_name}}"{{/is}}
+                    {{#is ticket_form_id settings.request_form_4_id}}data-request-type="{{settings.request_form_4_name}}"{{/is}}
+                    {{#is ticket_form_id settings.request_form_5_id}}data-request-type="{{settings.request_form_5_name}}"{{/is}}
+                    {{#is ticket_form_id settings.request_form_6_id}}data-request-type="{{settings.request_form_6_name}}"{{/is}}
+                    {{#is ticket_form_id settings.request_form_7_id}}data-request-type="{{settings.request_form_7_name}}"{{/is}}
+                    {{#is ticket_form_id settings.request_form_8_id}}data-request-type="{{settings.request_form_8_name}}"{{/is}}
+                    {{#is ticket_form_id settings.request_form_9_id}}data-request-type="{{settings.request_form_9_name}}"{{/is}}
+                    {{#is ticket_form_id settings.request_form_10_id}}data-request-type="{{settings.request_form_10_name}}"{{/is}}
+                  {{/if}}>
                 <td class="request-info requests-table-info">
                   <a href="{{url}}" class="striped-list-title" title="{{subject}}">
                     {{#if subject}}
@@ -111,8 +123,37 @@
                       {{excerpt description characters=50}}
                     {{/if}}
                   </a>
-                  {{#if ticket_form}}
-                    <span class="status-label request-type-label" data-request-type="{{ticket_form.name}}">{{ticket_form.name}}</span>
+                  {{#if ticket_form_id}}
+                    {{#is ticket_form_id settings.request_form_1_id}}
+                      <span class="status-label request-type-label" data-request-type="{{settings.request_form_1_name}}">{{settings.request_form_1_name}}</span>
+                    {{/is}}
+                    {{#is ticket_form_id settings.request_form_2_id}}
+                      <span class="status-label request-type-label" data-request-type="{{settings.request_form_2_name}}">{{settings.request_form_2_name}}</span>
+                    {{/is}}
+                    {{#is ticket_form_id settings.request_form_3_id}}
+                      <span class="status-label request-type-label" data-request-type="{{settings.request_form_3_name}}">{{settings.request_form_3_name}}</span>
+                    {{/is}}
+                    {{#is ticket_form_id settings.request_form_4_id}}
+                      <span class="status-label request-type-label" data-request-type="{{settings.request_form_4_name}}">{{settings.request_form_4_name}}</span>
+                    {{/is}}
+                    {{#is ticket_form_id settings.request_form_5_id}}
+                      <span class="status-label request-type-label" data-request-type="{{settings.request_form_5_name}}">{{settings.request_form_5_name}}</span>
+                    {{/is}}
+                    {{#is ticket_form_id settings.request_form_6_id}}
+                      <span class="status-label request-type-label" data-request-type="{{settings.request_form_6_name}}">{{settings.request_form_6_name}}</span>
+                    {{/is}}
+                    {{#is ticket_form_id settings.request_form_7_id}}
+                      <span class="status-label request-type-label" data-request-type="{{settings.request_form_7_name}}">{{settings.request_form_7_name}}</span>
+                    {{/is}}
+                    {{#is ticket_form_id settings.request_form_8_id}}
+                      <span class="status-label request-type-label" data-request-type="{{settings.request_form_8_name}}">{{settings.request_form_8_name}}</span>
+                    {{/is}}
+                    {{#is ticket_form_id settings.request_form_9_id}}
+                      <span class="status-label request-type-label" data-request-type="{{settings.request_form_9_name}}">{{settings.request_form_9_name}}</span>
+                    {{/is}}
+                    {{#is ticket_form_id settings.request_form_10_id}}
+                      <span class="status-label request-type-label" data-request-type="{{settings.request_form_10_name}}">{{settings.request_form_10_name}}</span>
+                    {{/is}}
                   {{/if}}
 
                   <!-- Visible on mobile -->
@@ -122,8 +163,37 @@
                     <span class="status-label status-label-request status-label-{{status}}" title="{{status_description}}">
                       {{status_name}}
                     </span>
-                    {{#if ticket_form}}
-                      <span class="status-label request-type-label" data-request-type="{{ticket_form.name}}">{{ticket_form.name}}</span>
+                    {{#if ticket_form_id}}
+                      {{#is ticket_form_id settings.request_form_1_id}}
+                        <span class="status-label request-type-label" data-request-type="{{settings.request_form_1_name}}">{{settings.request_form_1_name}}</span>
+                      {{/is}}
+                      {{#is ticket_form_id settings.request_form_2_id}}
+                        <span class="status-label request-type-label" data-request-type="{{settings.request_form_2_name}}">{{settings.request_form_2_name}}</span>
+                      {{/is}}
+                      {{#is ticket_form_id settings.request_form_3_id}}
+                        <span class="status-label request-type-label" data-request-type="{{settings.request_form_3_name}}">{{settings.request_form_3_name}}</span>
+                      {{/is}}
+                      {{#is ticket_form_id settings.request_form_4_id}}
+                        <span class="status-label request-type-label" data-request-type="{{settings.request_form_4_name}}">{{settings.request_form_4_name}}</span>
+                      {{/is}}
+                      {{#is ticket_form_id settings.request_form_5_id}}
+                        <span class="status-label request-type-label" data-request-type="{{settings.request_form_5_name}}">{{settings.request_form_5_name}}</span>
+                      {{/is}}
+                      {{#is ticket_form_id settings.request_form_6_id}}
+                        <span class="status-label request-type-label" data-request-type="{{settings.request_form_6_name}}">{{settings.request_form_6_name}}</span>
+                      {{/is}}
+                      {{#is ticket_form_id settings.request_form_7_id}}
+                        <span class="status-label request-type-label" data-request-type="{{settings.request_form_7_name}}">{{settings.request_form_7_name}}</span>
+                      {{/is}}
+                      {{#is ticket_form_id settings.request_form_8_id}}
+                        <span class="status-label request-type-label" data-request-type="{{settings.request_form_8_name}}">{{settings.request_form_8_name}}</span>
+                      {{/is}}
+                      {{#is ticket_form_id settings.request_form_9_id}}
+                        <span class="status-label request-type-label" data-request-type="{{settings.request_form_9_name}}">{{settings.request_form_9_name}}</span>
+                      {{/is}}
+                      {{#is ticket_form_id settings.request_form_10_id}}
+                        <span class="status-label request-type-label" data-request-type="{{settings.request_form_10_name}}">{{settings.request_form_10_name}}</span>
+                      {{/is}}
                     {{/if}}
                   </div>
                 </td>
