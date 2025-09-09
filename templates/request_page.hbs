@@ -3,6 +3,7 @@
 
     <h1 class="request-title">
         {{request.subject}}
+        {{!-- Badge placeholder, filled via JS --}}
         <span class="badge badge--type" data-request-id="{{request.id}}" hidden></span>
     </h1>
 
@@ -25,11 +26,11 @@
                                     </div>
 
                                     <div class="comment-meta">
-                    <span title="{{author.name}}">
-                        {{#link 'user_profile' id=author.id}}
-                            {{author.name}}
-                        {{/link}}
-                    </span>
+                                        <span title="{{author.name}}">
+                                            {{#link 'user_profile' id=author.id}}
+                                                {{author.name}}
+                                            {{/link}}
+                                        </span>
 
                                         <div class="meta-group">
                                             <span class="meta-data">{{date created_at timeago=true}}</span>
@@ -201,29 +202,8 @@
 
                     <dt>Request type</dt>
                     <dd>
-                      {{#if request.tags}}
-                        {{#contains request.tags "offboard"}}
-                          <span class="badge badge--type" data-type="offboard">Offboard</span>
-                        {{/contains}}
-                        {{#contains request.tags "new-hire"}}
-                          <span class="badge badge--type" data-type="new-hire">New Hire</span>
-                        {{/contains}}
-                        {{#contains request.tags "sales_ops"}}
-                          <span class="badge badge--type" data-type="sales_ops">SalesOps</span>
-                        {{/contains}}
-                        {{#contains request.tags "general_it"}}
-                          <span class="badge badge--type" data-type="general_it">General IT</span>
-                        {{/contains}}
-                        {{#contains request.tags "hardware_request"}}
-                          <span class="badge badge--type" data-type="hardware_request">Hardware Request</span>
-                        {{/contains}}
-                        {{#contains request.tags "software_request"}}
-                          <span class="badge badge--type" data-type="software_request">Software Request</span>
-                        {{/contains}}
-                        {{#contains request.tags "google_group"}}
-                          <span class="badge badge--type" data-type="google_group">Google Group</span>
-                        {{/contains}}
-                      {{/if}}
+                        {{!-- Safe placeholder, populated by JS --}}
+                        <span class="badge badge--type" data-request-id="{{request.id}}" hidden></span>
                     </dd>
 
                     {{#form 'organization' id='request-organization' class='hbs-form'}}
@@ -240,9 +220,9 @@
 
                     <dt>{{t 'status'}}</dt>
                     <dd>
-            <span class="status-label status-label-request status-label-{{request.status}}" title="{{request.status_description}}">
-                {{request.status_name}}
-            </span>
+                        <span class="status-label status-label-request status-label-{{request.status}}" title="{{request.status_description}}">
+                            {{request.status_name}}
+                        </span>
                     </dd>
 
                     {{#if request.type}}
@@ -261,13 +241,6 @@
                             {{request.priority_name}}
                         </dd>
                     {{/if}}
-
-                    {{#each custom_fields}}
-                        <dt>{{title}}</dt>
-                        <dd>
-                            {{value}}
-                        </dd>
-                    {{/each}}
                 </dl>
 
                 {{#if attachments}}
