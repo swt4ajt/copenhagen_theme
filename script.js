@@ -461,40 +461,41 @@
       }
     }
 
-    // --- Zendesk new-request-form: Prefill and hide subject/description for form 4959432829215 ---
-    function prefillAndHideZendeskFields() {
-      // Only run for the onboarding form
+    // --- Zendesk new-request-form: Robust prefill/hide for form 4959432829215 ---
+    function robustPrefillAndHideZendeskFields() {
       const form = document.querySelector('form[action="/hc/en-gb/requests"]');
       if (!form) return;
       const formIdInput = form.querySelector('input[name="request[ticket_form_id]"]');
       if (!formIdInput || formIdInput.value !== '4959432829215') return;
 
-      // Find First Name and Last Name fields
       const firstNameInput = form.querySelector('input[name^="request[custom_fields][4959434786335]"]');
       const lastNameInput = form.querySelector('input[name^="request[custom_fields][4959434835359]"]');
       const subjectInput = form.querySelector('input[name="request[subject]"]');
       const descriptionInput = form.querySelector('textarea[name="request[description]"]');
 
-      // Hide subject and description fields
-      if (subjectInput) subjectInput.closest('.form-field, .form-group, .form-control, label')?.style.setProperty('display', 'none', 'important');
-      if (descriptionInput) descriptionInput.closest('.form-field, .form-group, .form-control, label')?.style.setProperty('display', 'none', 'important');
+      // Only proceed if all fields are present
+      if (!firstNameInput || !lastNameInput || !subjectInput || !descriptionInput) return;
 
-      // On form submit, prefill subject and description
+      // Prefill subject and description
+      subjectInput.value = `${firstNameInput.value} ${lastNameInput.value}`.trim();
+      descriptionInput.value = `Submitted by: ${firstNameInput.value} ${lastNameInput.value}`.trim();
+
+      // Hide subject and description fields
+      subjectInput.closest('.form-field, .form-group, .form-control, label')?.style.setProperty('display', 'none', 'important');
+      descriptionInput.closest('.form-field, .form-group, .form-control, label')?.style.setProperty('display', 'none', 'important');
+
+      // Ensure values are set before submit
       form.addEventListener('submit', function(e) {
-        if (firstNameInput && lastNameInput && subjectInput) {
-          subjectInput.value = `${firstNameInput.value} ${lastNameInput.value}`.trim();
-        }
-        if (descriptionInput) {
-          descriptionInput.value = `Submitted by: ${firstNameInput?.value || ''} ${lastNameInput?.value || ''}`.trim();
-        }
+        subjectInput.value = `${firstNameInput.value} ${lastNameInput.value}`.trim();
+        descriptionInput.value = `Submitted by: ${firstNameInput.value} ${lastNameInput.value}`.trim();
       }, true);
     }
 
-    // Wait for Zendesk form to render
-    const observer = new MutationObserver(() => {
-      prefillAndHideZendeskFields();
+    // MutationObserver to watch for form and fields
+    const zendeskFormObserver = new MutationObserver(() => {
+      robustPrefillAndHideZendeskFields();
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+    zendeskFormObserver.observe(document.body, { childList: true, subtree: true });
   });
 
   // Carousel module: fetches and renders tiles based on theme setting
@@ -687,362 +688,66 @@
         prev &&
         (new Date(curr.date) - new Date(prev.date)) / (1000 * 60 * 60 * 24) === 1
       ) {
-        if (temp.length === 0) temp.push(prev);
+        if (temp.length === 0) {
+          temp.push(prev);
+        }
         temp.push(curr);
       } else {
         if (temp.length > 0) {
-          grouped.push([...temp]);
+          grouped.push(temp);
           temp = [];
         }
         grouped.push([curr]);
       }
     }
-    if (temp.length > 0) grouped.push([...temp]);
+    if (temp.length > 0) {
+      grouped.push(temp);
+    }
     return grouped;
   }
 
-  function renderHolidaysCalendar(targetSelector, articleSelector = '.pending-holidays-2025') {
-    const container = document.querySelector(targetSelector);
-    if (!container) return;
-    container.innerHTML = '';
+  function renderHolidaysCalendar(targetSelector) {
+    const holidaysData = extractHolidaysFromArticle('.article');
+    const targetElement = document.querySelector(targetSelector);
+    if (!targetElement) return;
 
-    const holidaysData = extractHolidaysFromArticle(articleSelector);
-    if (!Object.keys(holidaysData).length) {
-      container.innerHTML = '<p>No holiday data found.</p>';
-      return;
-    }
-
-    // Region navigation
-    const nav = document.createElement('nav');
-    nav.className = 'holidays-calendar-nav';
-    nav.setAttribute('aria-label', 'Regions');
-    const ul = document.createElement('ul');
     Object.keys(holidaysData).forEach(region => {
-      const li = document.createElement('li');
-      li.innerHTML = `<a href="#${region}-2025">${region}</a>`;
-      ul.appendChild(li);
-    });
-    nav.appendChild(ul);
-    container.appendChild(nav);
+      const regionHolidays = holidaysData[region];
+      const groupedHolidays = groupConsecutiveHolidays(regionHolidays);
 
-    // Region sections
-    Object.entries(holidaysData).forEach(([region, holidays]) => {
-      const section = document.createElement('section');
-      section.className = 'holidays-calendar-region';
-      section.id = `${region}-2025`;
-      section.innerHTML = `<h2>${region} Holidays – 2025</h2>`;
-      const grouped = groupConsecutiveHolidays(holidays);
-      const grid = document.createElement('div');
-      grid.className = 'holidays-calendar-grid';
-      grouped.forEach(group => {
-        const tile = document.createElement('div');
-        tile.className = 'holidays-calendar-tile';
-        if (group.length > 1) {
-          tile.innerHTML = `<div class="holidays-calendar-dates">${group
-          .map(h => `<span>${new Date(h.date).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}</span>`)
-          .join(' & ')}</div><div class="holidays-calendar-names">${group.map(h => h.name).join(' & ')}</div>`;
-        } else {
-          const h = group[0];
-          tile.innerHTML = `<div class="holidays-calendar-dates">${new Date(h.date).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}</div><div class="holidays-calendar-names">${h.name}</div>`;
-        }
-        grid.appendChild(tile);
+      const regionContainer = document.createElement('div');
+      regionContainer.className = 'holidays-region';
+      const regionTitle = document.createElement('h3');
+      regionTitle.className = 'holidays-region-title';
+      regionTitle.textContent = region;
+      regionContainer.appendChild(regionTitle);
+
+      groupedHolidays.forEach(holidayGroup => {
+        const groupEl = document.createElement('div');
+        groupEl.className = 'holiday-group';
+        const dates = holidayGroup.map(holiday => new Date(holiday.date));
+        const startDate = new Date(Math.min.apply(null, dates));
+        const endDate = new Date(Math.max.apply(null, dates));
+        const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+        const dateLabel = document.createElement('div');
+        dateLabel.className = 'holiday-date';
+        dateLabel.textContent = `${startDate.toLocaleDateString(undefined, dateOptions)} - ${endDate.toLocaleDateString(undefined, dateOptions)}`;
+        groupEl.appendChild(dateLabel);
+
+        holidayGroup.forEach(holiday => {
+          const holidayEl = document.createElement('div');
+          holidayEl.className = 'holiday';
+          holidayEl.textContent = holiday.name;
+          groupEl.appendChild(holidayEl);
+        });
+
+        regionContainer.appendChild(groupEl);
       });
-      section.appendChild(grid);
-      container.appendChild(section);
+
+      targetElement.appendChild(regionContainer);
     });
   }
 
-  window.renderHolidaysCalendar = renderHolidaysCalendar;
-
-  // src/dynamicCategoriesNav.js
-  // Fetches categories and sections from Zendesk Help Center API and renders them in the header
-
-  const locale =
-    (window.HelpCenter &&
-      window.HelpCenter.user &&
-      window.HelpCenter.user.locale) ||
-    document.documentElement.lang ||
-    "en-us";
-  const API_BASE = `/api/v2/help_center/${locale}`;
-
-  async function fetchCategories() {
-    const res = await fetch(`${API_BASE}/categories.json`);
-    const data = await res.json();
-    return data.categories || [];
-  }
-
-  async function fetchSections(categoryId) {
-    const res = await fetch(`${API_BASE}/categories/${categoryId}/sections.json`);
-    const data = await res.json();
-    return data.sections || [];
-  }
-
-  function createDropdown(categoriesWithSections) {
-    const nav = document.createElement("nav");
-    nav.className = "categories-nav";
-    nav.setAttribute("aria-label", "Main navigation");
-    const ul = document.createElement("ul");
-    ul.className = "categories-nav-list";
-
-    categoriesWithSections.forEach((cat) => {
-      const li = document.createElement("li");
-      li.className = "category-dropdown";
-      const btn = document.createElement("button");
-      btn.className = "category-toggle";
-      btn.setAttribute("aria-haspopup", "true");
-      btn.setAttribute("aria-expanded", "false");
-      btn.textContent = cat.name;
-      btn.onclick = () => {
-        menu.classList.toggle("open");
-        btn.setAttribute("aria-expanded", menu.classList.contains("open"));
-      };
-      li.appendChild(btn);
-
-      const menu = document.createElement("ul");
-      menu.className = "category-sections-list";
-      cat.sections.forEach((section) => {
-        const sectionLi = document.createElement("li");
-        const sectionA = document.createElement("a");
-        sectionA.href = `/hc/${locale}/sections/${section.id}`;
-        sectionA.textContent = section.name;
-        sectionLi.appendChild(sectionA);
-        menu.appendChild(sectionLi);
-      });
-      li.appendChild(menu);
-      ul.appendChild(li);
-    });
-    nav.appendChild(ul);
-    return nav;
-  }
-
-  async function renderDynamicCategoriesNav() {
-    const container = document.getElementById("dynamic-categories-nav");
-    if (!container) return;
-    const categories = await fetchCategories();
-    const categoriesWithSections = (
-      await Promise.all(
-        categories.map(async (cat) => ({
-          ...cat,
-          sections: await fetchSections(cat.id),
-        }))
-      )
-    ).filter((cat) => cat.sections.length > 0);
-    container.innerHTML = "";
-    container.appendChild(createDropdown(categoriesWithSections));
-  }
-
-  // Optionally, auto-run on DOMContentLoaded
-  if (document.readyState !== "loading") {
-    renderDynamicCategoriesNav();
-  } else {
-    document.addEventListener("DOMContentLoaded", renderDynamicCategoriesNav);
-  }
-
-  // src/announcements.js
-  // Fetches and renders a simple carousel of company announcements
-
-  async function renderAnnouncements() {
-    const container = document.getElementById('announcement-carousel');
-    if (!container) return;
-
-    const link = document.querySelector('.announcements h2 a');
-    const match = link && link.getAttribute('href').match(/sections\/(\d+)/);
-    const sectionId = match ? match[1] : null;
-
-    const resp = sectionId
-      ? await fetch(`/api/v2/help_center/sections/${sectionId}/articles.json?sort_by=created_at&sort_order=desc&per_page=5`)
-      : null;
-    const data = resp && (await resp.json());
-    const articles = (data && Array.isArray(data.articles)) ? data.articles : [];
-
-    container.innerHTML = '';
-    if (!articles.length) {
-      container.innerHTML = '<div class="announcement-empty">No announcements found.</div>';
-      return;
-    }
-
-    articles.forEach((article, index) => {
-      const item = document.createElement('div');
-      item.className = `carousel-item${index === 0 ? ' active' : ''}`;
-
-      const body = article.body || '';
-      const imgMatch = body.match(/<img[^>]+src=["']([^"']+)["']/i);
-      const imgTag = imgMatch
-        ? `<img src="${imgMatch[1]}" alt="" />`
-        : '<span class="carousel-image-placeholder"></span>';
-      const captionClass = imgMatch ? 'carousel-caption' : 'carousel-caption no-image';
-
-      item.innerHTML = `
-      <a href="${article.html_url}" class="carousel-link">
-        ${imgTag}
-        <div class="${captionClass}">${article.title}</div>
-      </a>
-    `;
-      container.appendChild(item);
-    });
-
-    let current = 0;
-    setInterval(() => {
-      const items = container.querySelectorAll('.carousel-item');
-      if (!items.length) return;
-      items[current].classList.remove('active');
-      current = (current + 1) % items.length;
-      items[current].classList.add('active');
-    }, 5000);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderAnnouncements);
-  } else {
-    renderAnnouncements();
-  }
-
-  // src/introductions.js
-  // Renders a grid of introductions with images and excerpts.
-
-  async function renderIntroductionsGrid() {
-    const container = document.getElementById('introductions-grid');
-    if (!container) return;
-
-    const SECTION_ID = 4964692123039;
-    const isSectionPage = window.location.pathname.includes(`/sections/${SECTION_ID}`);
-    const perPage = isSectionPage ? 100 : 6;
-
-    const resp = await fetch(
-      `/api/v2/help_center/sections/${SECTION_ID}/articles.json?sort_by=created_at&sort_order=desc&per_page=${perPage}`
-    );
-    const data = await resp.json();
-    const articles = Array.isArray(data.articles) ? data.articles : [];
-
-    container.innerHTML = '';
-    if (!articles.length) {
-      container.innerHTML = '<div class="introductions-empty">No introductions found.</div>';
-      return;
-    }
-
-    const grid = document.createElement('div');
-    grid.className = isSectionPage ? 'introductions-grid-4wide' : 'introductions-grid-3x2';
-
-    articles.forEach(article => {
-      const tile = document.createElement('article');
-      tile.className = 'intro-item';
-      tile.setAttribute('data-article-id', article.id);
-      tile.innerHTML = `
-      <a href="${article.html_url}">
-        <img class="intro-img" src="/assets/image-pending.jpg" alt="Article image" loading="lazy" />
-        <h3 class="intro-title">${article.title}</h3>
-        <p class="intro-excerpt">Loading preview…</p>
-      </a>
-    `;
-      grid.appendChild(tile);
-    });
-
-    container.appendChild(grid);
-
-    const locale =
-      (window.HelpCenter && HelpCenter.user && HelpCenter.user.locale) ||
-      (function () {
-        const m = location.pathname.match(/\/hc\/([^/]+)/);
-        return (m && m[1]) || 'en-us';
-      })();
-
-    function firstImageSrc(html) {
-      const m = html && html.match(/<img[^>]+src=['"]([^'"]+)['"]/i);
-      return m ? m[1] : null;
-    }
-
-    function stripHtml(html) {
-      const tmp = document.createElement('div');
-      tmp.innerHTML = html || '';
-      return (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
-    }
-
-    function truncateWords(text, n) {
-      const parts = (text || '').split(/\s+/).filter(Boolean);
-      if (parts.length <= n) return text || '';
-      return parts.slice(0, n).join(' ') + '…';
-    }
-
-    const tiles = grid.querySelectorAll('.intro-item');
-    tiles.forEach(tile => {
-      const id = tile.getAttribute('data-article-id');
-      fetch(`/api/v2/help_center/${locale}/articles/${id}.json`)
-        .then(r => (r.ok ? r.json() : null))
-        .then(data => {
-          if (!data || !data.article) return;
-          const body = data.article.body || '';
-          const imgEl = tile.querySelector('.intro-img');
-          const src = firstImageSrc(body) || '/assets/image-pending.jpg';
-          if (imgEl) imgEl.src = src;
-          const p = tile.querySelector('.intro-excerpt');
-          if (p) p.textContent = truncateWords(stripHtml(body), 40) || 'No description available.';
-        })
-        .catch(() => {});
-    });
-
-    if (isSectionPage) {
-      document.body.classList.add('section-page');
-    } else {
-      document.body.classList.remove('section-page');
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderIntroductionsGrid);
-  } else {
-    renderIntroductionsGrid();
-  }
-
-  // src/latestArticles.js
-  // Populates the latest articles list in the right rail
-
-  async function renderLatestArticles() {
-    const list = document.getElementById("latest-articles-list");
-    if (!list) return;
-
-    const categoryId = list.dataset.categoryId;
-    const url = categoryId
-      ? `/api/v2/help_center/categories/${categoryId}/articles.json?sort_by=created_at&sort_order=desc&per_page=5`
-      : "/api/v2/help_center/articles.json?sort_by=created_at&sort_order=desc&per_page=5";
-    const resp = await fetch(url);
-    const data = await resp.json();
-    const articles = Array.isArray(data.articles) ? data.articles : [];
-
-    list.innerHTML = "";
-    if (!articles.length) {
-      list.innerHTML =
-        '<li class="latest-articles-empty">No articles found.</li>';
-      return;
-    }
-
-    articles.forEach((article) => {
-      const li = document.createElement("li");
-      li.className = "latest-articles-item";
-      li.innerHTML = `
-      <a href="${article.html_url}" class="latest-articles-link">
-        <span class="latest-articles-title">${article.title}</span>
-        <span class="latest-articles-date">${new Date(
-          article.created_at
-        ).toLocaleDateString()}</span>
-      </a>`;
-      list.appendChild(li);
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", renderLatestArticles);
-  } else {
-    renderLatestArticles();
-  }
-
-  // Initialize holidays notification banner on category pages
-  window.addEventListener("DOMContentLoaded", () => {
-    if (
-      document.querySelector("#holidays-banner") &&
-      document.querySelector(".pending-holidays-2025")
-    ) {
-      window.renderHolidaysBanner("#holidays-banner");
-    }
-  });
-
+  // Call the render function for the holidays calendar
+  renderHolidaysCalendar('.holidays-calendar');
 })();
