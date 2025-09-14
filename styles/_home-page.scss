@@ -555,12 +555,15 @@ button {
   }
 
   .announcement-carousel {
-    .carousel-item {
+    .carousel-item,
+    .carousel-link {
       min-height: 200px;
+    }
 
-      img {
-        max-height: 200px;
-      }
+    img,
+    .carousel-image-placeholder {
+      max-height: 200px;
+      height: 200px;
     }
   }
 }
