@@ -778,24 +778,39 @@
   // src/dynamicCategoriesNav.js
   // Fetches categories and sections from Zendesk Help Center API and renders them in the header
 
-  const locale =
+  const locale = (
     (window.HelpCenter &&
       window.HelpCenter.user &&
       window.HelpCenter.user.locale) ||
     document.documentElement.lang ||
-    "en-us";
+    "en-us"
+  ).toLowerCase();
   const API_BASE = `/api/v2/help_center/${locale}`;
 
   async function fetchCategories() {
-    const res = await fetch(`${API_BASE}/categories.json`);
-    const data = await res.json();
-    return data.categories || [];
+    try {
+      const res = await fetch(`${API_BASE}/categories.json`);
+      if (!res.ok) throw new Error("Failed to fetch categories");
+      const data = await res.json();
+      return data.categories || [];
+    } catch (err) {
+      console.error("fetchCategories", err);
+      return [];
+    }
   }
 
   async function fetchSections(categoryId) {
-    const res = await fetch(`${API_BASE}/categories/${categoryId}/sections.json`);
-    const data = await res.json();
-    return data.sections || [];
+    try {
+      const res = await fetch(
+        `${API_BASE}/categories/${categoryId}/sections.json`
+      );
+      if (!res.ok) throw new Error("Failed to fetch sections");
+      const data = await res.json();
+      return data.sections || [];
+    } catch (err) {
+      console.error("fetchSections", err);
+      return [];
+    }
   }
 
   function createDropdown(categoriesWithSections, submitRequest) {
@@ -849,20 +864,27 @@
   async function renderDynamicCategoriesNav() {
     const container = document.getElementById("dynamic-categories-nav");
     if (!container) return;
-    const categories = await fetchCategories();
-    const categoriesWithSections = (
-      await Promise.all(
-        categories.map(async (cat) => ({
-          ...cat,
-          sections: await fetchSections(cat.id),
-        }))
-      )
-    ).filter((cat) => cat.sections.length > 0);
-    container.innerHTML = "";
     const submitRequest = {
       url: container.dataset.submitRequestUrl,
       label: container.dataset.submitRequestLabel,
     };
+
+    let categoriesWithSections = [];
+    try {
+      const categories = await fetchCategories();
+      categoriesWithSections = (
+        await Promise.all(
+          categories.map(async (cat) => ({
+            ...cat,
+            sections: await fetchSections(cat.id),
+          }))
+        )
+      ).filter((cat) => cat.sections.length > 0);
+    } catch (err) {
+      console.error("renderDynamicCategoriesNav", err);
+    }
+
+    container.innerHTML = "";
     container.appendChild(createDropdown(categoriesWithSections, submitRequest));
   }
 
