@@ -13,7 +13,9 @@ export async function renderAnnouncements() {
     ? await fetch(`/api/v2/help_center/sections/${sectionId}/articles.json?sort_by=created_at&sort_order=desc&per_page=5`)
     : null;
   const data = resp && (await resp.json());
-  const articles = (data && Array.isArray(data.articles)) ? data.articles : [];
+  const articles = (data && Array.isArray(data.articles))
+    ? data.articles.filter((article) => !article.draft && article.html_url)
+    : [];
 
   container.innerHTML = '';
   if (!articles.length) {
