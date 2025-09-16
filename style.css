@@ -896,26 +896,6 @@ ul {
 .categories-nav .categories-nav-list .category-dropdown {
   position: relative;
 }
-.categories-nav .categories-nav-list .category-dropdown .category-toggle {
-  background: transparent;
-  border: none;
-  color: #0070f3;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 0 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: color 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.categories-nav .categories-nav-list .category-dropdown .category-toggle:hover,
-.categories-nav .categories-nav-list .category-dropdown .category-toggle:focus {
-  text-decoration: underline;
-  background: transparent;
-  outline: none;
-}
 .categories-nav .categories-nav-list .category-dropdown .category-sections-list {
   display: none;
   position: absolute;
@@ -947,23 +927,38 @@ ul {
   color: #fff;
   border-radius: 4px;
 }
+.categories-nav .categories-nav-list .category-toggle,
 .categories-nav .categories-nav-list .submit-a-request {
+  align-items: center;
   background: #0070f3;
+  border: none;
   border-radius: 999px;
   color: #fff;
+  cursor: pointer;
   display: inline-flex;
+  font-size: 14px;
   font-weight: 600;
+  gap: 6px;
   padding: 10px 22px;
   text-decoration: none;
   transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
 }
-.categories-nav .categories-nav-list .submit-a-request:hover, .categories-nav .categories-nav-list .submit-a-request:focus {
+.categories-nav .categories-nav-list .category-toggle {
+  justify-content: center;
+}
+.categories-nav .categories-nav-list .category-toggle:hover,
+.categories-nav .categories-nav-list .category-toggle:focus,
+.categories-nav .categories-nav-list .category-toggle[aria-expanded=true],
+.categories-nav .categories-nav-list .submit-a-request:hover,
+.categories-nav .categories-nav-list .submit-a-request:focus {
   background: zass-darken(#0070f3, 20%);
   box-shadow: 0 6px 20px rgba(0, 112, 243, 0.25);
   color: #fff;
   text-decoration: none;
   transform: translateY(-1px);
 }
+.categories-nav .categories-nav-list .category-toggle:active,
 .categories-nav .categories-nav-list .submit-a-request:active {
   transform: translateY(0);
 }

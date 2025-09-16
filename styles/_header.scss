@@ -295,26 +295,6 @@ $header-height: 71px;
     .category-dropdown {
       position: relative;
 
-      .category-toggle {
-        background: transparent;
-        border: none;
-        color: $link_color;
-        font-weight: 600;
-        font-size: 14px;
-        padding: 0 16px;
-        cursor: pointer;
-        border-radius: 4px;
-        transition: color 0.2s;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .category-toggle:hover,
-      .category-toggle:focus {
-        text-decoration: underline;
-        background: transparent;
-        outline: none;
-      }
       .category-sections-list {
         display: none;
         position: absolute;
@@ -349,29 +329,44 @@ $header-height: 71px;
       }
     }
 
+    .category-toggle,
     .submit-a-request {
+      align-items: center;
       background: $brand_color;
+      border: none;
       border-radius: 999px;
       color: $brand_text_color;
+      cursor: pointer;
       display: inline-flex;
+      font-size: 14px;
       font-weight: 600;
+      gap: 6px;
       padding: 10px 22px;
       text-decoration: none;
       transition: background-color 0.2s ease, box-shadow 0.2s ease,
         transform 0.2s ease;
+      white-space: nowrap;
+    }
 
-      &:hover,
-      &:focus {
-        background: $hover-button-color;
-        box-shadow: 0 6px 20px rgba($brand_color, 0.25);
-        color: $brand_text_color;
-        text-decoration: none;
-        transform: translateY(-1px);
-      }
+    .category-toggle {
+      justify-content: center;
+    }
 
-      &:active {
-        transform: translateY(0);
-      }
+    .category-toggle:hover,
+    .category-toggle:focus,
+    .category-toggle[aria-expanded="true"],
+    .submit-a-request:hover,
+    .submit-a-request:focus {
+      background: $hover-button-color;
+      box-shadow: 0 6px 20px rgba($brand_color, 0.25);
+      color: $brand_text_color;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .category-toggle:active,
+    .submit-a-request:active {
+      transform: translateY(0);
     }
   }
 }
