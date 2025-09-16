@@ -3,6 +3,12 @@ $header-height: 71px;
 
 .header {
   @include max-width-container;
+  @include desktop {
+    margin: 0;
+    max-width: none;
+    padding: 0 5%;
+    width: 100%;
+  }
   position: relative;
   align-items: center;
   display: flex;
