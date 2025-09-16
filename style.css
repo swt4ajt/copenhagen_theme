@@ -864,9 +864,14 @@ ul {
   display: flex;
   justify-content: center;
 }
+@media (max-width: 768px) {
+  #dynamic-categories-nav {
+    display: none;
+  }
+}
 
 .categories-nav {
-  display: flex;
+  display: none;
   align-items: center;
   background: none;
   padding: 0;
@@ -875,14 +880,9 @@ ul {
   border-radius: 0;
   margin-bottom: 0;
 }
-@media (max-width: 768px) {
-  .categories-nav {
-    display: none;
-  }
-}
 @media (min-width: 768px) {
   .categories-nav {
-    display: none;
+    display: flex;
   }
 }
 .categories-nav .categories-nav-list {
@@ -946,6 +946,26 @@ ul {
   background: #0070f3;
   color: #fff;
   border-radius: 4px;
+}
+.categories-nav .categories-nav-list .submit-a-request {
+  background: #0070f3;
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  font-weight: 600;
+  padding: 10px 22px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.categories-nav .categories-nav-list .submit-a-request:hover, .categories-nav .categories-nav-list .submit-a-request:focus {
+  background: darken(#0070f3, 20%);
+  box-shadow: 0 6px 20px rgba(0, 112, 243, 0.25);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+.categories-nav .categories-nav-list .submit-a-request:active {
+  transform: translateY(0);
 }
 
 /***** User info in header *****/
@@ -2208,17 +2228,43 @@ button {
 /***** Section pages *****/
 .section-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  width: 100%;
 }
 .section-content {
   flex: 1;
   max-width: 100%;
+  margin: 0 auto;
 }
 @media (min-width: 1024px) {
   .section-content {
     flex: 0 0 80%;
   }
 }
+.section-subscribe button {
+  background-color: rgba(16, 181, 249, 0.12);
+  border-color: transparent;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(16, 181, 249, 0.2);
+  color: #10B5F9;
+  font-weight: 600;
+  padding: 0 28px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.section-subscribe button:hover, .section-subscribe button:focus {
+  background-color: #10B5F9;
+  box-shadow: 0 6px 22px rgba(16, 181, 249, 0.25);
+  color: #021F4C;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+.section-subscribe button:active {
+  transform: translateY(0);
+}
+.section-subscribe button[data-selected=true] {
+  box-shadow: 0 6px 22px rgba(16, 181, 249, 0.25);
+}
+
 .section-list {
   margin: 40px 0;
 }
