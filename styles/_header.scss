@@ -264,12 +264,14 @@ $header-height: 71px;
   flex: 1;
   display: flex;
   justify-content: center;
+
+  @include mobile {
+    display: none;
+  }
 }
 
 .categories-nav {
-  @include mobile { display: none; }
-  @include tablet { display: none; }
-  display: flex;
+  display: none;
   align-items: center;
   background: none;
   padding: 0;
@@ -277,6 +279,10 @@ $header-height: 71px;
   box-shadow: none;
   border-radius: 0;
   margin-bottom: 0;
+
+  @include tablet {
+    display: flex;
+  }
 
   .categories-nav-list {
     display: flex;
@@ -340,6 +346,31 @@ $header-height: 71px;
         background: $brand_color;
         color: #fff;
         border-radius: 4px;
+      }
+    }
+
+    .submit-a-request {
+      background: $brand_color;
+      border-radius: 999px;
+      color: $brand_text_color;
+      display: inline-flex;
+      font-weight: 600;
+      padding: 10px 22px;
+      text-decoration: none;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease,
+        transform 0.2s ease;
+
+      &:hover,
+      &:focus {
+        background: $hover-button-color;
+        box-shadow: 0 6px 20px rgba($brand_color, 0.25);
+        color: $brand_text_color;
+        text-decoration: none;
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
       }
     }
   }

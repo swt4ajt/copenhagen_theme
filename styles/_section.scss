@@ -2,7 +2,8 @@
 .section {
   &-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    width: 100%;
   }
 
   &-content {
@@ -11,13 +12,37 @@
     }
     flex: 1;
     max-width: 100%;
+    margin: 0 auto;
   }
 
   &-subscribe button {
     @extend .button;
+    background-color: rgba($brand_color, 0.12);
+    border-color: transparent;
+    border-radius: 999px;
+    box-shadow: 0 4px 14px rgba($brand_color, 0.2);
+    color: $brand_color;
+    font-weight: 600;
+    padding: 0 28px;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease,
+      color 0.2s ease, transform 0.2s ease;
+
+    &:hover,
+    &:focus {
+      background-color: $brand_color;
+      box-shadow: 0 6px 22px rgba($brand_color, 0.25);
+      color: $brand_text_color;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
 
     &[data-selected="true"] {
       @extend .button-primary;
+      box-shadow: 0 6px 22px rgba($brand_color, 0.25);
     }
   }
 }
