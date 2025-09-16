@@ -630,6 +630,16 @@ ul {
   max-width: 1160px;
   margin: 0 auto;
   padding: 0 5%;
+}
+@media (min-width: 1024px) {
+  .header {
+    margin: 0;
+    max-width: none;
+    padding: 0 5%;
+    width: 100%;
+  }
+}
+.header {
   position: relative;
   align-items: center;
   display: flex;
