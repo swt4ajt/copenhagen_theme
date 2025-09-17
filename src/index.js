@@ -15,6 +15,7 @@ import { renderAnnouncements } from './announcements';
 import { renderIntroductions } from './introductions';
 import { renderLatestArticles } from './latestArticles';
 import "./requestTypes";
+import "./vantaSecurity";
 
 // Initialize announcements, introductions, latest articles and holidays banner
 function initHomepageSections() {

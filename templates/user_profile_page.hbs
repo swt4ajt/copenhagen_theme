@@ -108,6 +108,15 @@
         <span class="stat-value" id="subscription-count">{{subscription_count}}</span>
       </li>
     </ul>
+
+    {{#if signed_in}}
+      <section class="vanta-security" data-profile-user-id="{{user.id}}">
+        <h2 class="vanta-security__title">Vanta security tasks</h2>
+        <div class="vanta-security__content" data-vanta-security-content>
+          <p class="vanta-security__empty">Security task details are currently unavailable.</p>
+        </div>
+      </section>
+    {{/if}}
   </div>
 </header>
 
