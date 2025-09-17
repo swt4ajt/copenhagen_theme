@@ -4758,6 +4758,114 @@ button {
   }
 }
 
+/* Vanta security tasks */
+.vanta-security {
+  flex-basis: 100%;
+  margin-top: 25px;
+  padding: 24px 20px;
+  border: 1px solid rgba(34, 34, 34, 0.08);
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.vanta-security__title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.vanta-security__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 768px) {
+  .vanta-security__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.vanta-security__item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+}
+
+.vanta-security__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: zass-darken(#fff, 5%);
+  color: zass-lighten(#222, 20%);
+  flex-shrink: 0;
+}
+
+.vanta-security__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.vanta-security__details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vanta-security__task {
+  font-weight: 600;
+}
+
+.vanta-security__status {
+  font-size: 13px;
+  color: zass-lighten(#222, 20%);
+}
+
+.vanta-security__item[data-status=DUE_SOON] .vanta-security__icon {
+  background-color: rgba(185, 80, 0, 0.12);
+  color: #b95000;
+}
+.vanta-security__item[data-status=DUE_SOON] .vanta-security__status {
+  color: #b95000;
+}
+
+.vanta-security__item[data-status=OVERDUE] .vanta-security__icon {
+  background-color: rgba(196, 60, 53, 0.12);
+  color: #c43c35;
+}
+.vanta-security__item[data-status=OVERDUE] .vanta-security__status {
+  color: #c43c35;
+}
+
+.vanta-security__item[data-status*=COMPLETE] .vanta-security__icon {
+  background-color: rgba(26, 127, 55, 0.12);
+  color: #1a7f37;
+}
+.vanta-security__item[data-status*=COMPLETE] .vanta-security__status {
+  color: #1a7f37;
+}
+
+.vanta-security__item[data-status=unknown] .vanta-security__icon,
+.vanta-security__item:not([data-status]) .vanta-security__icon {
+  background-color: zass-darken(#fff, 5%);
+  color: zass-lighten(#222, 20%);
+}
+
+.vanta-security__empty {
+  margin: 0;
+  font-size: 13px;
+  color: zass-lighten(#222, 20%);
+}
+
 .profile-nav {
   background-color: zass-darken(#fff, 5%);
   margin-bottom: 37px;
