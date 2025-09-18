@@ -1360,4 +1360,55 @@
     initHomepageSections();
   }
 
+// --- Vanta security: hydrate three fields from /api/v2/users/me ---
+(function () {
+  function normaliseStatus(raw) {
+    const v = (raw || '').toString().trim().toUpperCase();
+    if (!v) return 'Not available';
+    if (v.includes('COMPLETE')) return 'Complete';
+    if (v === 'DUE_SOON') return 'Due soon';
+    if (v === 'OVERDUE') return 'Overdue';
+    return raw; // show raw if it’s some other value
+  }
+
+  function setValue(root, key, value) {
+    const el = root.querySelector(`.vanta-value[data-field="${key}"]`);
+    if (el) el.textContent = normaliseStatus(value);
+  }
+
+  async function hydrateVanta() {
+    const container = document.getElementById('vanta-security');
+    if (!container) return;
+
+    // Don’t display your own statuses when viewing someone else’s profile.
+    const profileUserId = container.getAttribute('data-profile-user-id') || '';
+    const viewer = (window.HelpCenter && HelpCenter.user) || {};
+    if (!viewer.id || String(viewer.id) !== String(profileUserId)) {
+      // If not owner of this profile, leave the dashes.
+      return;
+    }
+
+    try {
+      const resp = await fetch('/api/v2/users/me.json', { credentials: 'same-origin' });
+      if (!resp.ok) throw new Error('Failed to load /users/me');
+      const data = await resp.json();
+      const fields = (data && data.user && data.user.user_fields) || {};
+
+      setValue(container, 'security_training_status', fields.security_training_status);
+      setValue(container, 'device_monitor', fields.device_monitor);
+      setValue(container, 'accepted_policy', fields.accepted_policy);
+    } catch (err) {
+      // Silent fail = leave placeholders
+      console.warn('Vanta hydrate failed:', err);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hydrateVanta);
+  } else {
+    hydrateVanta();
+  }
+})();
+
+
 })();

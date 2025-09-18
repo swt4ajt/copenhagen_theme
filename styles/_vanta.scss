@@ -1,0 +1,6 @@
+.vanta-security { margin-top: 1rem; padding: .75rem 1rem; border: 1px solid var(--border, #ddd); border-radius: 8px; }
+.vanta-security__title { font-size: 1rem; margin: 0 0 .5rem; }
+.vanta-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem 1rem; }
+.vanta-item { display:flex; justify-content:space-between; gap:.5rem; }
+.vanta-label { opacity:.8; }
+.vanta-value { font-weight: 600; }
