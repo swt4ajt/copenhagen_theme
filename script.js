@@ -1361,14 +1361,21 @@
   }
 
 // --- Vanta security: hydrate three fields from /api/v2/users/me ---
+// Set to true while testing; flip to false once stable.
+const VANTA_DEBUG = true;
+
 (function () {
+  function log(...args) { if (VANTA_DEBUG && window.console) console.log('[Vanta]', ...args); }
+  function warn(...args) { if (VANTA_DEBUG && window.console) console.warn('[Vanta]', ...args); }
+
   function normaliseStatus(raw) {
-    const v = (raw || '').toString().trim().toUpperCase();
+    const v = (raw || '').toString().trim();
+    const U = v.toUpperCase();
     if (!v) return 'Not available';
-    if (v.includes('COMPLETE')) return 'Complete';
-    if (v === 'DUE_SOON') return 'Due soon';
-    if (v === 'OVERDUE') return 'Overdue';
-    return raw; // show raw if it’s some other value
+    if (U.includes('COMPLETE')) return 'Complete';
+    if (U === 'DUE_SOON') return 'Due soon';
+    if (U === 'OVERDUE') return 'Overdue';
+    return v; // show raw value if it’s something else
   }
 
   function setValue(root, key, value) {
@@ -1376,31 +1383,55 @@
     if (el) el.textContent = normaliseStatus(value);
   }
 
+  function pick(obj, keys) {
+    for (const k of keys) {
+      if (obj && Object.prototype.hasOwnProperty.call(obj, k) && obj[k] != null && obj[k] !== '') {
+        return obj[k];
+      }
+    }
+    return undefined;
+  }
+
   async function hydrateVanta() {
     const container = document.getElementById('vanta-security');
-    if (!container) return;
+    if (!container) { log('container not found'); return; }
 
-    // Don’t display your own statuses when viewing someone else’s profile.
     const profileUserId = container.getAttribute('data-profile-user-id') || '';
     const viewer = (window.HelpCenter && HelpCenter.user) || {};
-    if (!viewer.id || String(viewer.id) !== String(profileUserId)) {
-      // If not owner of this profile, leave the dashes.
+    if (!viewer || !viewer.id) { warn('no signed-in viewer; leaving placeholders'); return; }
+
+    // Always fetch me; we’ll decide later if we should render.
+    let me;
+    try {
+      const resp = await fetch('/api/v2/users/me.json', { credentials: 'same-origin' });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+      me = data && data.user;
+      if (!me) throw new Error('no user in response');
+    } catch (e) {
+      warn('failed to load /users/me.json:', e);
       return;
     }
 
-    try {
-      const resp = await fetch('/api/v2/users/me.json', { credentials: 'same-origin' });
-      if (!resp.ok) throw new Error('Failed to load /users/me');
-      const data = await resp.json();
-      const fields = (data && data.user && data.user.user_fields) || {};
-
-      setValue(container, 'security_training_status', fields.security_training_status);
-      setValue(container, 'device_monitor', fields.device_monitor);
-      setValue(container, 'accepted_policy', fields.accepted_policy);
-    } catch (err) {
-      // Silent fail = leave placeholders
-      console.warn('Vanta hydrate failed:', err);
+    // Don’t show your values on someone else’s profile.
+    if (String(me.id) !== String(profileUserId)) {
+      log(`viewer (${me.id}) ≠ profile (${profileUserId}); leaving placeholders`);
+      return;
     }
+
+    const fields = (me.user_fields || {});
+    if (VANTA_DEBUG) log('user_fields keys:', Object.keys(fields));
+
+    // Be tolerant to naming variations (seen across Vanta setups)
+    const vals = {
+      security_training_status: pick(fields, ['security_training_status','security_training','training_status']),
+      device_monitor:           pick(fields, ['device_monitor','device_monitor_status','mdm_status']),
+      accepted_policy:          pick(fields, ['accepted_policy','policy_acceptance','policy_status'])
+    };
+
+    setValue(container, 'security_training_status', vals.security_training_status);
+    setValue(container, 'device_monitor',           vals.device_monitor);
+    setValue(container, 'accepted_policy',          vals.accepted_policy);
   }
 
   if (document.readyState === 'loading') {
@@ -1409,6 +1440,4 @@
     hydrateVanta();
   }
 })();
-
-
 })();

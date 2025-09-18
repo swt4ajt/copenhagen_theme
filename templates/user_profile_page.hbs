@@ -108,19 +108,7 @@
         <span class="stat-value" id="subscription-count">{{subscription_count}}</span>
       </li>
     </ul>
-
-      {{!-- Security summary: client-hydrated from /api/v2/users/me --}}
-      <section id="vanta-security" class="vanta-security" data-profile-user-id="{{user.id}}">
-          <h2 class="vanta-security__title">Vanta security tasks</h2>
-          <div class="vanta-security__content">
-              <div class="vanta-row">
-                  <div class="vanta-item"><span class="vanta-label">Security Training</span> <span class="vanta-value" data-field="security_training_status">—</span></div>
-                  <div class="vanta-item"><span class="vanta-label">Device Monitor</span> <span class="vanta-value" data-field="device_monitor">—</span></div>
-                  <div class="vanta-item"><span class="vanta-label">Accepted Policy</span> <span class="vanta-value" data-field="accepted_policy">—</span></div>
-              </div>
-          </div>
-      </section>
-</div>
+    </div>
 </header>
 
 {{#if visible}}
@@ -187,6 +175,16 @@
                     <img class="user-avatar" src="{{../user.avatar_url}}" alt=""/>
                     <p class="profile-activity-description">{{label}}</p>
                   </header>
+                    <section id="vanta-security" class="vanta-security" data-profile-user-id="{{user.id}}">
+                        <h2 class="vanta-security__title">Vanta security tasks</h2>
+                        <div class="vanta-security__content">
+                            <div class="vanta-row">
+                                <div class="vanta-item"><span class="vanta-label">Security Training</span> <span class="vanta-value" data-field="security_training_status">—</span></div>
+                                <div class="vanta-item"><span class="vanta-label">Device Monitor</span> <span class="vanta-value" data-field="device_monitor">—</span></div>
+                                <div class="vanta-item"><span class="vanta-label">Accepted Policy</span> <span class="vanta-value" data-field="accepted_policy">—</span></div>
+                            </div>
+                        </div>
+                    </section>
 
                   {{#with contribution}}
                     <div class="profile-activity-contribution profile-contribution">
