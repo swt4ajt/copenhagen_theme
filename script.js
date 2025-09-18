@@ -1361,12 +1361,18 @@
   }
 
 // --- Vanta security: hydrate three fields from /api/v2/users/me ---
-// Set to true while testing; flip to false once stable.
+// Flip to false when done testing.
 const VANTA_DEBUG = true;
 
 (function () {
-  function log(...args) { if (VANTA_DEBUG && window.console) console.log('[Vanta]', ...args); }
-  function warn(...args) { if (VANTA_DEBUG && window.console) console.warn('[Vanta]', ...args); }
+  const log = (...a) => { if (VANTA_DEBUG) console.log('[Vanta]', ...a); };
+  const warn = (...a) => { if (VANTA_DEBUG) console.warn('[Vanta]', ...a); };
+
+  function extractProfileIdFromUrl() {
+    // Matches /profiles/1234567890 or /users/1234567890 (with or without slug)
+    const m = window.location.pathname.match(/\/(profiles|users)\/(\d+)/i);
+    return m ? m[2] : null;
+  }
 
   function normaliseStatus(raw) {
     const v = (raw || '').toString().trim();
@@ -1375,7 +1381,7 @@ const VANTA_DEBUG = true;
     if (U.includes('COMPLETE')) return 'Complete';
     if (U === 'DUE_SOON') return 'Due soon';
     if (U === 'OVERDUE') return 'Overdue';
-    return v; // show raw value if it’s something else
+    return v;
   }
 
   function setValue(root, key, value) {
@@ -1394,13 +1400,12 @@ const VANTA_DEBUG = true;
 
   async function hydrateVanta() {
     const container = document.getElementById('vanta-security');
-    if (!container) { log('container not found'); return; }
+    if (!container) return;
 
-    const profileUserId = container.getAttribute('data-profile-user-id') || '';
-    const viewer = (window.HelpCenter && HelpCenter.user) || {};
-    if (!viewer || !viewer.id) { warn('no signed-in viewer; leaving placeholders'); return; }
+    const profileId = extractProfileIdFromUrl();
+    if (!profileId) { warn('could not parse profile ID from URL'); return; }
 
-    // Always fetch me; we’ll decide later if we should render.
+    // Fetch me
     let me;
     try {
       const resp = await fetch('/api/v2/users/me.json', { credentials: 'same-origin' });
@@ -1413,16 +1418,16 @@ const VANTA_DEBUG = true;
       return;
     }
 
-    // Don’t show your values on someone else’s profile.
-    if (String(me.id) !== String(profileUserId)) {
-      log(`viewer (${me.id}) ≠ profile (${profileUserId}); leaving placeholders`);
+    // Only render if you’re viewing your own profile
+    if (String(me.id) !== String(profileId)) {
+      log(`viewer (${me.id}) ≠ profile (${profileId}); leaving placeholders`);
       return;
     }
 
-    const fields = (me.user_fields || {});
+    const fields = me.user_fields || {};
     if (VANTA_DEBUG) log('user_fields keys:', Object.keys(fields));
 
-    // Be tolerant to naming variations (seen across Vanta setups)
+    // Tolerate variant key names
     const vals = {
       security_training_status: pick(fields, ['security_training_status','security_training','training_status']),
       device_monitor:           pick(fields, ['device_monitor','device_monitor_status','mdm_status']),
