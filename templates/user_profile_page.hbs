@@ -109,45 +109,35 @@
       </li>
     </ul>
 
-    {{!-- Vanta security block (merged and fixed) --}}
-    {{#if signed_in}}
-      {{#if current_user}}
-        {{#is current_user.id user.id}}
-          <section class="vanta-security">
-            <h2 class="vanta-security__title">Vanta security tasks</h2>
+{{!-- Vanta security block (no current_user usage) --}}
+{{#if signed_in}}
+  {{#if user.is_current_user}}
+    <section class="vanta-security">
+      <h2 class="vanta-security__title">Vanta security tasks</h2>
 
-            {{#with current_user.user_fields}}
-              {{#if this}}
-                <ul class="vanta-security__list">
-                  {{!-- Security Training --}}
-                  <li class="vanta-security__item" data-status="{{#if security_training_status}}{{security_training_status}}{{else}}unknown{{/if}}">
-                    <span class="vanta-security__icon" aria-hidden="true">
-                      {{#if security_training_status}}
-                        {{#if (contains security_training_status 'COMPLETE')}}
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.5 8.5l2.5 2.5 6-6"/>
-                          </svg>
-                        {{else}}
-                          {{#if (compare security_training_status '===' 'DUE_SOON')}}
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                              <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8" d="M8 2.5l6 10.5H2z"/>
-                              <path stroke="currentColor" stroke-linecap="round" stroke-width="1.8" d="M8 6.2V9.8"/>
-                              <circle fill="currentColor" cx="8" cy="12" r="0.9"/>
-                            </svg>
-                          {{else}}
-                            {{#if (compare security_training_status '===' 'OVERDUE')}}
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 4.5l7 7m0-7l-7 7"/>
-                              </svg>
-                            {{else}}
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                                <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
-                                <path d="M8 5.5c1.1 0 1.9.8 1.9 1.8 0 .9-.5 1.3-1.1 1.7-.5.3-.8.7-.8 1.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/>
-                                <circle fill="currentColor" cx="8" cy="12" r="0.8"/>
-                              </svg>
-                            {{/if}}
-                          {{/if}}
-                        {{/if}}
+      {{#with user.user_fields}}
+        {{#if this}}
+          <ul class="vanta-security__list">
+            {{!-- Security Training --}}
+            <li class="vanta-security__item" data-status="{{#if security_training_status}}{{security_training_status}}{{else}}unknown{{/if}}">
+              <span class="vanta-security__icon" aria-hidden="true">
+                {{#if security_training_status}}
+                  {{#if (contains security_training_status 'COMPLETE')}}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.5 8.5l2.5 2.5 6-6"/>
+                    </svg>
+                  {{else}}
+                    {{#if (compare security_training_status '===' 'DUE_SOON')}}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                        <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8" d="M8 2.5l6 10.5H2z"/>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="1.8" d="M8 6.2V9.8"/>
+                        <circle fill="currentColor" cx="8" cy="12" r="0.9"/>
+                      </svg>
+                    {{else}}
+                      {{#if (compare security_training_status '===' 'OVERDUE')}}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 4.5l7 7m0-7l-7 7"/>
+                        </svg>
                       {{else}}
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
                           <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -155,53 +145,53 @@
                           <circle fill="currentColor" cx="8" cy="12" r="0.8"/>
                         </svg>
                       {{/if}}
-                    </span>
-                    <div class="vanta-security__details">
-                      <span class="vanta-security__task">Security Training</span>
-                      <span class="vanta-security__status">
-                        {{#if security_training_status}}
-                          {{#if (contains security_training_status 'COMPLETE')}}Complete
-                          {{else}}
-                            {{#if (compare security_training_status '===' 'DUE_SOON')}}Due soon
-                            {{else}}
-                              {{#if (compare security_training_status '===' 'OVERDUE')}}Overdue
-                              {{else}}Not available{{/if}}
-                            {{/if}}
-                          {{/if}}
+                    {{/if}}
+                  {{/if}}
+                {{else}}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                    <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M8 5.5c1.1 0 1.9.8 1.9 1.8 0 .9-.5 1.3-1.1 1.7-.5.3-.8.7-.8 1.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/>
+                    <circle fill="currentColor" cx="8" cy="12" r="0.8"/>
+                  </svg>
+                {{/if}}
+              </span>
+              <div class="vanta-security__details">
+                <span class="vanta-security__task">Security Training</span>
+                <span class="vanta-security__status">
+                  {{#if security_training_status}}
+                    {{#if (contains security_training_status 'COMPLETE')}}Complete
+                    {{else}}
+                      {{#if (compare security_training_status '===' 'DUE_SOON')}}Due soon
+                      {{else}}
+                        {{#if (compare security_training_status '===' 'OVERDUE')}}Overdue
                         {{else}}Not available{{/if}}
-                      </span>
-                    </div>
-                  </li>
+                      {{/if}}
+                    {{/if}}
+                  {{else}}Not available{{/if}}
+                </span>
+              </div>
+            </li>
 
-                  {{!-- Device Monitor --}}
-                  <li class="vanta-security__item" data-status="{{#if device_monitor}}{{device_monitor}}{{else}}unknown{{/if}}">
-                    <span class="vanta-security__icon" aria-hidden="true">
-                      {{#if device_monitor}}
-                        {{#if (contains device_monitor 'COMPLETE')}}
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.5 8.5l2.5 2.5 6-6"/>
-                          </svg>
-                        {{else}}
-                          {{#if (compare device_monitor '===' 'DUE_SOON')}}
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                              <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8" d="M8 2.5l6 10.5H2z"/>
-                              <path stroke="currentColor" stroke-linecap="round" stroke-width="1.8" d="M8 6.2V9.8"/>
-                              <circle fill="currentColor" cx="8" cy="12" r="0.9"/>
-                            </svg>
-                          {{else}}
-                            {{#if (compare device_monitor '===' 'OVERDUE')}}
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 4.5l7 7m0-7l-7 7"/>
-                              </svg>
-                            {{else}}
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                                <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
-                                <path d="M8 5.5c1.1 0 1.9.8 1.9 1.8 0 .9-.5 1.3-1.1 1.7-.5.3-.8.7-.8 1.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/>
-                                <circle fill="currentColor" cx="8" cy="12" r="0.8"/>
-                              </svg>
-                            {{/if}}
-                          {{/if}}
-                        {{/if}}
+            {{!-- Device Monitor --}}
+            <li class="vanta-security__item" data-status="{{#if device_monitor}}{{device_monitor}}{{else}}unknown{{/if}}">
+              <span class="vanta-security__icon" aria-hidden="true">
+                {{#if device_monitor}}
+                  {{#if (contains device_monitor 'COMPLETE')}}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.5 8.5l2.5 2.5 6-6"/>
+                    </svg>
+                  {{else}}
+                    {{#if (compare device_monitor '===' 'DUE_SOON')}}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                        <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8" d="M8 2.5l6 10.5H2z"/>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="1.8" d="M8 6.2V9.8"/>
+                        <circle fill="currentColor" cx="8" cy="12" r="0.9"/>
+                      </svg>
+                    {{else}}
+                      {{#if (compare device_monitor '===' 'OVERDUE')}}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 4.5l7 7m0-7l-7 7"/>
+                        </svg>
                       {{else}}
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
                           <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -209,53 +199,53 @@
                           <circle fill="currentColor" cx="8" cy="12" r="0.8"/>
                         </svg>
                       {{/if}}
-                    </span>
-                    <div class="vanta-security__details">
-                      <span class="vanta-security__task">Device Monitor</span>
-                      <span class="vanta-security__status">
-                        {{#if device_monitor}}
-                          {{#if (contains device_monitor 'COMPLETE')}}Complete
-                          {{else}}
-                            {{#if (compare device_monitor '===' 'DUE_SOON')}}Due soon
-                            {{else}}
-                              {{#if (compare device_monitor '===' 'OVERDUE')}}Overdue
-                              {{else}}Not available{{/if}}
-                            {{/if}}
-                          {{/if}}
+                    {{/if}}
+                  {{/if}}
+                {{else}}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                    <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M8 5.5c1.1 0 1.9.8 1.9 1.8 0 .9-.5 1.3-1.1 1.7-.5.3-.8.7-.8 1.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/>
+                    <circle fill="currentColor" cx="8" cy="12" r="0.8"/>
+                  </svg>
+                {{/if}}
+              </span>
+              <div class="vanta-security__details">
+                <span class="vanta-security__task">Device Monitor</span>
+                <span class="vanta-security__status">
+                  {{#if device_monitor}}
+                    {{#if (contains device_monitor 'COMPLETE')}}Complete
+                    {{else}}
+                      {{#if (compare device_monitor '===' 'DUE_SOON')}}Due soon
+                      {{else}}
+                        {{#if (compare device_monitor '===' 'OVERDUE')}}Overdue
                         {{else}}Not available{{/if}}
-                      </span>
-                    </div>
-                  </li>
+                      {{/if}}
+                    {{/if}}
+                  {{else}}Not available{{/if}}
+                </span>
+              </div>
+            </li>
 
-                  {{!-- Accepted Policy --}}
-                  <li class="vanta-security__item" data-status="{{#if accepted_policy}}{{accepted_policy}}{{else}}unknown{{/if}}">
-                    <span class="vanta-security__icon" aria-hidden="true">
-                      {{#if accepted_policy}}
-                        {{#if (contains accepted_policy 'COMPLETE')}}
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.5 8.5l2.5 2.5 6-6"/>
-                          </svg>
-                        {{else}}
-                          {{#if (compare accepted_policy '===' 'DUE_SOON')}}
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                              <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8" d="M8 2.5l6 10.5H2z"/>
-                              <path stroke="currentColor" stroke-linecap="round" stroke-width="1.8" d="M8 6.2V9.8"/>
-                              <circle fill="currentColor" cx="8" cy="12" r="0.9"/>
-                            </svg>
-                          {{else}}
-                            {{#if (compare accepted_policy '===' 'OVERDUE')}}
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 4.5l7 7m0-7l-7 7"/>
-                              </svg>
-                            {{else}}
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
-                                <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
-                                <path d="M8 5.5c1.1 0 1.9.8 1.9 1.8 0 .9-.5 1.3-1.1 1.7-.5.3-.8.7-.8 1.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/>
-                                <circle fill="currentColor" cx="8" cy="12" r="0.8"/>
-                              </svg>
-                            {{/if}}
-                          {{/if}}
-                        {{/if}}
+            {{!-- Accepted Policy --}}
+            <li class="vanta-security__item" data-status="{{#if accepted_policy}}{{accepted_policy}}{{else}}unknown{{/if}}">
+              <span class="vanta-security__icon" aria-hidden="true">
+                {{#if accepted_policy}}
+                  {{#if (contains accepted_policy 'COMPLETE')}}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.5 8.5l2.5 2.5 6-6"/>
+                    </svg>
+                  {{else}}
+                    {{#if (compare accepted_policy '===' 'DUE_SOON')}}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                        <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.8" d="M8 2.5l6 10.5H2z"/>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="1.8" d="M8 6.2V9.8"/>
+                        <circle fill="currentColor" cx="8" cy="12" r="0.9"/>
+                      </svg>
+                    {{else}}
+                      {{#if (compare accepted_policy '===' 'OVERDUE')}}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 4.5l7 7m0-7l-7 7"/>
+                        </svg>
                       {{else}}
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
                           <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -263,46 +253,49 @@
                           <circle fill="currentColor" cx="8" cy="12" r="0.8"/>
                         </svg>
                       {{/if}}
-                    </span>
-                    <div class="vanta-security__details">
-                      <span class="vanta-security__task">Accepted Policy</span>
-                      <span class="vanta-security__status">
-                        {{#if accepted_policy}}
-                          {{#if (contains accepted_policy 'COMPLETE')}}Complete
-                          {{else}}
-                            {{#if (compare accepted_policy '===' 'DUE_SOON')}}Due soon
-                            {{else}}
-                              {{#if (compare accepted_policy '===' 'OVERDUE')}}Overdue
-                              {{else}}Not available{{/if}}
-                            {{/if}}
-                          {{/if}}
+                    {{/if}}
+                  {{/if}}
+                {{else}}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" focusable="false">
+                    <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M8 5.5c1.1 0 1.9.8 1.9 1.8 0 .9-.5 1.3-1.1 1.7-.5.3-.8.7-.8 1.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8"/>
+                    <circle fill="currentColor" cx="8" cy="12" r="0.8"/>
+                  </svg>
+                {{/if}}
+              </span>
+              <div class="vanta-security__details">
+                <span class="vanta-security__task">Accepted Policy</span>
+                <span class="vanta-security__status">
+                  {{#if accepted_policy}}
+                    {{#if (contains accepted_policy 'COMPLETE')}}Complete
+                    {{else}}
+                      {{#if (compare accepted_policy '===' 'DUE_SOON')}}Due soon
+                      {{else}}
+                        {{#if (compare accepted_policy '===' 'OVERDUE')}}Overdue
                         {{else}}Not available{{/if}}
-                      </span>
-                    </div>
-                  </li>
-                </ul>
-              {{else}}
-                <p class="vanta-security__empty">Security task details are currently unavailable.</p>
-              {{/if}}
-            {{/with}}
-          </section>
+                      {{/if}}
+                    {{/if}}
+                  {{else}}Not available{{/if}}
+                </span>
+              </div>
+            </li>
+          </ul>
         {{else}}
-          <section class="vanta-security" data-profile-user-id="{{user.id}}">
-            <h2 class="vanta-security__title">Vanta security tasks</h2>
-            <div class="vanta-security__content" data-vanta-security-content>
-              <p class="vanta-security__empty">Security task details are currently unavailable.</p>
-            </div>
-          </section>
-        {{/is}}
-      {{else}}
-        <section class="vanta-security" data-profile-user-id="{{user.id}}">
-          <h2 class="vanta-security__title">Vanta security tasks</h2>
-          <div class="vanta-security__content" data-vanta-security-content>
-            <p class="vanta-security__empty">Security task details are currently unavailable.</p>
-          </div>
-        </section>
-      {{/if}}
-    {{/if}}
+          <p class="vanta-security__empty">Security task details are currently unavailable.</p>
+        {{/if}}
+      {{/with}}
+    </section>
+  {{else}}
+    {{!-- Viewing someone else’s profile: render a safe placeholder for your JS to hydrate --}}
+    <section class="vanta-security" data-profile-user-id="{{user.id}}">
+      <h2 class="vanta-security__title">Vanta security tasks</h2>
+      <div class="vanta-security__content" data-vanta-security-content>
+        <p class="vanta-security__empty">Security task details are currently unavailable.</p>
+      </div>
+    </section>
+  {{/if}}
+{{/if}}
+
   </div>
 </header>
 
