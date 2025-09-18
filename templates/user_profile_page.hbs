@@ -151,15 +151,19 @@
                             <span class="profile-section-description">{{t 'latest_activity' name=user.name}}</span>
                         </header>
 
-                        {{!-- Vanta placeholder: client hydrates from /api/v2/users/me --}}
-                        <section id="vanta-security" class="vanta-security">
+                        <section
+                            id="vanta-security"
+                            class="vanta-security"
+                            data-profile-user-id="{{user.id}}"
+                        >
                             <h2 class="vanta-security__title">Vanta security tasks</h2>
-                            <div class="vanta-security__content">
-                                <div class="vanta-row">
-                                    <div class="vanta-item"><span class="vanta-label">Security Training</span> <span class="vanta-value" data-field="security_training_status">—</span></div>
-                                    <div class="vanta-item"><span class="vanta-label">Device Monitor</span> <span class="vanta-value" data-field="device_monitor">—</span></div>
-                                    <div class="vanta-item"><span class="vanta-label">Accepted Policy</span> <span class="vanta-value" data-field="accepted_policy">—</span></div>
-                                </div>
+                            <div
+                                class="vanta-security__content"
+                                data-vanta-security-content
+                            >
+                                <p class="vanta-security__empty">
+                                    Security task details are currently unavailable.
+                                </p>
                             </div>
                         </section>
 
